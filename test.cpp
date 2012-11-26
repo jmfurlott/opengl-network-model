@@ -44,7 +44,7 @@ int readCoordinates() {
             file >> temp;
             coordinates[i] = temp/1000;
             i += 1;
-            counter += 1;
+//            counter += 1;
 //            if(counter > 5) {
 //                counter = 0;
 //                file >> tempDiameter;
@@ -220,10 +220,16 @@ void renderPrimitive(void) {
 //    glVertexPointer(3, GL_FLOAT, 0, z_vertices);
 
     //and now everything is loaded so draw the lines!
-    glBegin(GL_LINES);
+
+    //now set the diameters
+    //glLineWidth(10);
+    //width only changes outside of glBegin but why??
+    
+    
+    
     //glColor3f(1.0,0.0,0.0); //red
     float tempColor;
-    float tempDiameter; //not used yet
+    GLfloat tempDiameter; //not used yet
     for(int i = 0; i < size ; i+=8) {
      //   glVertex3f(x_vertices[i],y_vertices[i],z_vertices[i]);
       //  glVertex3f(x_vertices[i+1],y_vertices[i+1],z_vertices[i+1]);
@@ -231,6 +237,9 @@ void renderPrimitive(void) {
         tempDiameter = coordinates[i+6];
         tempColor = coordinates[i+7];
         
+        glLineWidth(tempDiameter*25);
+        glBegin(GL_LINES);
+
         //now assign colors to artery or vein
         if(tempColor == 0)  {// means artery so be blue
             glColor3f(0.0,0.0,1.0);
@@ -238,10 +247,15 @@ void renderPrimitive(void) {
         } else { //must be a vein so set red
             glColor3f(1.0,0.0,0.0);
         }
+        
+ 
+        
+        //and finally draw them according to their vertices
         glVertex3f(coordinates[i], coordinates[i+1], coordinates[i+2]);
         glVertex3f(coordinates[i+3],coordinates[i+4], coordinates[i+5]);
+        glEnd();
     }
-    glEnd();
+//    glEnd();
     
     
 }
@@ -254,7 +268,7 @@ void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
 	
-	glTranslatef(-1.0f, 0.0f, -7.5f); //push the scene back 5z that way can see everything (0,0,0) -> (0,0,-5)
+	glTranslatef(-1.5f, -1.0f, -5.0f); //push the scene back 5z that way can see everything (0,0,0) -> (0,0,-5)
 	renderPrimitive(); //method that is drawing the square
 	
 	//handles the moving of the cube
