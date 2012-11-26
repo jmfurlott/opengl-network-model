@@ -45,11 +45,11 @@ int readCoordinates() {
             coordinates[i] = temp/1000;
             i += 1;
             counter += 1;
-            if(counter > 5) {
-                counter = 0;
-                file >> tempDiameter;
-                file >> tempColor; //tested and working
-            }
+//            if(counter > 5) {
+//                counter = 0;
+//                file >> tempDiameter;
+//                file >> tempColor; //tested and working
+//            }
             coordinates.resize(i+2); //dynamically resize the vector such that it is always one ahead
         }
         
@@ -221,10 +221,23 @@ void renderPrimitive(void) {
 
     //and now everything is loaded so draw the lines!
     glBegin(GL_LINES);
-    for(int i = 0; i < size ; i+=6) {
+    //glColor3f(1.0,0.0,0.0); //red
+    float tempColor;
+    float tempDiameter; //not used yet
+    for(int i = 0; i < size ; i+=8) {
      //   glVertex3f(x_vertices[i],y_vertices[i],z_vertices[i]);
       //  glVertex3f(x_vertices[i+1],y_vertices[i+1],z_vertices[i+1]);
 
+        tempDiameter = coordinates[i+6];
+        tempColor = coordinates[i+7];
+        
+        //now assign colors to artery or vein
+        if(tempColor == 0)  {// means artery so be blue
+            glColor3f(0.0,0.0,1.0);
+
+        } else { //must be a vein so set red
+            glColor3f(1.0,0.0,0.0);
+        }
         glVertex3f(coordinates[i], coordinates[i+1], coordinates[i+2]);
         glVertex3f(coordinates[i+3],coordinates[i+4], coordinates[i+5]);
     }
@@ -277,11 +290,11 @@ int main(int argc, char **argv) {
     
 	glutInitDisplayMode(GLUT_SINGLE); //sets up a display buffer
 	
-	glutInitWindowSize(1000,1000); //set the width and height of the displayed window
+	glutInitWindowSize(750,750); //set the width and height of the displayed window
     
 	glutInitWindowPosition(100,100); //position of the actual window on the screen
 	
-	glutCreateWindow("Your first OpenGL Window");
+	glutCreateWindow("Model of Eye");
 
 	glutDisplayFunc(display);
 	glutIdleFunc(display);  // has to do with the rotation and transformations
