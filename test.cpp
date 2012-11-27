@@ -4,6 +4,8 @@
 /*TODO:
  -menu system
  -camera and movement
+ -error catching when reading coordinates!
+ -strip method
  
 
 */
@@ -20,6 +22,7 @@ using namespace std;
 bool* keyStates = new bool[256];  //holds all the key values; 0 is not pressed, 1 is pressed
 vector<float> coordinates(1);
 int size;
+int totalLines = 0;
 
 
 
@@ -145,11 +148,64 @@ void renderEye(void) {
         glVertex3f(coordinates[i], coordinates[i+1], coordinates[i+2]);
         glVertex3f(coordinates[i+3],coordinates[i+4], coordinates[i+5]);
         glEnd();
+        totalLines++;
     }
 
-    
+    cout << totalLines << endl;
+    totalLines = 0;
     
 }
+
+
+//-------------------------------------------------------------LINE STRIP method
+void renderStrips(void) {
+    
+    int nothing = readCoordinates(); //TODO: check on return value
+    float tempColor, tempDiameter;
+    
+    for(int i = 0; i < size; i += 8) {
+        
+        //color and diameter handled first
+        tempDiameter = coordinates[i+6];
+        tempColor = coordinates[i+7];
+        glLineWidth(tempDiameter*25);
+        
+        
+        //now assign colors to artery or vein
+        if(tempColor == 0)  {// means artery so be blue
+            glColor3f(0.0,0.0,1.0);
+            
+        } else { //must be a vein so set red
+            glColor3f(1.0,0.0,0.0);
+        }
+        
+        
+        //open GL state
+        glBegin(GL_LINE_STRIP);
+    
+        //declare beginning point
+        glVertex3f(coordinates[i], coordinates[i+1], coordinates[i+2]);
+        totalLines++;
+    
+        //how to tell if new strip or not
+        float x0 = coordinates[i+3];
+        float x1 = coordinates[i+8]; //x of the next strip
+
+        while(x0 == x1) {
+            i += 8;
+            glVertex3f(coordinates[i], coordinates[i+1], coordinates[i+2]);
+            x0 = coordinates[i+3];
+            x1 = coordinates[i+8];
+        }
+        
+        
+        glEnd();
+    }
+    cout << totalLines << endl;
+    totalLines = 0;
+}
+
+
 
 //-------------------------------------------------------------the main window
 
@@ -162,7 +218,7 @@ void display(void) {
 	glLoadIdentity();
 	
 	glTranslatef(-1.5f, -1.0f, -5.0f); //push the scene back that way can see everything
-	renderEye(); 
+	renderStrips();
 
 
 	glFlush();
