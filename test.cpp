@@ -4,8 +4,7 @@
 /*TODO:
  -menu system
  -camera and movement
- -error catching when reading coordinates!
- -strip method
+ -strip method - error control; about 95% working right now
  
 
 */
@@ -118,39 +117,43 @@ void keyOperations(void) {
 void renderEye(void) {
 	//start the beginning of the opengl call with glBegin
 
-    int nothing = readCoordinates();
+    int coords = readCoordinates();
 	//though there is more performance to use triangles with five vertices
 
     
-    float tempColor;
-    GLfloat tempDiameter;
-    for(int i = 0; i < size ; i+=8) {
-     //   glVertex3f(x_vertices[i],y_vertices[i],z_vertices[i]);
-      //  glVertex3f(x_vertices[i+1],y_vertices[i+1],z_vertices[i+1]);
+    //make sure we have the coordinates; otherwise return error
+    if(coords == 1) {
+    
+    
+        float tempColor;
+        GLfloat tempDiameter;
+        for(int i = 0; i < size ; i+=8) {
+            //   glVertex3f(x_vertices[i],y_vertices[i],z_vertices[i]);
+            //  glVertex3f(x_vertices[i+1],y_vertices[i+1],z_vertices[i+1]);
 
-        tempDiameter = coordinates[i+6];
-        tempColor = coordinates[i+7];
+            tempDiameter = coordinates[i+6];
+            tempColor = coordinates[i+7];
         
-        glLineWidth(tempDiameter*25);
-        glBegin(GL_LINES);
+            glLineWidth(tempDiameter*25);
+            glBegin(GL_LINES);
 
-        //now assign colors to artery or vein
-        if(tempColor == 0)  {// means artery so be blue
-            glColor3f(0.0,0.0,1.0);
+            //now assign colors to artery or vein
+            if(tempColor == 0)  {// means artery so be blue
+                glColor3f(0.0,0.0,1.0);
 
-        } else { //must be a vein so set red
-            glColor3f(1.0,0.0,0.0);
-        }
+            } else { //must be a vein so set red
+                glColor3f(1.0,0.0,0.0);
+            }
         
  
         
-        //and finally draw them according to their vertices
-        glVertex3f(coordinates[i], coordinates[i+1], coordinates[i+2]);
-        glVertex3f(coordinates[i+3],coordinates[i+4], coordinates[i+5]);
-        glEnd();
-        totalLines++;
+            //and finally draw them according to their vertices
+            glVertex3f(coordinates[i], coordinates[i+1], coordinates[i+2]);
+            glVertex3f(coordinates[i+3],coordinates[i+4], coordinates[i+5]);
+            glEnd();
+            totalLines++;
+        }
     }
-
     cout << totalLines << endl;
     totalLines = 0;
     
@@ -158,48 +161,51 @@ void renderEye(void) {
 
 
 //-------------------------------------------------------------LINE STRIP method
+
 void renderStrips(void) {
     
-    int nothing = readCoordinates(); //TODO: check on return value
+    int coords = readCoordinates(); //TODO: check on return value
     float tempColor, tempDiameter;
     
-    for(int i = 0; i < size; i += 8) {
+    if(coords == 1) {
+        for(int i = 0; i < size; i += 8) {
         
-        //color and diameter handled first
-        tempDiameter = coordinates[i+6];
-        tempColor = coordinates[i+7];
-        glLineWidth(tempDiameter*25);
+            //color and diameter handled first
+            tempDiameter = coordinates[i+6];
+            tempColor = coordinates[i+7];
+            glLineWidth(tempDiameter*25);
         
-        
-        //now assign colors to artery or vein
-        if(tempColor == 0)  {// means artery so be blue
-            glColor3f(0.0,0.0,1.0);
             
-        } else { //must be a vein so set red
-            glColor3f(1.0,0.0,0.0);
-        }
+            //now assign colors to artery or vein
+            if(tempColor == 0)  {// means artery so be blue
+                glColor3f(0.0,0.0,1.0);
+            
+            } else { //must be a vein so set red
+                glColor3f(1.0,0.0,0.0);
+            }
         
         
-        //open GL state
-        glBegin(GL_LINE_STRIP);
-    
-        //declare beginning point
-        glVertex3f(coordinates[i], coordinates[i+1], coordinates[i+2]);
-        totalLines++;
-    
-        //how to tell if new strip or not
-        float x0 = coordinates[i+3];
-        float x1 = coordinates[i+8]; //x of the next strip
-
-        while(x0 == x1) {
-            i += 8;
+            //open GL state
+            glBegin(GL_LINE_STRIP);
+            
+            //declare beginning point
             glVertex3f(coordinates[i], coordinates[i+1], coordinates[i+2]);
-            x0 = coordinates[i+3];
-            x1 = coordinates[i+8];
+            totalLines++;
+    
+            //how to tell if new strip or not
+            float x0 = coordinates[i+3];
+            float x1 = coordinates[i+8]; //x of the next strip
+            
+            while(x0 == x1 && (i+8) < size) {
+                i += 8;
+                glVertex3f(coordinates[i], coordinates[i+1], coordinates[i+2]);
+                x0 = coordinates[i+3];
+                x1 = coordinates[i+8];
+            }
+        
+        
+            glEnd();
         }
-        
-        
-        glEnd();
     }
     cout << totalLines << endl;
     totalLines = 0;
