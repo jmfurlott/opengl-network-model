@@ -2,6 +2,17 @@
 
 Joseph Furlott
 
+Android 
+12/14/2012
+-Android project created
+-semi-implemented text reading - not working yet
+
+
+
+
+
+
+C++ OpenGL Version
 
 11/27/12 - 0.04
 -LINE STRIPS implemented - much faster
