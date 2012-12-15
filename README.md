@@ -3,6 +3,12 @@
 Joseph Furlott
 
 Android 
+
+12/15/2012
+-Correctly reading in text
+-OpenGL backend (Model handles the coodinates, etc.  and ModelRenderer renders just what I have in a model object)
+-Currently draws a line on the screen
+
 12/14/2012
 -Android project created
 -semi-implemented text reading - not working yet
