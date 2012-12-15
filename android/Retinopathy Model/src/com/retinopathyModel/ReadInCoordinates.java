@@ -20,11 +20,12 @@ import android.util.Log;
 
 
 public class ReadInCoordinates {
-	
+	InputStream is;
 	
 	public ReadInCoordinates() {
 		//empty constructor for now
 		//will need to pass in text file name eventually
+		is = null;
 	}
 	
 	public int read(File myDir, String file, Context context) {
@@ -37,15 +38,15 @@ public class ReadInCoordinates {
 			Log.v("try catch", "true");
 
 			AssetManager am = context.getAssets();
-			InputStream is = am.open(file);
+			is = am.open("Coordinates10.txt");
 			InputStreamReader inputStreamReader = new InputStreamReader(is);
 			
 			BufferedReader reader = new BufferedReader(inputStreamReader);
-			Log.v("buffer opened", "true");
+			Log.v("try catch", "buffer is open");
 			
 			//read in top header line
 			String header = reader.readLine();
-			
+			Log.v("try catch", header);
 			//begin the reading of coordinates
 			//stored in a one dimensional arrayList (should be faster/less memory)
 			String temp;
@@ -60,16 +61,17 @@ public class ReadInCoordinates {
 			}
 			
 			
-			
+			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 			Log.v("expcetion", e.toString());
+			return 0;
 		}
 		
 		
 		
 		
-		return 1;
+		
 	}
 
 
