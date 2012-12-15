@@ -21,16 +21,16 @@ import android.util.Log;
 
 public class ReadInCoordinates {
 	InputStream is;
+	ArrayList<Integer> coordinates;
 	
 	public ReadInCoordinates() {
-		//empty constructor for now
-		//will need to pass in text file name eventually
 		is = null;
+		
 	}
 	
-	public int read(File myDir, String file, Context context) {
+	public  ArrayList<Integer> read(File myDir, String file, Context context) {
 		//where my coordinates are going to be held
-		ArrayList<Integer> coordinates = new ArrayList<Integer>();
+		coordinates = new ArrayList<Integer>();
 		
 		//begin try catch of opening and reading the file
 		try {
@@ -38,7 +38,7 @@ public class ReadInCoordinates {
 			Log.v("try catch", "true");
 
 			AssetManager am = context.getAssets();
-			is = am.open("Coordinates10.txt");
+			is = am.open(file);
 			InputStreamReader inputStreamReader = new InputStreamReader(is);
 			
 			BufferedReader reader = new BufferedReader(inputStreamReader);
@@ -61,16 +61,15 @@ public class ReadInCoordinates {
 			}
 			
 			
-			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 			Log.v("expcetion", e.toString());
-			return 0;
+			
 		}
 		
 		
 		
-		
+		return coordinates;
 		
 	}
 
