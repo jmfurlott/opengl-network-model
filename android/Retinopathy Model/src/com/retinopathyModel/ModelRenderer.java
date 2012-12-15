@@ -1,11 +1,12 @@
 package com.retinopathyModel;
 
-import javax.microedition.khronos.egl.EGL10;                                  //1
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.opengl.GLSurfaceView;                                          //2
-import java.lang.Math;
+import android.content.Context;
+import android.opengl.GLSurfaceView;
+//1
+//2
 
 class ModelRenderer implements GLSurfaceView.Renderer
 {
@@ -15,10 +16,10 @@ class ModelRenderer implements GLSurfaceView.Renderer
     private float mTransY;
     private float mAngle;
     
-    public ModelRenderer(boolean useTranslucentBackground)
+    public ModelRenderer(boolean useTranslucentBackground, Context context, float[] coordinates)
     {
         mTranslucentBackground = useTranslucentBackground;
-        model = new Model();                                               //3
+        model = new Model(context, coordinates);                                               //3
     }
 
     public void onDrawFrame(GL10 gl)                                          //4
