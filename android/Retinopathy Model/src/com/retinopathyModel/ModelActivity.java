@@ -29,21 +29,25 @@ public class ModelActivity extends Activity {
 
         
         // Part of the Model class now
-        File file = this.getFileStreamPath("Coordinates10.txt");
+        //File file = this.getFileStreamPath("Coordinates10.txt");
         ReadInCoordinates read = new ReadInCoordinates();
         File myDir = new File(context.getFilesDir().getAbsolutePath());
         
         Log.v("read", "started to");
         
-        ArrayList<Integer> coordsList = read.read(myDir, "/Coordinates10.txt", this);
+        ArrayList<Integer> coordsList = read.readOnlyCoordinates(myDir, "Coordinates10.txt", this);
         Log.v("read" , "successful");
-        
+       // Log.v("read", String.valueOf(coordsList.size()));
         coordinates = new float[coordsList.size()];
         for(int i = 0; i < coordsList.size(); i++) {
-        	coordinates[i] = (float) coordsList.get(i)/100; //not sure if you can cast Integer as int
+        	coordinates[i] = (float) coordsList.get(i).intValue();
         }
         
-		//Log.v("coordinates", Float.toString(coordinates[0]));
+        for(int i = 0; i < 10; i++) {
+        	Log.v("coordinates", String.valueOf(coordinates[i]));
+        }
+        
+		
         //Log.v("coordinates", coordsList.get(0).toString());
         
         //setContentView(R.layout.activity_model);
