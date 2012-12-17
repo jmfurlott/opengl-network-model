@@ -1,7 +1,8 @@
 package com.retinopathyModel;
 
 
-
+//JOSEPH FURLOTT
+//
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,48 +15,51 @@ import android.util.Log;
 import android.view.WindowManager;
 
 
-
-
 public class ModelActivity extends Activity {
 	public float[] coordinates;
 	Context context = this;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_bouncy_square_acitivity);
         
+        //for the OpenGL to get started
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         GLSurfaceView view = new GLSurfaceView(this);
 
         
         // Part of the Model class now
-        //File file = this.getFileStreamPath("Coordinates10.txt");
         ReadInCoordinates read = new ReadInCoordinates();
         File myDir = new File(context.getFilesDir().getAbsolutePath());
         
-        Log.v("read", "started to");
         
+        //Read in the text file and save it to a temporary arrayList
+        Log.v("read", "started to");       
         ArrayList<Integer> coordsList = read.readOnlyCoordinates(myDir, "Coordinates10.txt", this);
         Log.v("read" , "successful");
-       // Log.v("read", String.valueOf(coordsList.size()));
+
+        
+        
+        //convert the ArrayList to a a float array so that the renderer can handle it
         coordinates = new float[coordsList.size()];
         for(int i = 0; i < coordsList.size(); i++) {
-        	coordinates[i] = (float) coordsList.get(i).intValue();
+        	coordinates[i] = (float) (coordsList.get(i).intValue())/1000;
         }
         
-        for(int i = 0; i < 10; i++) {
-        	Log.v("coordinates", String.valueOf(coordinates[i]));
-        }
+
         
-		
-        //Log.v("coordinates", coordsList.get(0).toString());
+        //to make sure that my coordinates are being read in right
+//        for(int i = 0; i < 10; i++) {
+//        	Log.v("coordinates", String.valueOf(coordinates[i]));
+//        }
+//        
+
+        //delete that temporary arrayList so to save space; remember on a phone/tab
+        coordsList.clear();
         
+        
+        //what is drawn in the activity
         //setContentView(R.layout.activity_model);
-        view.setRenderer(new ModelRenderer(true, this, coordinates));
-           
-        
-        
-        //view.setRenderer(new SquareRenderer(true));
+        view.setRenderer(new ModelRenderer(true, this, coordinates));        
         setContentView(view);
         
         

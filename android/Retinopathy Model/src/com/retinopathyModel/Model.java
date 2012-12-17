@@ -25,7 +25,7 @@ public class Model {
 	public Model(Context context, float[] coordinates) {
 		//first generate list of coordinates
 		
-		
+		this.coordinates = coordinates;
 //		Log.v("coordinates", Float.toString(coordinates[0]));
 //		Log.v("coordinates", String.valueOf(coordinates[1]));
 //		Log.v("coordinates", String.valueOf(coordinates[2]));
@@ -38,19 +38,19 @@ public class Model {
 		
 		//float testCoords[] = {1.0f, 1.0f, 1.0f, -1.0f, -1.0f, -1.0f};
 		
-//		float vertices[] =                                                   //2
-//
-//        {
-//        		-1.0f, 1.0f, 1.0f,
-//        		1.0f, 1.0f, 1.0f,
-//        		1.0f, -1.0f, 1.0f,
-//        		-1.0f, -1.0f, 1.0f,
-//        		
-//        		-1.0f, 1.0f, -1.0f,
-//        		1.0f, 1.0f, -1.0f,
-//        		1.0f, -1.0f, -1.0f,
-//        		-1.0f, -1.0f, -1.0f
-//        };
+		float vertices[] =                                                   //2
+
+        {
+        		-1.0f, 1.0f, 1.0f,
+        		1.0f, 1.0f, 1.0f,
+        		1.0f, -1.0f, 1.0f,
+        		-1.0f, -1.0f, 1.0f,
+        		
+        		-1.0f, 1.0f, -1.0f,
+        		1.0f, 1.0f, -1.0f,
+        		1.0f, -1.0f, -1.0f,
+        		-1.0f, -1.0f, -1.0f
+        };
 
         byte maxColor=(byte)255;
 
@@ -64,23 +64,51 @@ public class Model {
         float indices[] = { 0, 1 };
         
         
-        
         ByteBuffer vbb = ByteBuffer.allocateDirect(coordinates.length * 4);     //5
         vbb.order(ByteOrder.nativeOrder());
         mFVertexBuffer = vbb.asFloatBuffer();
         mFVertexBuffer.put(coordinates);
         mFVertexBuffer.position(0);
-
+//
         mColorBuffer = ByteBuffer.allocateDirect(colors.length);
         mColorBuffer.put(colors);
         mColorBuffer.position(0);
-
-        bCoordinates = FloatBuffer.allocate(indices.length);
-        bCoordinates.put(indices);
-        bCoordinates.position(0);
+//
+//        bCoordinates = FloatBuffer.allocate(indices.length);
+//        bCoordinates.put(indices);
+//        bCoordinates.position(0);
         
         
     }
+
+
+        
+	
+    public void draw(GL10 gl)  {
+    	
+    	
+    	//debugging
+        for(int i = 0; i < 10; i++) {
+        	Log.v("coordinates", String.valueOf(coordinates[i]));
+        }
+        
+    	
+    	gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+    	gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+    	gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mFVertexBuffer);
+    	
+    	
+	        gl.glFrontFace(GL11.GL_CW);                                          //7
+        //gl.glVertexPointer(3, GL11.GL_FLOAT, 0, mFVertexBuffer);             //8
+        gl.glColorPointer(4, GL11.GL_UNSIGNED_BYTE, 0, mColorBuffer);        //9
+        //gl.glDrawElements(GL11.GL_LINES, 3, GL11.GL_FLOAT, bCoordinates);
+        gl.glDrawArrays(GL11.GL_LINES, 0, coordinates.length+1);        
+       // gl.glFrontFace(GL11.GL_CCW);                                         //11
+        gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
+        gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
+
+    }
+
 
 	
 	public float[] readCoordinates(Context context) {
@@ -99,17 +127,5 @@ public class Model {
         
         return coordinates;
 	}
-        
-	
-    public void draw(GL10 gl)  {
-//	        gl.glFrontFace(GL11.GL_CW);                                          //7
-        gl.glVertexPointer(3, GL11.GL_FLOAT, 0, mFVertexBuffer);             //8
-        gl.glColorPointer(4, GL11.GL_UNSIGNED_BYTE, 0, mColorBuffer);        //9
-        //gl.glDrawElements(GL11.GL_LINES, 2, GL11.GL_FLOAT, bCoordinates);
-        gl.glDrawArrays(GL11.GL_LINES, 0, 3);        
-        gl.glFrontFace(GL11.GL_CCW);                                         //11
-	}
-
-
 	
 }
