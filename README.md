@@ -4,6 +4,15 @@ Joseph Furlott
 
 Android 
 
+
+12/16/2012
+-Model working! Drawing successfully on phone.
+-TODO: colors!
+-TODO: still buggy. seems to drawn wrong lines or disappears oddly. something with
+the buffer I am guessing
+-TODO: finger controls
+-TODO: iOS
+
 12/15/2012
 -Correctly reading in text
 -OpenGL backend (Model handles the coodinates, etc.  and ModelRenderer renders just what I have in a model object)
