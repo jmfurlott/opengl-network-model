@@ -59,7 +59,20 @@ public class Model {
         		maxColor, maxColor, maxColor, 0
         };
         
-        float colorsFloat[] = {1.0f, 0.0f, 0.0f, 0.0f};
+        float colorsFloat[] = new float[coordinates.length * 4];
+        
+        int a = 0;
+        while(a < (coordinates.length * 4)) {
+        	colorsFloat[a] = 0.0f;
+        	a++;
+        	colorsFloat[a] = 0.0f;
+        	a++;
+        	colorsFloat[a] = 1.0f;
+        	a++;
+        	colorsFloat[a] = 1.0f;
+        	a++;
+        }
+
 
         	
         

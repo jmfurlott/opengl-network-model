@@ -5,6 +5,10 @@ Joseph Furlott
 Android 
 
 
+12/16/2012 (2)
+-Correctly drawing in one color right now.
+-TODO: color weaving so veins are red and arteries are blue
+
 12/16/2012
 -Model working! Drawing successfully on phone.
 -Centered and in the middle. landscape all wrong
