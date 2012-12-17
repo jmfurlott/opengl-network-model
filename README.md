@@ -7,6 +7,7 @@ Android
 
 12/16/2012
 -Model working! Drawing successfully on phone.
+-Centered and in the middle. landscape all wrong
 -TODO: colors!
 -TODO: still buggy. seems to drawn wrong lines or disappears oddly. something with
 the buffer I am guessing

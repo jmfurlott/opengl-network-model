@@ -27,22 +27,21 @@ class ModelRenderer implements GLSurfaceView.Renderer
 
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);      //5
 
-        gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         
         gl.glMatrixMode(GL10.GL_MODELVIEW);                                   //6
         gl.glLoadIdentity();                                                  //7
  
 
         
-        gl.glTranslatef(0.0f,(float)Math.sin(mTransY), -7.0f);                //8
-
+        gl.glTranslatef(-2.0f,(float)Math.sin(mTransY), -7.0f);                //
         //handles the rotation
        // gl.glRotatef(mAngle, 0.0f, 1.0f, 0.0f);
        // gl.glRotatef(mAngle, 1.0f, 0.0f, 0.0f);
         
         
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);                         //9
-        gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 
         model.draw(gl);                                                     //10
 
@@ -55,9 +54,9 @@ class ModelRenderer implements GLSurfaceView.Renderer
            gl.glViewport(0, 0, width, height);                                //12
 
            float aspectRatio;
-           float zNear = .1f;
+           float zNear =  .1f;
            float zFar = 1000;
-           float fieldOfView = 30.0f/57.3f;
+           float fieldOfView = (30.0f/57.3f);
            float size;
            
            gl.glEnable(GL10.GL_NORMALIZE);
