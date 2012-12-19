@@ -7,7 +7,8 @@ Android
 
 12/18/2012 (2)
 -Correctly colors veins and arteries!
--TODO: set radius, touch control/camera, force horizontal landscape (? at least for now)
+-forced horizontal landscape
+-TODO: set radius, touch control/camera
 
 12/18/2012
 -reading in colors into a new int[] called colors

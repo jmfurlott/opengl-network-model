@@ -15,63 +15,17 @@ import android.util.Log;
 public class Model {
 	private FloatBuffer mFVertexBuffer;
 	private FloatBuffer   mColorBuffer; //or ByteBuffer in tutorial!
-	private FloatBuffer bCoordinates;
 	private float[] coordinates;
 	
 	
 	public Model() {
-		
+		//empty!
 	}
+
+	
 	public Model(Context context, float[] coordinates, int[] colors) {
-		//first generate list of coordinates
-		
+		//first generate list of coordinates		
 		this.coordinates = coordinates;
-//		Log.v("coordinates", Float.toString(coordinates[0]));
-//		Log.v("coordinates", String.valueOf(coordinates[1]));
-//		Log.v("coordinates", String.valueOf(coordinates[2]));
-//		Log.v("coordinates", String.valueOf(coordinates[3]));
-//		Log.v("coordinates", String.valueOf(coordinates[4]));
-//		Log.v("coordinates", String.valueOf(coordinates[5]));
-
-		
-		
-		
-		//float testCoords[] = {1.0f, 1.0f, 1.0f, -1.0f, -1.0f, -1.0f};
-		
-//		float vertices[] =                                                   //2
-//
-//        {
-//        		-1.0f, 1.0f, 1.0f,
-//        		1.0f, 1.0f, 1.0f,
-//        		1.0f, -1.0f, 1.0f,
-//        		-1.0f, -1.0f, 1.0f,
-//        		
-//        		-1.0f, 1.0f, -1.0f,
-//        		1.0f, 1.0f, -1.0f,
-//        		1.0f, -1.0f, -1.0f,
-//        		-1.0f, -1.0f, -1.0f
-//        };
-
-//        byte maxColor=(byte)255;
-//
-//        byte colors[] =                                                      //3
-//        {
-//        		maxColor, maxColor, maxColor, 0
-//        };
-//        
-//        float colorsFloat[] = new float[coordinates.length * 4];
-//        
-//        int a = 0;
-//        while(a < (coordinates.length * 4)) {
-//        	colorsFloat[a] = 1.0f;
-//        	a++;
-//        	colorsFloat[a] = 0.0f;
-//        	a++;
-//        	colorsFloat[a] = 0.0f;
-//        	a++;
-//        	colorsFloat[a] = 1.0f;
-//        	a++;
-//        }
 
 
         float colorsFloat[] = buildColorArray(colors);	
@@ -91,11 +45,6 @@ public class Model {
         mColorBuffer = second.asFloatBuffer();
         mColorBuffer.put(colorsFloat);
         mColorBuffer.position(0);
-//
-//        bCoordinates = FloatBuffer.allocate(indices.length);
-//        bCoordinates.put(indices);
-//        bCoordinates.position(0);
-        
         
     }
 
@@ -111,7 +60,7 @@ public class Model {
     	gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mFVertexBuffer);
         gl.glColorPointer(4, GL11.GL_FLOAT, 0, mColorBuffer);
     	
-    	
+    	//gl.glLineWidth(15);
         gl.glFrontFace(GL11.GL_CW);                                          //7
         gl.glDrawArrays(GL11.GL_LINES, 0, coordinates.length+1);        
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);

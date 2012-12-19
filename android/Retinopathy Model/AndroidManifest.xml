@@ -13,7 +13,9 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".ModelActivity"
-            android:label="@string/title_activity_model" >
+            android:label="@string/title_activity_model" 
+            android:screenOrientation="landscape" >
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

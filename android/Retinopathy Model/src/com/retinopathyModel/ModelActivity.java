@@ -40,9 +40,6 @@ public class ModelActivity extends Activity {
 
         
         
-        
-        
-        
         //convert the ArrayList to a a float array so that the renderer can handle it
         coordinates = new float[coordsList.size()];
         for(int i = 0; i < coordsList.size(); i++) {
@@ -57,18 +54,10 @@ public class ModelActivity extends Activity {
         }
         
         
-        
-        
-
-        
-        //to make sure that my coordinates are being read in right
-//        for(int i = 0; i < 10; i++) {
-//        	Log.v("coordinates", String.valueOf(coordinates[i]));
-//        }
-//        
 
         //delete that temporary arrayList so to save space; remember on a phone/tab
         coordsList.clear();
+        colorsList.clear();
         
         
         //what is drawn in the activity
