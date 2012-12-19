@@ -5,6 +5,10 @@ Joseph Furlott
 Android 
 
 
+12/18/2012 (2)
+-Correctly colors veins and arteries!
+-TODO: set radius, touch control/camera, force horizontal landscape (? at least for now)
+
 12/18/2012
 -reading in colors into a new int[] called colors
 -TODO: set the vertices and set color point

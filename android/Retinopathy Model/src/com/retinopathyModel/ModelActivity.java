@@ -56,9 +56,6 @@ public class ModelActivity extends Activity {
         	colors[i] = colorsList.get(i).intValue() ;
         }
         
-      for(int i = 3717 ; i < 3730; i++) {
-    	Log.v("colorsList", String.valueOf(colors[i]));
-    }
         
         
         
@@ -76,7 +73,7 @@ public class ModelActivity extends Activity {
         
         //what is drawn in the activity
         //setContentView(R.layout.activity_model);
-        view.setRenderer(new ModelRenderer(true, this, coordinates));        
+        view.setRenderer(new ModelRenderer(true, this, coordinates, colors));        
         setContentView(view);
         
         

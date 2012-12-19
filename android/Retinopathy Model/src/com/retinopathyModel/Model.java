@@ -22,7 +22,7 @@ public class Model {
 	public Model() {
 		
 	}
-	public Model(Context context, float[] coordinates) {
+	public Model(Context context, float[] coordinates, int[] colors) {
 		//first generate list of coordinates
 		
 		this.coordinates = coordinates;
@@ -52,29 +52,29 @@ public class Model {
 //        		-1.0f, -1.0f, -1.0f
 //        };
 
-        byte maxColor=(byte)255;
+//        byte maxColor=(byte)255;
+//
+//        byte colors[] =                                                      //3
+//        {
+//        		maxColor, maxColor, maxColor, 0
+//        };
+//        
+//        float colorsFloat[] = new float[coordinates.length * 4];
+//        
+//        int a = 0;
+//        while(a < (coordinates.length * 4)) {
+//        	colorsFloat[a] = 1.0f;
+//        	a++;
+//        	colorsFloat[a] = 0.0f;
+//        	a++;
+//        	colorsFloat[a] = 0.0f;
+//        	a++;
+//        	colorsFloat[a] = 1.0f;
+//        	a++;
+//        }
 
-        byte colors[] =                                                      //3
-        {
-        		maxColor, maxColor, maxColor, 0
-        };
-        
-        float colorsFloat[] = new float[coordinates.length * 4];
-        
-        int a = 0;
-        while(a < (coordinates.length * 4)) {
-        	colorsFloat[a] = 1.0f;
-        	a++;
-        	colorsFloat[a] = 0.0f;
-        	a++;
-        	colorsFloat[a] = 0.0f;
-        	a++;
-        	colorsFloat[a] = 1.0f;
-        	a++;
-        }
 
-
-        	
+        float colorsFloat[] = buildColorArray(colors);	
         
         float indices[] = { 0, 1 };
         
@@ -120,6 +120,64 @@ public class Model {
     }
 
 
+    public float[] buildColorArray(int[] colors) {
+    	float colorsFloat[] = new float[colors.length * 8];
+    	
+    	int a = 0;
+    	int i = 0;
+    	while(i < colors.length) {
+    		if(colors[i] == 0) {
+    			colorsFloat[a] = 0.0f;
+    			a++;
+    			colorsFloat[a] = 0.0f;
+    			a++;
+    			colorsFloat[a] = 1.0f;
+    			a++;
+    			colorsFloat[a] = 1.0f;
+    			a++;
+    			
+    			colorsFloat[a] = 0.0f;
+    			a++;
+    			colorsFloat[a] = 0.0f;
+    			a++;
+    			colorsFloat[a] = 1.0f;
+    			a++;
+    			colorsFloat[a] = 1.0f;
+    			a++;
+    			
+    			i++;
+    		}
+    		else if (colors[i] == 1) {
+    			colorsFloat[a] = 1.0f;
+    			a++;
+    			colorsFloat[a] = 0.0f;
+    			a++;
+    			colorsFloat[a] = 0.0f;
+    			a++;
+    			colorsFloat[a] = 1.0f;
+    			a++;
+    			
+    			colorsFloat[a] = 1.0f;
+    			a++;
+    			colorsFloat[a] = 0.0f;
+    			a++;
+    			colorsFloat[a] = 0.0f;
+    			a++;
+    			colorsFloat[a] = 1.0f;
+    			a++;
+    			
+    			i++;
+    		}
+    	}
+    	
+  
+    	return colorsFloat;
+    	
+    	
+    }
+    
+    
+    
 	
 	public float[] readCoordinates(Context context) {
         File file = context.getFileStreamPath("Coordinates10.txt");

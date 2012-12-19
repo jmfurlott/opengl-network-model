@@ -16,10 +16,10 @@ class ModelRenderer implements GLSurfaceView.Renderer
     private float mTransY;
     private float mAngle;
     
-    public ModelRenderer(boolean useTranslucentBackground, Context context, float[] coordinates)
+    public ModelRenderer(boolean useTranslucentBackground, Context context, float[] coordinates, int[] colors)
     {
         mTranslucentBackground = useTranslucentBackground;
-        model = new Model(context, coordinates);                                               //3
+        model = new Model(context, coordinates, colors);                                               //3
     }
 
     public void onDrawFrame(GL10 gl)                                          //4
@@ -34,7 +34,7 @@ class ModelRenderer implements GLSurfaceView.Renderer
  
 
         
-        gl.glTranslatef(-2.0f,(float)Math.sin(mTransY), -7.0f);                //
+        gl.glTranslatef(-2.0f,(float)Math.sin(mTransY) - 1.2f, -8.5f);                //
         //handles the rotation
        // gl.glRotatef(mAngle, 0.0f, 1.0f, 0.0f);
        // gl.glRotatef(mAngle, 1.0f, 0.0f, 0.0f);
