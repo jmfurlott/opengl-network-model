@@ -16,7 +16,7 @@ import android.view.WindowManager;
 
 
 public class ModelActivity extends Activity {
-	public float[] coordinates;
+	public float[] coordinates, radii;
 	public int[] colors;
 	Context context = this;
     @Override
@@ -46,7 +46,7 @@ public class ModelActivity extends Activity {
         	coordinates[i] = (float) (coordsList.get(i).intValue())/1000;
         }
         
-        //convert the colors ArrayList into an array of booleans
+        //convert the colors ArrayList into an array of int
         ArrayList<Integer> colorsList = read.getColorsArrayList();
         colors = new int[colorsList.size()];
         for(int i = 0; i < colorsList.size(); i++) {
@@ -54,15 +54,24 @@ public class ModelActivity extends Activity {
         }
         
         
+        //convert the radii ArrayList into a float array
+        ArrayList<Integer> radiusList = read.getRadiusArrayList();
+        radii = new float[radiusList.size()];
+        for(int i = 0; i < radiusList.size(); i++) {
+        	radii[i] = (float) radiusList.get(i).intValue()/10;
+        }
+        
+        
 
         //delete that temporary arrayList so to save space; remember on a phone/tab
         coordsList.clear();
         colorsList.clear();
+        radiusList.clear();
         
         
         //what is drawn in the activity
         //setContentView(R.layout.activity_model);
-        view.setRenderer(new ModelRenderer(true, this, coordinates, colors));        
+        view.setRenderer(new ModelRenderer(true, this, coordinates, colors, radii));        
         setContentView(view);
         
         

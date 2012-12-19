@@ -9,6 +9,11 @@ Android
 -Correctly colors veins and arteries!
 -forced horizontal landscape
 -TODO: set radius, touch control/camera
+-currently the radius is semi-implemented. glLineWidth seems to set it for all lines
+instead of just one at a time so I think I will have to do it in a different 
+way
+
+
 
 12/18/2012
 -reading in colors into a new int[] called colors

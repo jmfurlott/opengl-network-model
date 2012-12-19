@@ -16,6 +16,7 @@ public class Model {
 	private FloatBuffer mFVertexBuffer;
 	private FloatBuffer   mColorBuffer; //or ByteBuffer in tutorial!
 	private float[] coordinates;
+	float[] radiusFloat;
 	
 	
 	public Model() {
@@ -23,12 +24,13 @@ public class Model {
 	}
 
 	
-	public Model(Context context, float[] coordinates, int[] colors) {
+	public Model(Context context, float[] coordinates, int[] colors, float[] radii) {
 		//first generate list of coordinates		
 		this.coordinates = coordinates;
 
 
         float colorsFloat[] = buildColorArray(colors);	
+        radiusFloat = radii;
         
         float indices[] = { 0, 1 };
         
@@ -60,7 +62,13 @@ public class Model {
     	gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mFVertexBuffer);
         gl.glColorPointer(4, GL11.GL_FLOAT, 0, mColorBuffer);
     	
-    	//gl.glLineWidth(15);
+        int a = 0;
+    	gl.glLineWidth(this.radiusFloat[a]);
+    	a++;
+    	if(a == radiusFloat.length) {
+    		a = 0;
+    	}
+    	
         gl.glFrontFace(GL11.GL_CW);                                          //7
         gl.glDrawArrays(GL11.GL_LINES, 0, coordinates.length+1);        
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
@@ -117,14 +125,13 @@ public class Model {
     			
     			i++;
     		}
-    	}
-    	
+    	}    	
   
     	return colorsFloat;
-    	
-    	
+
     }
     
+
     
     
 	

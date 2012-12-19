@@ -22,18 +22,20 @@ public class ReadInCoordinates {
 	InputStream is;
 	ArrayList<Integer> coordinates;
 	ArrayList<Integer> colorsList; 
-	
+	ArrayList<Integer> radiusList;
 	public ReadInCoordinates() {
 		is = null;
 		coordinates = new ArrayList<Integer>();
 		colorsList = new ArrayList<Integer>();
+		radiusList = new ArrayList<Integer>();
 		
 	}
 	
 	public  ArrayList<Integer> read(File myDir, String file, Context context) {
-		//where my coordinates are going to be held
+		//where my coordinates/colors/radii are going to be held
 		coordinates = new ArrayList<Integer>();
 		colorsList = new ArrayList<Integer>();
+		radiusList = new ArrayList<Integer>();
 		
 		//begin try catch of opening and reading the file
 		try {
@@ -113,6 +115,7 @@ public class ReadInCoordinates {
 					}
 					else if (flag == 6) {
 						tempDiameter = Integer.parseInt(line[i]);
+						radiusList.add(tempDiameter);
 						flag++;
 					}
 					else if(flag == 7) {
@@ -143,6 +146,10 @@ public class ReadInCoordinates {
 	
 	public ArrayList<Integer> getColorsArrayList() {
 		return colorsList;
+	}
+	
+	public ArrayList<Integer> getRadiusArrayList() {
+		return radiusList;
 	}
 	
 }

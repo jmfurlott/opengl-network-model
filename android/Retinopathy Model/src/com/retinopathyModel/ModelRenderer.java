@@ -16,10 +16,10 @@ class ModelRenderer implements GLSurfaceView.Renderer
     private float mTransY;
     private float mAngle;
     
-    public ModelRenderer(boolean useTranslucentBackground, Context context, float[] coordinates, int[] colors)
+    public ModelRenderer(boolean useTranslucentBackground, Context context, float[] coordinates, int[] colors, float[] radii)
     {
         mTranslucentBackground = useTranslucentBackground;
-        model = new Model(context, coordinates, colors);                                               //3
+        model = new Model(context, coordinates, colors, radii);                                               //3
     }
 
     public void onDrawFrame(GL10 gl)                                          //4
