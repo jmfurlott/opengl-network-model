@@ -17,6 +17,7 @@ import android.view.WindowManager;
 
 public class ModelActivity extends Activity {
 	public float[] coordinates;
+	public int[] colors;
 	Context context = this;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,27 @@ public class ModelActivity extends Activity {
 
         
         
+        
+        
+        
         //convert the ArrayList to a a float array so that the renderer can handle it
         coordinates = new float[coordsList.size()];
         for(int i = 0; i < coordsList.size(); i++) {
         	coordinates[i] = (float) (coordsList.get(i).intValue())/1000;
         }
+        
+        //convert the colors ArrayList into an array of booleans
+        ArrayList<Integer> colorsList = read.getColorsArrayList();
+        colors = new int[colorsList.size()];
+        for(int i = 0; i < colorsList.size(); i++) {
+        	colors[i] = colorsList.get(i).intValue() ;
+        }
+        
+      for(int i = 3717 ; i < 3730; i++) {
+    	Log.v("colorsList", String.valueOf(colors[i]));
+    }
+        
+        
         
 
         

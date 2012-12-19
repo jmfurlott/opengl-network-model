@@ -5,7 +5,12 @@ Joseph Furlott
 Android 
 
 
-12/16/2012 (2)
+12/18/2012
+-reading in colors into a new int[] called colors
+-TODO: set the vertices and set color point
+
+
+12/17/2012 
 -Correctly drawing in one color right now.
 -TODO: color weaving so veins are red and arteries are blue
 

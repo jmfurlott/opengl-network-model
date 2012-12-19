@@ -63,11 +63,11 @@ public class Model {
         
         int a = 0;
         while(a < (coordinates.length * 4)) {
-        	colorsFloat[a] = 0.0f;
-        	a++;
-        	colorsFloat[a] = 0.0f;
-        	a++;
         	colorsFloat[a] = 1.0f;
+        	a++;
+        	colorsFloat[a] = 0.0f;
+        	a++;
+        	colorsFloat[a] = 0.0f;
         	a++;
         	colorsFloat[a] = 1.0f;
         	a++;

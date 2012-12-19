@@ -2,7 +2,6 @@ package com.retinopathyModel;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -22,15 +21,19 @@ import android.util.Log;
 public class ReadInCoordinates {
 	InputStream is;
 	ArrayList<Integer> coordinates;
+	ArrayList<Integer> colorsList; 
 	
 	public ReadInCoordinates() {
 		is = null;
+		coordinates = new ArrayList<Integer>();
+		colorsList = new ArrayList<Integer>();
 		
 	}
 	
 	public  ArrayList<Integer> read(File myDir, String file, Context context) {
 		//where my coordinates are going to be held
 		coordinates = new ArrayList<Integer>();
+		colorsList = new ArrayList<Integer>();
 		
 		//begin try catch of opening and reading the file
 		try {
@@ -108,7 +111,13 @@ public class ReadInCoordinates {
 						coordinates.add(Integer.parseInt(line[i]));
 						flag++;
 					}
-					else {
+					else if (flag == 6) {
+						tempDiameter = Integer.parseInt(line[i]);
+						flag++;
+					}
+					else if(flag == 7) {
+						tempColor = Integer.parseInt(line[i]);
+						colorsList.add(tempColor);
 						flag = 0;
 						break;
 					}
@@ -123,9 +132,17 @@ public class ReadInCoordinates {
 			
 		}
 		
-		
-		
 		return coordinates;
 		
 	}
+	
+	
+	public ArrayList<Integer> getCoordinatesArrayList() {
+		return coordinates;
+	}
+	
+	public ArrayList<Integer> getColorsArrayList() {
+		return colorsList;
+	}
+	
 }
