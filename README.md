@@ -4,6 +4,14 @@ Joseph Furlott
 
 Android 
 
+12/21/2012
+-zoom working based on an invisible toggle in the lower right hand corner
+-awkward; doesn't want to work 100% of the time. switches back to rotations - weird
+-TODO: implement as a menu button or a visible button at least. I think its due
+	to the toggle being based off coordinates in space ( quick and dirty right now)
+-TODO: create more natural zoom.  zth zoom is okay but kinda weird
+
+
 12/20/2012
 -basics of touch control implemented; reads in an mAngle based on x y coordinates
 -still having trouble with the camera; it will center right

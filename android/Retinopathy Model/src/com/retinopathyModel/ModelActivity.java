@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 
 public class ModelActivity extends Activity {
@@ -22,14 +23,15 @@ public class ModelActivity extends Activity {
 	Context context = this;
 	private ModelRenderer mRenderer;
 	private GLSurfaceView view;
+	private boolean zoom;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        zoom = false;
         //for the OpenGL to get started
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         view = new GLSurfaceView(this);
-
+        
         
         // Part of the Model class now
         ReadInCoordinates read = new ReadInCoordinates();
@@ -96,6 +98,17 @@ public class ModelActivity extends Activity {
     	//how we are going to handle touch motion - from the android dev website
     	float x = e.getX(); //sets X coordinates
     	float y = e.getY(); //sets Y coordinates; that simple
+     	
+    	
+    	//handles a zoom button (TODO: implement button; just a space right now)
+    	//doesn't work perfectly; have to play with it first
+    	//should just make this a menu button!!! to toggle
+    	int width = view.getWidth();
+    	int height = view.getHeight();
+    	if(mPreviousX > (width - 100) && mPreviousY > (height - 50)) {
+    		zoom = !zoom;
+    		Toast.makeText(this, "Zoom is set to " + String.valueOf(zoom), Toast.LENGTH_SHORT).show();
+    	} 
     	
     	//debug
     	Log.v("touch coordinates", String.valueOf(x) + " " + String.valueOf(y));
@@ -113,11 +126,11 @@ public class ModelActivity extends Activity {
     			if ( x < view.getWidth() /2) {
     				dy = dy* -1;
     			}
-    			
     			mRenderer.setmAngle( mRenderer.getmAngle() + ((dx + dy) * TOUCH_SCALE_FACTOR));
     	}
     	
-    	
+		mRenderer.setZoom(zoom);
+
     	mPreviousX = x;
     	mPreviousY = y;
     	
