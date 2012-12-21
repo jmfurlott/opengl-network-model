@@ -4,6 +4,13 @@ Joseph Furlott
 
 Android 
 
+12/20/2012
+-basics of touch control implemented; reads in an mAngle based on x y coordinates
+-still having trouble with the camera; it will center right
+-model is rotating correctly based on sliding your finger but not seamless
+-TODO: fix weird extra created lines
+-TODO: camera
+-TODO: button and zoom controls (maybe same basic sliding motion but option selected to zoom)
 
 12/18/2012 (2)
 -Correctly colors veins and arteries!

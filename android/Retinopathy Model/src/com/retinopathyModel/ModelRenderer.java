@@ -4,7 +4,9 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
+import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.opengl.GLU;
 //1
 //2
 
@@ -13,40 +15,46 @@ class ModelRenderer implements GLSurfaceView.Renderer
 	
     private boolean mTranslucentBackground;
     private Model model;
-    private float mTransY;
+    private double deltax, deltay;
+    private float x,y;
     private float mAngle;
     
     public ModelRenderer(boolean useTranslucentBackground, Context context, float[] coordinates, int[] colors, float[] radii)
     {
         mTranslucentBackground = useTranslucentBackground;
+        deltax = 0.0;
+        deltay = 0.0;
         model = new Model(context, coordinates, colors, radii);                                               //3
     }
 
     public void onDrawFrame(GL10 gl)                                          //4
     {
-
+    	x = (float) (Math.sin(deltax) + Math.cos(deltay));
+    	y = (float) (Math.cos(deltax) + Math.sin(deltay));
+    	
+    	
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);      //5
 
         gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         
         gl.glMatrixMode(GL10.GL_MODELVIEW);                                   //6
         gl.glLoadIdentity();                                                  //7
- 
-
-        
-        gl.glTranslatef(-2.0f,(float)Math.sin(mTransY) - 1.2f, -8.5f);                //
-        //handles the rotation
-       // gl.glRotatef(mAngle, 0.0f, 1.0f, 0.0f);
-       // gl.glRotatef(mAngle, 1.0f, 0.0f, 0.0f);
-        
+        //GLU.gluLookAt(gl, mAngle, 0.0f, 8.5f, 2.0f, 1.5f, 0, 0.0f, 2.0f, 0.0f); 
+        gl.glTranslatef(-1.5f,-1.0f, -12.0f);                //
+        gl.glRotatef(mAngle, 0.0f, 1.0f, 0.0f);
+        //gl.glRotatef(mAngle, 0.0f, 1.0f, 0.0f);
+        //gl.glRotatef(-mAngle, 1.0f, 0.0f, 0.0f);
+       // gl.glTranslatef(0.0f, 0.0f, mAngle);
+        // move to center of circle    
+        //gl.glTranslatef(0.0f, -1.0f, -1.0f);
         
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);                         //9
          gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 
         model.draw(gl);                                                     //10
 
-    //    mTransY += .075f;
-    //    mAngle += .4;
+        deltax += .05f;
+        deltay += .1f;
     }
 
     public void onSurfaceChanged(GL10 gl, int width, int height)              //11
@@ -94,7 +102,28 @@ class ModelRenderer implements GLSurfaceView.Renderer
          gl.glShadeModel(GL10.GL_SMOOTH);                                     //20
          gl.glEnable(GL10.GL_DEPTH_TEST);                                     //21
 	    }
+    
+    
+    public static int loadShader(int type, String shaderCode){
 
+        // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
+        // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
+        int shader = GLES20.glCreateShader(type);
+
+        // add the source code to the shader and compile it
+        GLES20.glShaderSource(shader, shaderCode);
+        GLES20.glCompileShader(shader);
+
+        return shader;
+    }
+
+    
+    public void setmAngle(float mAngle) {
+    	this.mAngle = mAngle;
+    }
+    public float getmAngle() {
+    	return mAngle;
+    }
 }
 
 	
