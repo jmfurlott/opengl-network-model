@@ -17,7 +17,7 @@ class ModelRenderer implements GLSurfaceView.Renderer
     private Model model;
     private float x,y;
     private float mAngle;
-    private static boolean zoom;  //needs to be static!!!!!!!!! wow
+    private boolean zoom;  //needs to be static!!!!!!!!! wow
     
     public ModelRenderer(boolean useTranslucentBackground, Context context, float[] coordinates, int[] colors, float[] radii)
     {
@@ -39,7 +39,6 @@ class ModelRenderer implements GLSurfaceView.Renderer
         gl.glLoadIdentity();                                                  //7
         //GLU.gluLookAt(gl, mAngle, 0.0f, 8.5f, 2.0f, 1.5f, 0, 0.0f, 2.0f, 0.0f); 
         gl.glTranslatef(-1.5f,-1.0f, -12.0f);                //
-
         if(zoom == false) {
         	gl.glRotatef(mAngle, 0.0f, 1.0f, 0.0f);
         } 

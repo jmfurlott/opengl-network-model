@@ -12,6 +12,9 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -103,13 +106,13 @@ public class ModelActivity extends Activity {
     	//handles a zoom button (TODO: implement button; just a space right now)
     	//doesn't work perfectly; have to play with it first
     	//should just make this a menu button!!! to toggle
-    	int width = view.getWidth();
-    	int height = view.getHeight();
-    	if(mPreviousX > (width - 100) && mPreviousY > (height - 50)) {
-    		zoom = !zoom;
-    		Toast.makeText(this, "Zoom is set to " + String.valueOf(zoom), Toast.LENGTH_SHORT).show();
-    	} 
-    	
+//    	int width = view.getWidth();
+//    	int height = view.getHeight();
+//    	if(mPreviousX > (width - 100) && mPreviousY > (height - 50)) {
+//    		zoom = !zoom;
+//    		Toast.makeText(this, "Zoom is set to " + String.valueOf(zoom), Toast.LENGTH_SHORT).show();
+//    	} 
+//    	
     	//debug
     	Log.v("touch coordinates", String.valueOf(x) + " " + String.valueOf(y));
     	
@@ -129,7 +132,7 @@ public class ModelActivity extends Activity {
     			mRenderer.setmAngle( mRenderer.getmAngle() + ((dx + dy) * TOUCH_SCALE_FACTOR));
     	}
     	
-		mRenderer.setZoom(zoom);
+		//mRenderer.setZoom(zoom);
 
     	mPreviousX = x;
     	mPreviousY = y;
@@ -138,5 +141,32 @@ public class ModelActivity extends Activity {
     	
     	return true;
     }
+    
+    
+    //menu options and menu button (hopefully going into action bar)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	MenuInflater inflater = getMenuInflater();
+    	inflater.inflate(R.menu.options, menu);
+    	return true;
+    }
+    
+    //what to do with that menu!
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch(item.getItemId()) {
+	    	case R.id.zoom:
+	    		mRenderer.setZoom(true);
+	    		return true;
+	    	case R.id.rotate:
+	    		mRenderer.setZoom(false);
+	    		return true;
+	    	default:
+	    		return super.onOptionsItemSelected(item);
+	    }
+    	
+    	
+    }
+    
 
 }

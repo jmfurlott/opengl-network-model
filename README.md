@@ -4,6 +4,12 @@ Joseph Furlott
 
 Android 
 
+
+12/21/2012 (2)
+-zoom and rotate toggle working via pressing the menu button.  much more
+stable this way but less seamless I guess
+-zoom still odd using only the z axis and rotate needs to be better too
+
 12/21/2012
 -zoom working based on an invisible toggle in the lower right hand corner
 -awkward; doesn't want to work 100% of the time. switches back to rotations - weird
