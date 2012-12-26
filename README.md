@@ -9,7 +9,7 @@ Matlab (segmentation/separation)
 -Still not very smooth but decent.  can work with it
 -may begin separation...
 -also from a long time ago, write coordinates semi-implementated..will use this for separation??
-![Alt text](matlab/output.jpg "Segmented - 12/26")
+![Alt text](matlab/output_binary.jpg "Segmented - 12/26")
 
 
 
