@@ -9,7 +9,7 @@ Matlab (segmentation/separation)
 -Still not very smooth but decent.  can work with it
 -may begin separation...
 -also from a long time ago, write coordinates semi-implementated..will use this for separation??
-![Alt text](https://raw.github.com/jmfurlott/opengl-network-model/master/matlab/output_binary.jpg)
+![Alt text](https://raw.github.com/jmfurlott/opengl-network-model/master/matlab/output_binary.jpg?login=jmfurlott&token=945c1eb9788fe354a7bf537baa4976b3)
 
 
 
