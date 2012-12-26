@@ -2,6 +2,18 @@
 
 Joseph Furlott
 
+Matlab (segmentation/separation)
+
+12/26/2012
+-Decent segmentation working in the rgb2binary.m function.
+-Still not very smooth but decent.  can work with it
+-may begin separation...
+-also from a long time ago, write coordinates semi-implementated..will use this for separation??
+
+
+
+
+
 Android 
 
 
