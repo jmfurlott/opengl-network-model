@@ -1,4 +1,10 @@
 //Joseph Furlott
+
+//TODO: how to create a list of nodes using the constructor???
+
+
+
+
 //a Node is defined as a part in a vessel that has a branch, the optic nerve, or the end of a vessel
 
 //contains: branch node and its coordinates, next node and its coordinates, theta in between those nodes
@@ -52,9 +58,35 @@ public class Node {
     public double getTheta() {
         return theta;
     }
-
     public void setTheta(double theta) {
         this.theta = theta;
     }
 
+    public int getCurrentX() {
+        return x;
+    }
+    public void setCurrentX(int x) {
+        this.x = x;
+    }
+
+    public int getCurrentY() {
+        return y;
+    }
+    public void setCurrentY( int y) {
+        this.y = y;
+    }
+
+    public int getBranchX() {
+        return bx;
+    }
+    public void setBranchX(int bx) {
+        this.bx = bx;
+    }
+
+    public int getBranchY() {
+        return by;
+    }
+    public void setBranchY(int by) {
+        this.by = by;
+    }
 }
