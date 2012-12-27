@@ -1,0 +1,22 @@
+- Used to help segment the image (over segment it using matlab and using this data structure to trim it down)
+- Used to for separation logic
+
+
+Joseph Furlott
+
+
+
+Building the data structure graph to hold all the vessel data and aid in separation
+
+Building basic operations ( where G is the graph, x,y are node positions)
+- boolean adjacent(G, x, y) - tests where there is a an edge in between x and y
+- Node neighbors(G, x) - lists all nodes that are connected to x (should only be a branch node and next node)
+- boolean add(G, x, y) - returns true if adds an edge from y to x
+- boolean delete(G, x, y) - returns true if deletes the edge in between x and y
+- get/set methods for each node and for each edge (four methods)
+
+-also the angle inbetween the branch and the current node should be calculate and held as value:
+	-meaning we need get/setter methods for the angle theta calculated via the dot product I am guessing
+	- A*B = ||A||*||B||*cos(theta)
+
+

@@ -2,6 +2,23 @@
 
 Joseph Furlott
 
+FILE DIRECTORY
+- opengl-cpp -----> c++ version of the opengl model (pretty incomplete)
+
+- android    -----> android app
+
+- matlab     -----> matlab image processing functions; segmentation
+
+- graphing   -----> Java code for graph ADT; segmentation improvement; separation
+
+
+
+Graphing 12/27/2012 -
+
+-Graphing ADT started
+-directories better organized
+
+
 Matlab (segmentation/separation)
 
 12/26/2012
