@@ -73,7 +73,24 @@ public class Node {
 
     }
 
+    //check to see if branch node or not
+    public boolean isBranchNode() {
+        if (this.branchNode == null) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 
+    //same check but end node
+    public boolean isEndNode() {
+        if(this.nextNode == null && this.branchNode == null) {
+            return true;
+        }
+        else
+            return false;
+    }
 
 
 
