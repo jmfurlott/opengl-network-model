@@ -13,6 +13,11 @@ FILE DIRECTORY
 
 
 
+Graphing 12/29/2012 -
+	-basic graph traversal functions implmentated like add/delete/neighboring
+	-TODO: how to build the graph? 
+
+
 Graphing 12/27/2012 -
 
 -Graphing ADT started

@@ -1,4 +1,4 @@
-- Used to help segment the image (over segment it using matlab and using this data structure to trim it down)
+-Used to help segment the image (over segment it using matlab and using this data structure to trim it down)
 - Used to for separation logic
 
 

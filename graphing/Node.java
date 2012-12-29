@@ -16,6 +16,7 @@ public class Node {
     private int bx, by; //coordinates of the branch
     private double theta; //calculated not on the constructor but via a dot product method
     private Node branchNode, nextNode;
+    private double width; //width of the vessel
 
 
     public Node() {
@@ -36,6 +37,23 @@ public class Node {
 
     }
 
+    //with width of vessel
+    public Node(int cx, int cy, int bx, int by, Node nextNode, Node branchNode, double width) {
+        x = cx;
+        y = cy;
+        this.bx = bx;
+        this.by = by;
+
+        //dot product method
+        theta = calculateTheta(cx, cy, bx, by);
+
+        this.nextNode = nextNode;   //not sure about this or how to build the next node
+        this.branchNode = branchNode;
+
+        this.width = width;
+    }
+
+
     public double calculateTheta(int cx, int cy, int bx, int by) {
         //works okay. prints out in radians. maybe convert to angle?
 
@@ -54,6 +72,13 @@ public class Node {
         return angle;
 
     }
+
+
+
+
+
+
+    //   get/setters!
 
     public double getTheta() {
         return theta;
@@ -88,5 +113,26 @@ public class Node {
     }
     public void setBranchY(int by) {
         this.by = by;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public Node getNextNode() {
+        return nextNode;
+    }
+    public void setNextNode(Node node) {
+        this.nextNode = node;
+    }
+
+    public Node getBranchNode() {
+        return branchNode;
+    }
+    public void setBranchNode(Node node) {
+        this.branchNode = node;
     }
 }
