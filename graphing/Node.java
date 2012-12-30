@@ -9,6 +9,7 @@
 
 //contains: branch node and its coordinates, next node and its coordinates, theta in between those nodes
 import java.lang.Math;
+import java.lang.System;
 
 public class Node {
 
@@ -96,6 +97,13 @@ public class Node {
         else
             return false;
     }
+
+
+    public String printData() {
+        return "X: " + this.x + " Y: " + this.y;
+
+    }
+
 
 
 

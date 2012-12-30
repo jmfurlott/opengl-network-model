@@ -90,26 +90,28 @@ public class Graph extends LinkedList {
 
     //SEARCHING METHODS first BFS
 
-    //semi-working but can't populate the queue correctly!! IMPORTANT
+    //semi-working but only takes in account for next nodes but no branches!
+    //working otherwise; also added position which is doubtful that it is the true position
+
     public Node bfs(int x, int y) {
+        int position = 0;
         Queue q = new LinkedList();
         q.add(this.root);
 
-//        while(q.peek().getextNode()) {
-//            q.add(q.peek().getNextNode());
-//        }
+        while(this.root.getNextNode() != null) {
+            q.add(root.getNextNode());
+            root = root.getNextNode();
+        }
 
         //for debugging, print the root node and what is being searched
         System.out.println("The root node's coordinates are: " + root.getCurrentX() + " " + root.getCurrentY());
         System.out.println("The coordinates you are searching for are: " + x + " " + y);
 
-        //check flag
-        //root.visited = true;
-
         while(!q.isEmpty()) {
             Node node = (Node) q.remove();
+            position++;
             if(node.getCurrentX() == x && node.getCurrentY() == y) {
-                System.out.println("Node found.");
+                System.out.println("Node found at " + node.printData() + " And is at position: " + position);
                 return node;
             }
 
