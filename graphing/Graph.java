@@ -8,23 +8,29 @@
 
 // is edge weight important?!?!!?
 
-import java.util.ArrayList;
+import java.lang.System;
+import java.util.LinkedList;
+import java.util.Queue;
 
-public class Graph extends ArrayList {
+
+public class Graph extends LinkedList {
+    private Node root;
 
     public Graph() {
 
     }
 
     //need better constructor that builds a graph out of nodes
-    //should be done just like an arraylist
-
+    //just set the root node and it will connect to the rest like a LinkedList
+    public Graph(Node root) {
+        this.root = root;
+    }
 
 
     //not tested as of 12/29
     //just returns two nodes that a certain node is connected (directed)
-    public ArrayList<Node> neighbors(Node x) {
-        ArrayList<Node> neighborList = new ArrayList<Node>();
+    public LinkedList<Node> neighbors(Node x) {
+        LinkedList<Node> neighborList = new LinkedList<Node>();
         neighborList.add(x.getNextNode());
         neighborList.add(x.getBranchNode());
 
@@ -81,6 +87,39 @@ public class Graph extends ArrayList {
 
     }
 
+
+    //SEARCHING METHODS first BFS
+
+    //semi-working but can't populate the queue correctly!! IMPORTANT
+    public Node bfs(int x, int y) {
+        Queue q = new LinkedList();
+        q.add(this.root);
+
+//        while(q.peek().getextNode()) {
+//            q.add(q.peek().getNextNode());
+//        }
+
+        //for debugging, print the root node and what is being searched
+        System.out.println("The root node's coordinates are: " + root.getCurrentX() + " " + root.getCurrentY());
+        System.out.println("The coordinates you are searching for are: " + x + " " + y);
+
+        //check flag
+        //root.visited = true;
+
+        while(!q.isEmpty()) {
+            Node node = (Node) q.remove();
+            if(node.getCurrentX() == x && node.getCurrentY() == y) {
+                System.out.println("Node found.");
+                return node;
+            }
+
+        }
+
+        //means we couldn't find it
+        System.out.println("Couldn't find node.");
+        return null;
+
+    }
 
 
 }

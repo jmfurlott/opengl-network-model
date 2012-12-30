@@ -17,10 +17,12 @@ public class Node {
     private double theta; //calculated not on the constructor but via a dot product method
     private Node branchNode, nextNode;
     private double width; //width of the vessel
+    private boolean visited;
 
 
     public Node() {
         //empty constructors
+        visited = false;
     }
 
     public Node(int cx, int cy, int bx, int by, Node nextNode, Node branchNode) {
@@ -35,6 +37,7 @@ public class Node {
         this.nextNode = nextNode;   //not sure about this or how to build the next node
         this.branchNode = branchNode;
 
+        visited = false;
     }
 
     //with width of vessel
@@ -51,6 +54,8 @@ public class Node {
         this.branchNode = branchNode;
 
         this.width = width;
+
+        visited = false;
     }
 
 

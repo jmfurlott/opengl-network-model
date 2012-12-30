@@ -16,7 +16,7 @@ FILE DIRECTORY
 Graphing 12/29/2012 -
 	-basic graph traversal functions implmentated like add/delete/neighboring
 	-TODO: how to build the graph? 
-
+	-TODOL bfs currently semi-implemented. not adding to queue right
 
 Graphing 12/27/2012 -
 
