@@ -11,7 +11,7 @@ public class Driver {
         Node node1 = new Node(1,1,0,0,null, null);
         Node node2 = new Node(2,2,0,0,null, null);
         Node node3 = new Node(3,3,0,0,null, null);
-        Node node4 = new Node(4,4,0,0,null, null);
+        Node node4 = new Node(4,4,0,0,null, new Node(8,8,0,0,null,null));
         Node node5 = new Node(5,5,0,0,null, null);
         Node node6 = new Node(6,6,0,0,null, null);
 
@@ -21,13 +21,15 @@ public class Driver {
         node4.setNextNode(node5);
 
 
-		System.out.println("successful");
-		System.out.println("Dot product is: " + node1.getTheta());
-        System.out.println("Is this a branch node: " + node1.isBranchNode());
-        System.out.println("Is this an end node: " + node1.isEndNode());
+
 
         Graph g = new Graph(node1);
-        g.bfs(5, 5);
+        Node n = g.bfs(8, 8);
+
+        System.out.println("successful");
+        System.out.println("Dot product is: " + node1.getTheta());
+        System.out.println("Is this a branch node: " + n.hasBranchNode());
+        System.out.println("Is this an end node: " + n.isEndNode());
 	}
 
 

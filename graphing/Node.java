@@ -80,7 +80,7 @@ public class Node {
     }
 
     //check to see if branch node or not
-    public boolean isBranchNode() {
+    public boolean hasBranchNode() {
         if (this.branchNode == null) {
             return false;
         }

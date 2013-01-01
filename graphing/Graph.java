@@ -27,6 +27,9 @@ public class Graph extends LinkedList {
     }
 
 
+
+
+
     //not tested as of 12/29
     //just returns two nodes that a certain node is connected (directed)
     public LinkedList<Node> neighbors(Node x) {
@@ -90,7 +93,7 @@ public class Graph extends LinkedList {
 
     //SEARCHING METHODS first BFS
 
-    //semi-working but only takes in account for next nodes but no branches!
+    //semi-working but only takes in account for next nodes and branches by adding them linearly into a queue
     //working otherwise; also added position which is doubtful that it is the true position
 
     public Node bfs(int x, int y) {
@@ -100,11 +103,13 @@ public class Graph extends LinkedList {
 
         while(this.root.getNextNode() != null) {
             q.add(root.getNextNode());
+            if(root.getNextNode().getBranchNode() != null) {
+                q.add(root.getNextNode().getBranchNode());
+            }
             root = root.getNextNode();
         }
 
         //for debugging, print the root node and what is being searched
-        System.out.println("The root node's coordinates are: " + root.getCurrentX() + " " + root.getCurrentY());
         System.out.println("The coordinates you are searching for are: " + x + " " + y);
 
         while(!q.isEmpty()) {
@@ -122,6 +127,9 @@ public class Graph extends LinkedList {
         return null;
 
     }
+
+
+
 
 
 }

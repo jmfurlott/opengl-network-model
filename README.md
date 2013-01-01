@@ -12,7 +12,12 @@ FILE DIRECTORY
 - graphing   -----> Java code for graph ADT; segmentation improvement; separation
 
 
-Graphinh 12/30/2012 - BFS working and now able to traverse the graph (maybe DFS would be faster but this is fine for now.) BFS only takes in acccount nextNodes right now however
+
+Graphing 1/1/2013 -
+	-Network class created/started but buildNetwork needs to be implemented. Currently not working
+
+
+Graphing 12/30/2012 - BFS working and now able to traverse the graph (maybe DFS would be faster but this is fine for now.) BFS only takes in acccount nextNodes right now however
 
 
 Graphing 12/29/2012 -
