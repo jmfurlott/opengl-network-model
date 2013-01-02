@@ -14,8 +14,9 @@ FILE DIRECTORY
 
 
 Graphing 1/1/2013 -
-	-Network class created/started but buildNetwork needs to be implemented. Currently not working
-
+	-Network class created/started
+	-buildNetwork seems to be working but creating 6000 graphs which is way too high
+	-TODO: handle branches:::look at notes
 
 Graphing 12/30/2012 - BFS working and now able to traverse the graph (maybe DFS would be faster but this is fine for now.) BFS only takes in acccount nextNodes right now however
 
