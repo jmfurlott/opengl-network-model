@@ -1,0 +1,343 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		997B902A1699F56A000B0681 /* Coordinates10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 997B90291699F56A000B0681 /* Coordinates10.txt */; };
+		998E34681699F409007798EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 998E34671699F409007798EE /* UIKit.framework */; };
+		998E346A1699F409007798EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 998E34691699F409007798EE /* Foundation.framework */; };
+		998E346C1699F409007798EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 998E346B1699F409007798EE /* CoreGraphics.framework */; };
+		998E346E1699F409007798EE /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 998E346D1699F409007798EE /* GLKit.framework */; };
+		998E34701699F409007798EE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 998E346F1699F409007798EE /* OpenGLES.framework */; };
+		998E34761699F409007798EE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 998E34741699F409007798EE /* InfoPlist.strings */; };
+		998E34781699F409007798EE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 998E34771699F409007798EE /* main.m */; };
+		998E347C1699F409007798EE /* ModelAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 998E347B1699F409007798EE /* ModelAppDelegate.m */; };
+		998E347E1699F409007798EE /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 998E347D1699F409007798EE /* Default.png */; };
+		998E34801699F409007798EE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 998E347F1699F409007798EE /* Default@2x.png */; };
+		998E34821699F409007798EE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 998E34811699F409007798EE /* Default-568h@2x.png */; };
+		998E34851699F409007798EE /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 998E34831699F409007798EE /* MainStoryboard_iPhone.storyboard */; };
+		998E34881699F409007798EE /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 998E34861699F409007798EE /* MainStoryboard_iPad.storyboard */; };
+		998E348A1699F409007798EE /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 998E34891699F409007798EE /* Shader.fsh */; };
+		998E348C1699F409007798EE /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 998E348B1699F409007798EE /* Shader.vsh */; };
+		998E348F1699F409007798EE /* ModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 998E348E1699F409007798EE /* ModelViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		997B90291699F56A000B0681 /* Coordinates10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Coordinates10.txt; sourceTree = "<group>"; };
+		998E34631699F409007798EE /* Retinopathy Model.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Retinopathy Model.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		998E34671699F409007798EE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		998E34691699F409007798EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		998E346B1699F409007798EE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		998E346D1699F409007798EE /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		998E346F1699F409007798EE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		998E34731699F409007798EE /* Retinopathy Model-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Retinopathy Model-Info.plist"; sourceTree = "<group>"; };
+		998E34751699F409007798EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		998E34771699F409007798EE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		998E34791699F409007798EE /* Retinopathy Model-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Retinopathy Model-Prefix.pch"; sourceTree = "<group>"; };
+		998E347A1699F409007798EE /* ModelAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelAppDelegate.h; sourceTree = "<group>"; };
+		998E347B1699F409007798EE /* ModelAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModelAppDelegate.m; sourceTree = "<group>"; };
+		998E347D1699F409007798EE /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		998E347F1699F409007798EE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		998E34811699F409007798EE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		998E34841699F409007798EE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		998E34871699F409007798EE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		998E34891699F409007798EE /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		998E348B1699F409007798EE /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		998E348D1699F409007798EE /* ModelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelViewController.h; sourceTree = "<group>"; };
+		998E348E1699F409007798EE /* ModelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModelViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		998E34601699F409007798EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				998E34681699F409007798EE /* UIKit.framework in Frameworks */,
+				998E346A1699F409007798EE /* Foundation.framework in Frameworks */,
+				998E346C1699F409007798EE /* CoreGraphics.framework in Frameworks */,
+				998E346E1699F409007798EE /* GLKit.framework in Frameworks */,
+				998E34701699F409007798EE /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		997B90271699F557000B0681 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				997B90291699F56A000B0681 /* Coordinates10.txt */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		998E34581699F409007798EE = {
+			isa = PBXGroup;
+			children = (
+				998E34711699F409007798EE /* Retinopathy Model */,
+				998E34661699F409007798EE /* Frameworks */,
+				998E34641699F409007798EE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		998E34641699F409007798EE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				998E34631699F409007798EE /* Retinopathy Model.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		998E34661699F409007798EE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				998E34671699F409007798EE /* UIKit.framework */,
+				998E34691699F409007798EE /* Foundation.framework */,
+				998E346B1699F409007798EE /* CoreGraphics.framework */,
+				998E346D1699F409007798EE /* GLKit.framework */,
+				998E346F1699F409007798EE /* OpenGLES.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		998E34711699F409007798EE /* Retinopathy Model */ = {
+			isa = PBXGroup;
+			children = (
+				997B90271699F557000B0681 /* Resources */,
+				998E347A1699F409007798EE /* ModelAppDelegate.h */,
+				998E347B1699F409007798EE /* ModelAppDelegate.m */,
+				998E34831699F409007798EE /* MainStoryboard_iPhone.storyboard */,
+				998E34861699F409007798EE /* MainStoryboard_iPad.storyboard */,
+				998E34891699F409007798EE /* Shader.fsh */,
+				998E348B1699F409007798EE /* Shader.vsh */,
+				998E348D1699F409007798EE /* ModelViewController.h */,
+				998E348E1699F409007798EE /* ModelViewController.m */,
+				998E34721699F409007798EE /* Supporting Files */,
+			);
+			path = "Retinopathy Model";
+			sourceTree = "<group>";
+		};
+		998E34721699F409007798EE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				998E34731699F409007798EE /* Retinopathy Model-Info.plist */,
+				998E34741699F409007798EE /* InfoPlist.strings */,
+				998E34771699F409007798EE /* main.m */,
+				998E34791699F409007798EE /* Retinopathy Model-Prefix.pch */,
+				998E347D1699F409007798EE /* Default.png */,
+				998E347F1699F409007798EE /* Default@2x.png */,
+				998E34811699F409007798EE /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		998E34621699F409007798EE /* Retinopathy Model */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 998E34921699F409007798EE /* Build configuration list for PBXNativeTarget "Retinopathy Model" */;
+			buildPhases = (
+				998E345F1699F409007798EE /* Sources */,
+				998E34601699F409007798EE /* Frameworks */,
+				998E34611699F409007798EE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Retinopathy Model";
+			productName = "Retinopathy Model";
+			productReference = 998E34631699F409007798EE /* Retinopathy Model.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		998E345A1699F409007798EE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = Model;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Joseph Furlott";
+			};
+			buildConfigurationList = 998E345D1699F409007798EE /* Build configuration list for PBXProject "Retinopathy Model" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 998E34581699F409007798EE;
+			productRefGroup = 998E34641699F409007798EE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				998E34621699F409007798EE /* Retinopathy Model */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		998E34611699F409007798EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				998E34761699F409007798EE /* InfoPlist.strings in Resources */,
+				998E347E1699F409007798EE /* Default.png in Resources */,
+				998E34801699F409007798EE /* Default@2x.png in Resources */,
+				998E34821699F409007798EE /* Default-568h@2x.png in Resources */,
+				998E34851699F409007798EE /* MainStoryboard_iPhone.storyboard in Resources */,
+				998E34881699F409007798EE /* MainStoryboard_iPad.storyboard in Resources */,
+				998E348A1699F409007798EE /* Shader.fsh in Resources */,
+				998E348C1699F409007798EE /* Shader.vsh in Resources */,
+				997B902A1699F56A000B0681 /* Coordinates10.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		998E345F1699F409007798EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				998E34781699F409007798EE /* main.m in Sources */,
+				998E347C1699F409007798EE /* ModelAppDelegate.m in Sources */,
+				998E348F1699F409007798EE /* ModelViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		998E34741699F409007798EE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				998E34751699F409007798EE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		998E34831699F409007798EE /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				998E34841699F409007798EE /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		998E34861699F409007798EE /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				998E34871699F409007798EE /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		998E34901699F409007798EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		998E34911699F409007798EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		998E34931699F409007798EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Retinopathy Model/Retinopathy Model-Prefix.pch";
+				INFOPLIST_FILE = "Retinopathy Model/Retinopathy Model-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		998E34941699F409007798EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Retinopathy Model/Retinopathy Model-Prefix.pch";
+				INFOPLIST_FILE = "Retinopathy Model/Retinopathy Model-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		998E345D1699F409007798EE /* Build configuration list for PBXProject "Retinopathy Model" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				998E34901699F409007798EE /* Debug */,
+				998E34911699F409007798EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		998E34921699F409007798EE /* Build configuration list for PBXNativeTarget "Retinopathy Model" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				998E34931699F409007798EE /* Debug */,
+				998E34941699F409007798EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 998E345A1699F409007798EE /* Project object */;
+}

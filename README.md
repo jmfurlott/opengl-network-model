@@ -11,6 +11,15 @@ FILE DIRECTORY
 
 - graphing   -----> Java code for graph ADT; segmentation improvement; separation
 
+- iOS	    ------> iOS app
+
+
+
+
+
+iOS 1/6/2013 -
+	-started the iOS app; currently running an arbitrary square as a test that openGL is working
+	-started reading coordinates function
 
 
 Graphing 1/1/2013 -
