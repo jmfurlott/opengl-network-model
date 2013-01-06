@@ -11,6 +11,7 @@
 
 @interface ModelViewController : GLKViewController
 
-- (void) readTextFromFile;
+- (NSArray *) readTextFromFile;
+- (NSArray *) constructCoordinates: (NSArray*) total;
 
 @end

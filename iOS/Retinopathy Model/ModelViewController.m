@@ -1,6 +1,9 @@
 //January 6, 2013 - Joseph Furlott
 //Most of code taken from tutorial but will provide working app for testing and dev
 
+//text file format:
+// X1  Y1  Z1  X2  Y2  Z2  D  A/V
+
 #import "ModelViewController.h"
 
 @interface ModelViewController() {
@@ -20,9 +23,19 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
     
-    //how to call another method
+   
+    
     //this is where we read in the text!
-    [self readTextFromFile];
+    NSArray *file = [self readTextFromFile];
+        //this coordinates array doesn't really start until position 15
+        //also contains the diameter and vessel color
+    NSArray *onlyCoords = [self constructCoordinates:file];
+    
+    for(int i = 0; i < 15; i++) {
+        NSLog([onlyCoords objectAtIndex:i]);
+    }
+    
+    
     
     //now to the openGL::::::
     
@@ -73,9 +86,9 @@
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
-    glTranslatef(0.0, (GLfloat) (sinf(transY)/2), 0.0);
+    glTranslatef(0.0, 0.0, 0.0);
     
-    transY += 0.075f;
+    
     
     glVertexPointer(2, GL_FLOAT, 0, squareVertices);
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -92,7 +105,7 @@
 
 
 
-- (void) readTextFromFile {
+- (NSArray*) readTextFromFile {
     NSLog(@"Starting to read in text:");
     
     //file for now will be hard coded as Coordinates10.txt
@@ -112,12 +125,48 @@
     
         //NSLog([NSString stringWithFormat:@"%d", [values count]]);
         
-        NSLog([values objectAtIndex:15]); //because of whitespace, actually coordinats start at 15
+        //NSLog([values objectAtIndex:15]); //because of whitespace, actually coordinats start at 15
+        
+        return values;
+    }
+    
+    return nil;
+       
+}
+
+
+
+//now assuming I have the list of everything but what if I want only coordinates?
+- (NSArray*) constructCoordinates: (NSArray*) total {
+    NSMutableArray *coordinates = [[NSMutableArray alloc] initWithCapacity:[total count]]; //double check that this the correct size everytime
+    
+    
+    for (int i = 15; i < [total count] - 7; i += 8) { //fix the correct total count!!
+        NSString *x0 = [total objectAtIndex:i];
+        NSString *y0 = [total objectAtIndex:i + 1];
+        NSString *z0 = [total objectAtIndex:i + 2];
+        
+        NSString *x1 = [total objectAtIndex:i + 3];
+        NSString *y1 = [total objectAtIndex:i + 4];
+        NSString *z1 = [total objectAtIndex:i + 5];
+        
+        //skip the diameter and vessel color!
+        [coordinates addObject:x0];
+        [coordinates addObject:y0];
+        [coordinates addObject:z0];
+        [coordinates addObject:x1];
+        [coordinates addObject:y1];
+        [coordinates addObject:z1];
+
         
         
     }
-       
+    
+    return coordinates;
+    
 }
+
+
 
 @end
 
