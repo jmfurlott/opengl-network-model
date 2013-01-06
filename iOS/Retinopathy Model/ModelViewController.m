@@ -96,9 +96,27 @@
     NSLog(@"Starting to read in text:");
     
     //file for now will be hard coded as Coordinates10.txt
-    NSString *filename = @"Coordinates10.txt";
+    //NSString *filePath = [[NSBundle mainBundle] pathForResource:@"Coordinates10" ofType:@"txt"];
+    //NSData *coordData = [NSData dataWithContentsOfFile:filePath];
     
+    NSError *fileError = nil;
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"Coordinates10" ofType:@"txt"];
     
+    NSString *contents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&fileError ];
+    if (contents == nil) {
+        NSLog(@"FileError: %@", [fileError localizedDescription]);
+    } else {
+        //correctly reading!!!
+        
+        NSArray *values = [contents componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+        //NSLog([NSString stringWithFormat:@"%d", [values count]]);
+        
+        NSLog([values objectAtIndex:15]); //because of whitespace, actually coordinats start at 15
+        
+        
+    }
+       
 }
 
 @end
