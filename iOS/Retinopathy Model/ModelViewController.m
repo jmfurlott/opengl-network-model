@@ -6,6 +6,10 @@
 
 #import "ModelViewController.h"
 
+NSArray *file;
+NSArray *onlyCoords;
+
+
 @interface ModelViewController() {
     //empty constructor
 }
@@ -23,18 +27,12 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
     
-   
-    
-    //this is where we read in the text!
-//    NSArray *file = [self readTextFromFile];
-//        //this coordinates array doesn't really start until position 15
-//        //also contains the diameter and vessel color
-//    NSArray *onlyCoords = [self constructCoordinates:file];
-//    
-//    for(int i = 0; i < 15; i++) {
-//        NSLog([onlyCoords objectAtIndex:i]);
-//    }
-//    
+
+    file = [self readTextFromFile];
+    //this coordinates array doesn't really start until position 15
+    //also contains the diameter and vessel color
+    onlyCoords = [self constructCoordinates:file];
+
     
     
     //now to the openGL::::::
@@ -60,11 +58,7 @@
 
 - (void) glkView:(GLKView *) view drawInRect: (CGRect) rect {
     
-    //not the best way to do this - LEAST EFFICIENT WAY POSSIBLE
-    NSArray *file = [self readTextFromFile];
-    //this coordinates array doesn't really start until position 15
-    //also contains the diameter and vessel color
-    NSArray *onlyCoords = [self constructCoordinates:file];
+
     
    
     //construct the vertuces into a float array:
@@ -181,6 +175,11 @@
     return coordinates;
     
 }
+
+
+
+//methods for determining the vertices, colors, and radius:
+//to go into the constructor so they aren't called multiple times
 
 
 

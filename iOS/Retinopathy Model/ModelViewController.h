@@ -14,4 +14,6 @@
 - (NSArray *) readTextFromFile;
 - (NSArray *) constructCoordinates: (NSArray*) total;
 
+extern NSArray *file;
+extern NSArray *onlyCoords;
 @end
