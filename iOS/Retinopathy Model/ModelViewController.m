@@ -26,15 +26,15 @@
    
     
     //this is where we read in the text!
-    NSArray *file = [self readTextFromFile];
-        //this coordinates array doesn't really start until position 15
-        //also contains the diameter and vessel color
-    NSArray *onlyCoords = [self constructCoordinates:file];
-    
-    for(int i = 0; i < 15; i++) {
-        NSLog([onlyCoords objectAtIndex:i]);
-    }
-    
+//    NSArray *file = [self readTextFromFile];
+//        //this coordinates array doesn't really start until position 15
+//        //also contains the diameter and vessel color
+//    NSArray *onlyCoords = [self constructCoordinates:file];
+//    
+//    for(int i = 0; i < 15; i++) {
+//        NSLog([onlyCoords objectAtIndex:i]);
+//    }
+//    
     
     
     //now to the openGL::::::
@@ -59,23 +59,34 @@
 #pragma mark - GLKView and GLKViewController delegate methods
 
 - (void) glkView:(GLKView *) view drawInRect: (CGRect) rect {
-    static int counter = 0;
     
-    static const GLfloat squareVertices[] = {
-        -0.5, -0.33,
-        0.5, -0.33,
-        -0.5, 0.33,
-        0.5, 0.33,
-    };
+    //not the best way to do this - LEAST EFFICIENT WAY POSSIBLE
+    NSArray *file = [self readTextFromFile];
+    //this coordinates array doesn't really start until position 15
+    //also contains the diameter and vessel color
+    NSArray *onlyCoords = [self constructCoordinates:file];
+    
+   
+    //construct the vertuces into a float array:
+    GLfloat eyeVertices[[onlyCoords count]];
+    for(int i = 0; i < [onlyCoords count]; i++) {
+        eyeVertices[i] = ([[onlyCoords objectAtIndex:i] intValue]);
+    }
+    
+    for(int i = 0; i < [onlyCoords count]; i++) {
+        eyeVertices[i] = (eyeVertices[i]/1000);
+    }
+    
+    //NSLog([NSString stringWithFormat:@"%f", eyeVertices[[onlyCoords count] - 3]]);
+    
+    
+    //static int counter = 0;
     
     static const GLubyte squareColors[] = {
-        255, 255, 0, 255,
-        0, 255, 255, 255,
-        0, 0, 0, 0,
-        255, 0, 255, 255,
+        255, 0, 0, 255,
+
     };
     
-    static float transY = 0.0;
     
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -86,27 +97,26 @@
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
-    glTranslatef(0.0, 0.0, 0.0);
     
     
-    
-    glVertexPointer(2, GL_FLOAT, 0, squareVertices);
+    glVertexPointer(3, GL_FLOAT, 0, eyeVertices);
     glEnableClientState(GL_VERTEX_ARRAY);
     glColorPointer(4, GL_UNSIGNED_BYTE, 0, squareColors);
     glEnableClientState(GL_COLOR_ARRAY);
     
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glDrawArrays(GL_LINES, 0, 5000);
     
-    if(!(counter%100)){
-        //NSLog(@"FPS: %d\n", self.framesPerSecond);
-    }
-    counter++;
+    
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_COLOR_ARRAY);
+    glTranslatef(-5.0, 0.0,-10.0);
+
 }
 
 
 
 - (NSArray*) readTextFromFile {
-    NSLog(@"Starting to read in text:");
+    //NSLog(@"Starting to read in text:");
     
     //file for now will be hard coded as Coordinates10.txt
     //NSString *filePath = [[NSBundle mainBundle] pathForResource:@"Coordinates10" ofType:@"txt"];
