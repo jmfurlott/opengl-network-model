@@ -80,13 +80,19 @@
     //NSLog([NSString stringWithFormat:@"%f", eyeVertices[[onlyCoords count] - 3]]);
     
     
-    //static int counter = 0;
+    //need to build color array!
+    //for now just doing one color: red (helps to figure out rendering)
     
-    static const GLubyte squareColors[] = {
-        255, 0, 0, 255,
+    GLubyte colors[[onlyCoords count]*4]; //need four for every point; RGBA
+    for(int i = 0; i < [onlyCoords count]*4; i += 4) {
+        colors[i] = 255;
+        colors[i+1] = 0;
+        colors[i+2] = 0;
+        colors[i+3] = 255;
+    }
+    
+    
 
-    };
-    
     
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -97,19 +103,19 @@
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
-    
+    glTranslatef(-2.0, -1.0, 0.0);
     
     glVertexPointer(3, GL_FLOAT, 0, eyeVertices);
     glEnableClientState(GL_VERTEX_ARRAY);
-    glColorPointer(4, GL_UNSIGNED_BYTE, 0, squareColors);
+    glColorPointer(4, GL_UNSIGNED_BYTE, 0, colors);
     glEnableClientState(GL_COLOR_ARRAY);
     
-    glDrawArrays(GL_LINES, 0, 5000);
+    //NSLog([NSString stringWithFormat:@"%d", sizeof(eyeVertices)]);
+    glDrawArrays(GL_LINES, 0, 13000);
     
     
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
-    glTranslatef(-5.0, 0.0,-10.0);
 
 }
 
