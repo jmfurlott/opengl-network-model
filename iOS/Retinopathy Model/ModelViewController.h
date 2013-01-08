@@ -16,4 +16,8 @@
 
 extern NSArray *file;
 extern NSArray *onlyCoords;
+extern CGPoint startLoc;
+extern float dy;
+extern float dx;
+
 @end

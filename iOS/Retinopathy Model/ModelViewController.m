@@ -8,7 +8,9 @@
 
 NSArray *file;
 NSArray *onlyCoords;
-
+CGPoint startLoc;
+float dx;
+float dy;
 
 @interface ModelViewController() {
     //empty constructor
@@ -27,13 +29,14 @@ NSArray *onlyCoords;
 - (void) viewDidLoad {
     [super viewDidLoad];
     
+    
 
     file = [self readTextFromFile];
     //this coordinates array doesn't really start until position 15
     //also contains the diameter and vessel color
     onlyCoords = [self constructCoordinates:file];
 
-    
+    //NSLog([NSString stringWithFormat:@"%d", [onlyCoords count]]);
     
     //now to the openGL::::::
     
@@ -68,10 +71,9 @@ NSArray *onlyCoords;
     }
     
     for(int i = 0; i < [onlyCoords count]; i++) {
-        eyeVertices[i] = (eyeVertices[i]/1000);
+        eyeVertices[i] = (eyeVertices[i]/2000);
     }
     
-    //NSLog([NSString stringWithFormat:@"%f", eyeVertices[[onlyCoords count] - 3]]);
     
     
     //need to build color array!
@@ -86,7 +88,7 @@ NSArray *onlyCoords;
     }
     
     
-
+    
     
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -97,7 +99,10 @@ NSArray *onlyCoords;
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
-    glTranslatef(-2.0, -1.0, 0.0);
+    glTranslatef(-.75, -.5, 0.0);
+    
+    //motion tracking used!!!
+    glRotatef(30, dx, dy, 0.0);
     
     glVertexPointer(3, GL_FLOAT, 0, eyeVertices);
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -181,6 +186,50 @@ NSArray *onlyCoords;
 //methods for determining the vertices, colors, and radius:
 //to go into the constructor so they aren't called multiple times
 
+
+//implement here
+
+
+
+//-------------------------------------------------------------where touch events are to go
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    //NSLog(@"Touches began"); //responding correctly.  but how to derive coordinates/motion?
+    for (UITouch *touch in touches) {
+        startLoc = [touch locationInView:nil];
+    }
+    
+    
+    //NSLog([[NSNumber numberWithFloat:startLoc.x] stringValue]);
+
+
+
+}
+
+-(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    for(UITouch *touch in touches) {
+        CGPoint tracker = [[touches anyObject] locationInView:nil]; //where I am at in real time
+    
+    
+        //calculate the differential and this will be used in the motion of the model
+        dx = tracker.x - startLoc.x;
+        dy = tracker.y - startLoc.y;
+        
+        NSLog([[NSNumber numberWithFloat:dx] stringValue]);
+    }
+    
+
+
+    
+}
+
+
+-(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    //NSLog(@"Touches ended");
+}
+
+-(void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSLog(@"Touches cancelled");
+}
 
 
 @end

@@ -15,6 +15,9 @@ FILE DIRECTORY
 
 
 
+iOS 1/8/2013 - 
+	-simple motion tracking implemented need to fix up the angle in which its rotating and what happens if you reach the second half of the screen (look at android code)
+	-still similar TODOs from yesterday
 
 
 iOS 1/7/2013 -
