@@ -11,6 +11,9 @@ NSArray *onlyCoords;
 CGPoint startLoc;
 float dx;
 float dy;
+CGRect screen;
+float mAngle;
+float TOUCH_SCALE_FACTOR; //from android
 
 @interface ModelViewController() {
     //empty constructor
@@ -29,7 +32,8 @@ float dy;
 - (void) viewDidLoad {
     [super viewDidLoad];
     
-    
+    screen = [[UIScreen mainScreen] bounds];
+    TOUCH_SCALE_FACTOR = 180.0/320;
 
     file = [self readTextFromFile];
     //this coordinates array doesn't really start until position 15
@@ -102,7 +106,10 @@ float dy;
     glTranslatef(-.75, -.5, 0.0);
     
     //motion tracking used!!!
-    glRotatef(30, dx, dy, 0.0);
+    glRotatef(mAngle, 0.0, 1.0, 0.0);
+    
+    
+    
     
     glVertexPointer(3, GL_FLOAT, 0, eyeVertices);
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -214,7 +221,18 @@ float dy;
         dx = tracker.x - startLoc.x;
         dy = tracker.y - startLoc.y;
         
-        NSLog([[NSNumber numberWithFloat:dx] stringValue]);
+        
+        if(tracker.y > screen.size.height/2) {
+   //         dx = dx*-1;
+        }
+        if(tracker.x > screen.size.width/2) {
+    //        dy = dy* -1;
+        }
+        
+        //also need to set mAngle
+        mAngle = ((dx+dy)*TOUCH_SCALE_FACTOR);
+        
+        //NSLog([[NSNumber numberWithFloat:dx] stringValue]);
     }
     
 
