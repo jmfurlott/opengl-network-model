@@ -237,12 +237,18 @@ float TOUCH_SCALE_FACTOR; //from android
 
 
 //-------------------------------------------------------------where touch events are to go
+//need to handle touch input such that the model will not reset if you lift your hands
+//off the screen and then back on.  need to save dx or dy????
+
+
+
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     //NSLog(@"Touches began"); //responding correctly.  but how to derive coordinates/motion?
-    for (UITouch *touch in touches) {
-        startLoc = [touch locationInView:nil];
+    if(dx == 0 || dy == 0) {
+        for (UITouch *touch in touches) {
+            startLoc = [touch locationInView:nil];
+        }
     }
-    
     
     //NSLog([[NSNumber numberWithFloat:startLoc.x] stringValue]);
 
