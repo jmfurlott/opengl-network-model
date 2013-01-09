@@ -96,7 +96,7 @@ float TOUCH_SCALE_FACTOR; //from android
     
     
     
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClearColor(0, 0, 0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     
     glMatrixMode(GL_PROJECTION);
@@ -118,8 +118,8 @@ float TOUCH_SCALE_FACTOR; //from android
     glColorPointer(4, GL_UNSIGNED_BYTE, 0, colors);
     glEnableClientState(GL_COLOR_ARRAY);
     
-    //NSLog([NSString stringWithFormat:@"%d", sizeof(eyeVertices)]);
-    glDrawArrays(GL_LINES, 0, 13000);
+    //NSLog([NSString stringWithFormat:@"%d", sizeof(eyeVertices)/12]);
+    glDrawArrays(GL_LINES, 0, sizeof(eyeVertices)/12);
     
     
     glDisableClientState(GL_VERTEX_ARRAY);
