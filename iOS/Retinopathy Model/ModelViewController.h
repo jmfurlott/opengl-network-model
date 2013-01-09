@@ -13,11 +13,13 @@
 
 - (NSArray *) readTextFromFile;
 - (NSArray *) constructCoordinates: (NSArray*) total;
+- (NSArray *) buildColorArray: (NSArray*) total;
 
 extern NSArray *file;
 extern NSArray *onlyCoords;
 extern CGPoint startLoc;
 extern float dy;
 extern float dx;
+extern NSArray *colorArray;
 
 @end

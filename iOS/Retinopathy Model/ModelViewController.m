@@ -9,6 +9,7 @@
 NSArray *file;
 NSArray *onlyCoords;
 CGPoint startLoc;
+NSArray *colorArray;
 float dx;
 float dy;
 CGRect screen;
@@ -39,9 +40,13 @@ float TOUCH_SCALE_FACTOR; //from android
     //this coordinates array doesn't really start until position 15
     //also contains the diameter and vessel color
     onlyCoords = [self constructCoordinates:file];
+    colorArray = [self buildColorArray:file];
 
-    //NSLog([NSString stringWithFormat:@"%d", [onlyCoords count]]);
     
+    NSLog([NSString stringWithFormat:@"%d", [colorArray count]]);
+    for(int i = 0; i < 15; i++) {
+        //NSLog([colorArray objectAtIndex:i]);
+    }
     //now to the openGL::::::
     
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
@@ -83,12 +88,9 @@ float TOUCH_SCALE_FACTOR; //from android
     //need to build color array!
     //for now just doing one color: red (helps to figure out rendering)
     
-    GLubyte colors[[onlyCoords count]*4]; //need four for every point; RGBA
-    for(int i = 0; i < [onlyCoords count]*4; i += 4) {
-        colors[i] = 255;
-        colors[i+1] = 0;
-        colors[i+2] = 0;
-        colors[i+3] = 255;
+    GLubyte colors[[colorArray count]]; //need four for every point; RGBA
+    for(int i = 0; i < [colorArray count]; i++) {
+        colors[i] = ([[colorArray objectAtIndex:i] intValue]);
     }
     
     
@@ -109,7 +111,7 @@ float TOUCH_SCALE_FACTOR; //from android
     glRotatef(mAngle, 0.0, 1.0, 0.0);
     
     
-    
+    glLineWidth(3);
     
     glVertexPointer(3, GL_FLOAT, 0, eyeVertices);
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -159,9 +161,8 @@ float TOUCH_SCALE_FACTOR; //from android
 
 
 //now assuming I have the list of everything but what if I want only coordinates?
-- (NSArray*) constructCoordinates: (NSArray*) total {
+- (NSArray*) constructCoordinates: (NSArray*) total  {
     NSMutableArray *coordinates = [[NSMutableArray alloc] initWithCapacity:[total count]]; //double check that this the correct size everytime
-    
     
     for (int i = 15; i < [total count] - 7; i += 8) { //fix the correct total count!!
         NSString *x0 = [total objectAtIndex:i];
@@ -179,7 +180,7 @@ float TOUCH_SCALE_FACTOR; //from android
         [coordinates addObject:x1];
         [coordinates addObject:y1];
         [coordinates addObject:z1];
-
+        
         
         
     }
@@ -195,6 +196,43 @@ float TOUCH_SCALE_FACTOR; //from android
 
 
 //implement here
+- (NSArray *) buildColorArray: (NSArray*) total {
+    NSMutableArray *colors = [[NSMutableArray alloc] initWithCapacity:([total count]/4)];
+    
+    
+    for (int i = 22; i < [total count] - 7; i += 8) { //fix the correct total count!!
+        NSString *tempColor = [total objectAtIndex:i];
+        //NSLog(tempColor);
+        if([tempColor intValue] == 1) {
+            [colors addObject:@"255"];
+            [colors addObject:@"0"];
+            [colors addObject:@"0"];
+            [colors addObject:@"255"]; //if 1 == red in RGBA
+            [colors addObject:@"255"];
+            [colors addObject:@"0"];
+            [colors addObject:@"0"];
+            [colors addObject:@"255"]; //if 1 == red in RGBA
+        } else if([tempColor intValue] == 0) {
+            [colors addObject:@"0"];
+            [colors addObject:@"0"];
+            [colors addObject:@"255"];
+            [colors addObject:@"255"]; //if 1 == blue in RGBA
+            [colors addObject:@"0"];
+            [colors addObject:@"0"];
+            [colors addObject:@"255"];
+            [colors addObject:@"255"]; //if 1 == blue in RGBA
+
+        }
+        
+        
+        
+        
+        
+    }
+    return colors;
+    
+}
+
 
 
 
