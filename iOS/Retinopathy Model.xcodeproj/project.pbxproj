@@ -110,8 +110,8 @@
 		998E34711699F409007798EE /* Retinopathy Model */ = {
 			isa = PBXGroup;
 			children = (
-				6D81F8BE169E45F400FC6DE1 /* HomeViewController.h */,
 				997B90271699F557000B0681 /* Resources */,
+				6D81F8BE169E45F400FC6DE1 /* HomeViewController.h */,
 				998E347A1699F409007798EE /* ModelAppDelegate.h */,
 				998E347B1699F409007798EE /* ModelAppDelegate.m */,
 				6D81F8BF169E45F400FC6DE1 /* HomeViewController.m */,

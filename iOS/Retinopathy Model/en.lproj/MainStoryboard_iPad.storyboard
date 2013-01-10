@@ -28,11 +28,68 @@
                                     <segue destination="2" kind="modal" id="peN-yc-eQc"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Constellation Research" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3j9-d8-UGf">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="110" id="77c-C9-3ng"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Richard Clark" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmP-nF-FDc">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="296" id="X5Z-ZC-wTD"/>
+                                    <constraint firstAttribute="height" constant="27" id="hoe-by-phq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Dan Dickrell" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMJ-K3-CtF">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="C9c-kU-4fu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Joseph Furlott" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFK-1v-Yz7">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="W5q-5Q-VHN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AA8-Ad-ang">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="ZD8-Do-7Yg"/>
+                                </constraints>
+                                <string key="text">Juliusz Kruszelnicki
+</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="13c-jr-ePn" secondAttribute="bottom" constant="262" id="HpX-MZ-LgZ"/>
-                            <constraint firstItem="13c-jr-ePn" firstAttribute="centerX" secondItem="EfI-69-D3N" secondAttribute="centerX" type="default" id="x5i-qc-aZR"/>
+                            <constraint firstItem="3j9-d8-UGf" firstAttribute="top" secondItem="EfI-69-D3N" secondAttribute="top" constant="142" id="0bd-av-Wh0"/>
+                            <constraint firstItem="3j9-d8-UGf" firstAttribute="leading" secondItem="EfI-69-D3N" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="8vf-jd-UZH"/>
+                            <constraint firstItem="EMJ-K3-CtF" firstAttribute="trailing" secondItem="QFK-1v-Yz7" secondAttribute="trailing" type="default" id="JV8-Ik-QcN"/>
+                            <constraint firstItem="13c-jr-ePn" firstAttribute="top" secondItem="EfI-69-D3N" secondAttribute="top" constant="272" id="M2F-TN-LOo"/>
+                            <constraint firstItem="TmP-nF-FDc" firstAttribute="leading" secondItem="EMJ-K3-CtF" secondAttribute="leading" type="default" id="OBr-AO-9Pp"/>
+                            <constraint firstItem="QFK-1v-Yz7" firstAttribute="top" secondItem="EMJ-K3-CtF" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="QKp-Zy-b8U"/>
+                            <constraint firstItem="TmP-nF-FDc" firstAttribute="centerX" secondItem="13c-jr-ePn" secondAttribute="centerX" type="default" id="Qwf-5T-nSa"/>
+                            <constraint firstItem="QFK-1v-Yz7" firstAttribute="leading" secondItem="EMJ-K3-CtF" secondAttribute="leading" type="default" id="W4T-jJ-Vak"/>
+                            <constraint firstItem="13c-jr-ePn" firstAttribute="centerX" secondItem="3j9-d8-UGf" secondAttribute="centerX" type="default" id="bcP-pb-XuN"/>
+                            <constraint firstItem="EMJ-K3-CtF" firstAttribute="top" secondItem="TmP-nF-FDc" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ep4-dx-RFq"/>
+                            <constraint firstItem="AA8-Ad-ang" firstAttribute="top" secondItem="QFK-1v-Yz7" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="fhD-m0-BVA"/>
+                            <constraint firstItem="AA8-Ad-ang" firstAttribute="leading" secondItem="QFK-1v-Yz7" secondAttribute="leading" type="default" id="fpa-nb-jTI"/>
+                            <constraint firstAttribute="bottom" secondItem="AA8-Ad-ang" secondAttribute="bottom" constant="274" id="ij6-C5-pbT"/>
+                            <constraint firstAttribute="trailing" secondItem="3j9-d8-UGf" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="jOF-Pg-5O7"/>
+                            <constraint firstItem="AA8-Ad-ang" firstAttribute="trailing" secondItem="QFK-1v-Yz7" secondAttribute="trailing" type="default" id="oMo-kl-N5k"/>
+                            <constraint firstItem="EMJ-K3-CtF" firstAttribute="trailing" secondItem="TmP-nF-FDc" secondAttribute="trailing" type="default" id="pNj-sH-L3X"/>
                         </constraints>
                     </view>
                 </viewController>
