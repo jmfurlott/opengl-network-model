@@ -105,7 +105,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9yo-tN-ctf">
+                            <navigationBar opaque="NO" contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="9yo-tN-ctf">
                                 <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.10000000000000001"/>
                                 <items>
                                     <navigationItem title="Model of Retinal Vasculature" id="l8d-fw-DfD">
