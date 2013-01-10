@@ -1,23 +1,95 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2519" systemVersion="12A206j" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C3012" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="ViI-CP-VOa">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1856"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
-        <!--class Prefix:identifier View Controller-->
+        <!--Home View Controller - Home-->
+        <scene sceneID="dEy-qL-zba">
+            <objects>
+                <viewController title="Home" id="ViI-CP-VOa" customClass="HomeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EfI-69-D3N">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13c-jr-ePn">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="204" id="wQc-gS-cid"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Render the Model">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="2" kind="modal" id="peN-yc-eQc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="13c-jr-ePn" secondAttribute="bottom" constant="262" id="HpX-MZ-LgZ"/>
+                            <constraint firstItem="13c-jr-ePn" firstAttribute="centerX" secondItem="EfI-69-D3N" secondAttribute="centerX" type="default" id="x5i-qc-aZR"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4CH-dr-2fm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-921" y="-674"/>
+        </scene>
+        <!--Model View Controller-->
         <scene sceneID="4">
             <objects>
                 <viewController id="2" customClass="ModelViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5" customClass="GLKView">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9yo-tN-ctf">
+                                <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.10000000000000001"/>
+                                <items>
+                                    <navigationItem title="Model of Retinal Vasculature" id="l8d-fw-DfD">
+                                        <barButtonItem key="backBarButtonItem" tag="1" title="Home" width="100" id="1FQ-VB-C0d">
+                                            <connections>
+                                                <action selector="goBack" destination="3" id="2I0-Bd-HCR"/>
+                                                <segue destination="ViI-CP-VOa" kind="modal" id="n4A-Iz-lf0"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <connections>
+                                            <outlet property="leftBarButtonItem" destination="1FQ-VB-C0d" id="856-dR-3ns"/>
+                                        </connections>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9yo-tN-ctf" firstAttribute="leading" secondItem="5" secondAttribute="leading" type="default" id="EfF-Cd-pax"/>
+                            <constraint firstItem="9yo-tN-ctf" firstAttribute="trailing" secondItem="5" secondAttribute="trailing" type="default" id="Qc2-Mb-fYg"/>
+                            <constraint firstItem="9yo-tN-ctf" firstAttribute="top" secondItem="5" secondAttribute="top" type="default" id="XAs-h0-Uzs"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="vI2-5o-e8g"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="108" y="-710"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="HomeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
+        </class>
+        <class className="ModelViewController" superclassName="GLKViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ModelViewController.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <nil key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

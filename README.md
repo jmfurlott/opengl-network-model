@@ -15,6 +15,11 @@ FILE DIRECTORY
 
 
 
+iOS 1/9/2013 -
+	-Navigation Bar implemented on the modelling screen
+	-Will help with going to/from home screen (new) to model
+	-On right side, TODO: button to switch between zoom and rotate, etc. more options
+
 iOS 1/8/2013 - 
 	-simple motion tracking implemented need to fix up the angle in which its rotating and what happens if you reach the second half of the screen (look at android code)
 	-still similar TODOs from yesterday

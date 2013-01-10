@@ -20,6 +20,7 @@ float TOUCH_SCALE_FACTOR; //from android
     //empty constructor
 }
 
+
 @property (strong, nonatomic) EAGLContext *context;
 @property (strong, nonatomic) GLKBaseEffect *effect;
 
@@ -32,6 +33,10 @@ float TOUCH_SCALE_FACTOR; //from android
 
 - (void) viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
+
     
     screen = [[UIScreen mainScreen] bounds];
     TOUCH_SCALE_FACTOR = 180.0/320;
@@ -61,6 +66,8 @@ float TOUCH_SCALE_FACTOR; //from android
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
     [EAGLContext setCurrentContext:self.context];
+    
+
     
     
     

@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
 
+
 @interface ModelViewController : GLKViewController
+
 
 - (NSArray *) readTextFromFile;
 - (NSArray *) constructCoordinates: (NSArray*) total;

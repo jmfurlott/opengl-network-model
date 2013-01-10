@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D81F8C0169E45F400FC6DE1 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D81F8BF169E45F400FC6DE1 /* HomeViewController.m */; };
 		997B902A1699F56A000B0681 /* Coordinates10.txt in Resources */ = {isa = PBXBuildFile; fileRef = 997B90291699F56A000B0681 /* Coordinates10.txt */; };
 		998E34681699F409007798EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 998E34671699F409007798EE /* UIKit.framework */; };
 		998E346A1699F409007798EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 998E34691699F409007798EE /* Foundation.framework */; };
@@ -27,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D81F8BE169E45F400FC6DE1 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = ../HomeViewController.h; sourceTree = "<group>"; };
+		6D81F8BF169E45F400FC6DE1 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = ../HomeViewController.m; sourceTree = "<group>"; };
 		997B90291699F56A000B0681 /* Coordinates10.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Coordinates10.txt; sourceTree = "<group>"; };
 		998E34631699F409007798EE /* Retinopathy Model.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Retinopathy Model.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		998E34671699F409007798EE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -107,9 +110,11 @@
 		998E34711699F409007798EE /* Retinopathy Model */ = {
 			isa = PBXGroup;
 			children = (
+				6D81F8BE169E45F400FC6DE1 /* HomeViewController.h */,
 				997B90271699F557000B0681 /* Resources */,
 				998E347A1699F409007798EE /* ModelAppDelegate.h */,
 				998E347B1699F409007798EE /* ModelAppDelegate.m */,
+				6D81F8BF169E45F400FC6DE1 /* HomeViewController.m */,
 				998E34831699F409007798EE /* MainStoryboard_iPhone.storyboard */,
 				998E34861699F409007798EE /* MainStoryboard_iPad.storyboard */,
 				998E34891699F409007798EE /* Shader.fsh */,
@@ -209,6 +214,7 @@
 				998E34781699F409007798EE /* main.m in Sources */,
 				998E347C1699F409007798EE /* ModelAppDelegate.m in Sources */,
 				998E348F1699F409007798EE /* ModelViewController.m in Sources */,
+				6D81F8C0169E45F400FC6DE1 /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
