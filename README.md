@@ -15,6 +15,11 @@ FILE DIRECTORY
 
 
 
+iOS 1/9/2013 (2) -
+	-Right side semi-implemented; only the frontend.
+	-TODO (tomorrow): react to having selected zoom/rotate
+	-What else could the app use???? Prettier buttons
+
 iOS 1/9/2013 -
 	-Navigation Bar implemented on the modelling screen
 	-Will help with going to/from home screen (new) to model
