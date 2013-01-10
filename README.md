@@ -1,5 +1,11 @@
 
 
+TODO: 1. quarternion implementation and smooth control
+      2. display settings (only arteries or veins etc etc whatever else)
+      3. radius and line width
+
+
+
 Joseph Furlott
 
 FILE DIRECTORY
