@@ -390,7 +390,14 @@ static const SceneVertex vertices[] = {
 
 
 //shader methods here ---------------------------------------------------------------------
+//current stack to call:
 
+/*
+ 1. loadShader
+ 2. attachAndLinkShaders
+ 3. glUseProgram(userData->programObject)
+ 
+ */
 
 - (GLuint) loadShader: (GLenum)type from:(char *)shaderSrc {
     GLuint shader;
@@ -436,8 +443,46 @@ static const SceneVertex vertices[] = {
 }
 
 //method to create (using the method before), attach, and link programs
-- (Boolean) attachAndLinkShaders:(GLuint)vertexShader fragment:(GLuint) fragmentShader {
+- (Boolean) attachAndLinkShaders {
+    //create the program
+    programObject = glCreateProgram();
     
+    if(programObject == 0) {
+        return 0;
+    }
+    
+    
+    //attach to our empty program both the shaders
+    glAttachShader(programObject, vertexShader);
+    glAttachShader(programObject, fragmentShader);
+    
+    //link the program
+    glLinkProgram(programObject);
+    
+    
+    //error checking to make sure its been attached and linked
+    glGetProgramiv(programObject, GL_LINK_STATUS, &linked);
+    
+    if(!linked) {
+        GLuint infoLen = 0;
+        
+        glGetProgramiv(programObject, GL_INFO_LOG_LENGTH, &infoLen);
+        
+        if(infoLen > 0) {
+            char* infoLog = malloc(sizeof(char) * infoLen);
+            glGetProgramInfoLog(programObject, infoLen, NULL, infoLog);
+            esLogMessage("Error linking program:\n%s\n", infoLog);
+            
+            free(infoLog);
+        }
+        
+        //we know it has errors so delete it
+        glDeleteProgram(programObject);
+        return FALSE;
+        
+    }
+    
+    return TRUE;
 }
 
 

@@ -19,6 +19,11 @@
     GLKQuaternion _quat;
     GLKMatrix4 _rotMatrix;
     GLKMatrix4 modelViewMatrix;
+    GLuint programObject;
+    GLuint vertexShader;
+    GLuint fragmentShader;
+    GLuint linked;
+
     
 }
 @property (strong, nonatomic) GLKBaseEffect *baseEffect;
@@ -29,7 +34,8 @@
 - (NSArray *) buildColorArray: (NSArray*) total;
 - (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer;
 - (GLuint) loadShader: (GLenum)type from:(char *)shaderSrc;
-- (Boolean) attachAndLinkShaders:(GLuint)vertexShader fragment:(GLuint) fragmentShader;
+- (Boolean) attachAndLinkShaders;
+
 
 extern NSArray *file;
 extern NSArray *onlyCoords;
