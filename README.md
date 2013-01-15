@@ -21,6 +21,14 @@ FILE DIRECTORY
 
 
 
+iOS 1/14/2013 - HUGE UPDATE
+	-rewritten code to OpenGL ES 2.0
+	-not fully quaternion based but semi-implemented. yaw, pitch, and roll are all working
+	-TODO: no longer colored!
+	-zoom is semi-implemented.  responds to a pinch but not scaling correctly
+
+
+
 iOS 1/9/2013 (2) -
 	-Right side semi-implemented; only the frontend.
 	-TODO (tomorrow): react to having selected zoom/rotate

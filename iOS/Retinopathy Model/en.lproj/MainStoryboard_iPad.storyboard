@@ -170,7 +170,9 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <accessibility key="accessibilityConfiguration" label="Zoom"/>
+                                        <accessibility key="accessibilityConfiguration" label="Zoom">
+                                            <accessibilityTraits key="traits" none="YES" button="YES"/>
+                                        </accessibility>
                                         <attributedString key="userComments">
                                             <fragment content="Zoom">
                                                 <attributes>
@@ -197,7 +199,9 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <accessibility key="accessibilityConfiguration" label="Zoom"/>
+                                        <accessibility key="accessibilityConfiguration" label="Zoom">
+                                            <accessibilityTraits key="traits" none="YES" button="YES"/>
+                                        </accessibility>
                                         <attributedString key="userComments">
                                             <fragment content="Zoom">
                                                 <attributes>
@@ -221,17 +225,6 @@
             <point key="canvasLocation" x="1075" y="-876"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="HomeViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
-        </class>
-        <class className="ModelViewController" superclassName="GLKViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ModelViewController.h"/>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <nil key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

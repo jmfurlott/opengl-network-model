@@ -10,12 +10,24 @@
 #import <GLKit/GLKit.h>
 
 
-@interface ModelViewController : GLKViewController
+@interface ModelViewController : GLKViewController <UIGestureRecognizerDelegate> {
+    GLuint vertexBufferID;
+    GLuint colorBufferID;
+    GLKVector3 _anchor_position;
+    GLKVector3 _current_position;
+    GLKQuaternion _quatStart;
+    GLKQuaternion _quat;
+    GLKMatrix4 _rotMatrix;
+    GLKMatrix4 modelViewMatrix;
+    
+}
+@property (strong, nonatomic) GLKBaseEffect *baseEffect;
 
 
 - (NSArray *) readTextFromFile;
 - (NSArray *) constructCoordinates: (NSArray*) total;
 - (NSArray *) buildColorArray: (NSArray*) total;
+- (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer;
 
 extern NSArray *file;
 extern NSArray *onlyCoords;

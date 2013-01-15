@@ -6,6 +6,18 @@
 
 #import "ModelViewController.h"
 
+
+
+@interface ModelViewController()
+
+@end
+
+@implementation ModelViewController
+
+@synthesize baseEffect;
+
+
+
 NSArray *file;
 NSArray *onlyCoords;
 CGPoint startLoc;
@@ -15,71 +27,49 @@ float dy;
 CGRect screen;
 float mAngle;
 float TOUCH_SCALE_FACTOR; //from android
+CGPoint location;
+bool zooming = false;
+UIPinchGestureRecognizer* recognizer;
 
-@interface ModelViewController() {
-    //empty constructor
-}
+
+typedef struct {
+    GLKVector3 positionCoords;
+} SceneVertex;
+
+//the actual vertices
+static const SceneVertex vertices[] = {
+    {{-0.5f, -0.5f, 0.0}},
+    {{ 0.5f, -0.5f, 0.0}},
+    {{-0.5f,  0.5f, 0,0}}
+    
+};
 
 
-@property (strong, nonatomic) EAGLContext *context;
-@property (strong, nonatomic) GLKBaseEffect *effect;
 
-@end
-
-@implementation ModelViewController
-
-@synthesize context = _context;
-@synthesize effect = _effect;
-
-- (void) viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+	// Do any additional setup after loading the view, typically from a nib.
     
-    
-    
-
-    
-    screen = [[UIScreen mainScreen] bounds];
-    TOUCH_SCALE_FACTOR = 180.0/320;
-
     file = [self readTextFromFile];
     //this coordinates array doesn't really start until position 15
     //also contains the diameter and vessel color
     onlyCoords = [self constructCoordinates:file];
     colorArray = [self buildColorArray:file];
-
+    
     
     NSLog([NSString stringWithFormat:@"%d", [colorArray count]]);
     for(int i = 0; i < 15; i++) {
         //NSLog([colorArray objectAtIndex:i]);
     }
-    //now to the openGL::::::
-    
-    self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
-    
-    if(!self.context) {
-        NSLog(@"Failed to create ES context.");
-    }
-    
-    GLKView *view = (GLKView *) self.view;
-    
-    view.context = self.context;
-    view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-    
-    [EAGLContext setCurrentContext:self.context];
-    
-
     
     
+    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc]
+                                              initWithTarget:self action:@selector(handlePinch:)];
+    [self.view addGestureRecognizer:pinchGesture];
+    //[pinchGesture release];
     
-}
-
-#pragma mark - GLKView and GLKViewController delegate methods
-
-- (void) glkView:(GLKView *) view drawInRect: (CGRect) rect {
     
-
-    
-   
     //construct the vertuces into a float array:
     GLfloat eyeVertices[[onlyCoords count]];
     for(int i = 0; i < [onlyCoords count]; i++) {
@@ -91,49 +81,101 @@ float TOUCH_SCALE_FACTOR; //from android
     }
     
     
-    
-    //need to build color array!
-    //for now just doing one color: red (helps to figure out rendering)
-    
     GLubyte colors[[colorArray count]]; //need four for every point; RGBA
     for(int i = 0; i < [colorArray count]; i++) {
         colors[i] = ([[colorArray objectAtIndex:i] intValue]);
     }
     
     
+    GLKView *view = (GLKView *) self.view;
+    NSAssert([view isKindOfClass:[GLKView class]], @"View controller's view is not a GLKView");
+    
+    view.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    
+    [EAGLContext setCurrentContext:view.context];
+    
+    self.baseEffect = [[GLKBaseEffect alloc] init];
+    //    self.baseEffect.useConstantColor = GL_TRUE;
+    //    self.baseEffect.constantColor = GLKVector4Make(1.0f, 0.0f, 0.0f, 1.0f);
+    
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    
+    glGenBuffers(1, &vertexBufferID);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(eyeVertices), eyeVertices, GL_STATIC_DRAW);
     
     
-    glClearColor(0, 0, 0, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
-    
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    
-    glTranslatef(-.75, -.5, 0.0);
-    
-    //motion tracking used!!!
-    glRotatef(mAngle, 0.0, 1.0, 0.0);
     
     
-    glLineWidth(3);
-    
-    glVertexPointer(3, GL_FLOAT, 0, eyeVertices);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glColorPointer(4, GL_UNSIGNED_BYTE, 0, colors);
-    glEnableClientState(GL_COLOR_ARRAY);
-    
-    //NSLog([NSString stringWithFormat:@"%d", sizeof(eyeVertices)/12]);
-    glDrawArrays(GL_LINES, 0, sizeof(eyeVertices)/12);
     
     
-    glDisableClientState(GL_VERTEX_ARRAY);
-    glDisableClientState(GL_COLOR_ARRAY);
-
+    
+    
+    //glGenBuffers(1, &colorBufferID);
+    //glBindBuffer(GL_COLOR_BUFFER_BIT, colorBufferID);
+    //glBufferData(GL_COLOR_BUFFER_BIT, sizeof(colors), colors, GL_STATIC_DRAW);
+    
+    //quaternion stuff
+    _quat = GLKQuaternionMake(0, 0, 0, 1);
+    _quatStart = GLKQuaternionMake(0, 0, 0, 1);
+    
+    _rotMatrix = GLKMatrix4Identity;
+    
+    
+    
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(void) glkView:(GLKView *) view drawInRect:(CGRect)rect {
+    [self.baseEffect prepareToDraw];
+    
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    
+    //NSLog([NSString stringWithFormat:@"%d", )]);
+    
+    glLineWidth(2.0);
+    
+    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 12, NULL);
+    
+    glDrawArrays(GL_LINES, 0, 14080);
+}
+
+
+#pragma mark - GLKViewControllerDelegate
+
+- (void)update {
+    
+    if(!([recognizer state] == UIGestureRecognizerStateBegan)) {
+        modelViewMatrix = GLKMatrix4MakeTranslation(-1.0f, -.5f, 0.0f);
+        modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, _rotMatrix);
+        self.baseEffect.transform.modelviewMatrix = modelViewMatrix;
+        
+    }
+    
+    
+    
+}
+
+
+
+-(void) viewDidUnload {
+    [super viewDidUnload];
+    
+    GLKView *view = (GLKView *) self.view;
+    [EAGLContext setCurrentContext:view.context];
+    
+    if(0 != vertexBufferID ) {
+        glDeleteBuffers(1, &vertexBufferID);
+        vertexBufferID = 0;
+    }
+}
 
 
 - (NSArray*) readTextFromFile {
@@ -153,7 +195,7 @@ float TOUCH_SCALE_FACTOR; //from android
         //correctly reading!!!
         
         NSArray *values = [contents componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
+        
         //NSLog([NSString stringWithFormat:@"%d", [values count]]);
         
         //NSLog([values objectAtIndex:15]); //because of whitespace, actually coordinats start at 15
@@ -162,10 +204,8 @@ float TOUCH_SCALE_FACTOR; //from android
     }
     
     return nil;
-       
+    
 }
-
-
 
 //now assuming I have the list of everything but what if I want only coordinates?
 - (NSArray*) constructCoordinates: (NSArray*) total  {
@@ -196,12 +236,6 @@ float TOUCH_SCALE_FACTOR; //from android
     
 }
 
-
-
-//methods for determining the vertices, colors, and radius:
-//to go into the constructor so they aren't called multiple times
-
-
 //implement here
 - (NSArray *) buildColorArray: (NSArray*) total {
     NSMutableArray *colors = [[NSMutableArray alloc] initWithCapacity:([total count]/4)];
@@ -228,7 +262,7 @@ float TOUCH_SCALE_FACTOR; //from android
             [colors addObject:@"0"];
             [colors addObject:@"255"];
             [colors addObject:@"255"]; //if 1 == blue in RGBA
-
+            
         }
         
         
@@ -243,64 +277,116 @@ float TOUCH_SCALE_FACTOR; //from android
 
 
 
-//-------------------------------------------------------------where touch events are to go
-//need to handle touch input such that the model will not reset if you lift your hands
-//off the screen and then back on.  need to save dx or dy????
 
 
 
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    //NSLog(@"Touches began"); //responding correctly.  but how to derive coordinates/motion?
-    if(dx == 0 || dy == 0) {
-        for (UITouch *touch in touches) {
-            startLoc = [touch locationInView:nil];
-        }
+
+//quaternion stuff
+- (GLKVector3) projectOntoSurface:(GLKVector3) touchPoint
+{
+    float radius = self.view.bounds.size.width/3;
+    GLKVector3 center = GLKVector3Make(self.view.bounds.size.width/2, self.view.bounds.size.height/2, 0);
+    GLKVector3 P = GLKVector3Subtract(touchPoint, center);
+    
+    // Flip the y-axis because pixel coords increase toward the bottom.
+    P = GLKVector3Make(P.x, P.y * -1, P.z);
+    
+    float radius2 = radius * radius;
+    float length2 = P.x*P.x + P.y*P.y;
+    
+    if (length2 <= radius2)
+        P.z = sqrt(radius2 - length2);
+    else
+    {
+        P.x *= radius / sqrt(length2);
+        P.y *= radius / sqrt(length2);
+        P.z = 0;
     }
     
-    //NSLog([[NSNumber numberWithFloat:startLoc.x] stringValue]);
+    return GLKVector3Normalize(P);
+}
+
+
+- (void)computeIncremental {
+    
+    GLKVector3 axis = GLKVector3CrossProduct(_anchor_position, _current_position);
+    float dot = GLKVector3DotProduct(_anchor_position, _current_position);
+    float angle = acosf(dot);
+    
+    GLKQuaternion Q_rot = GLKQuaternionMakeWithAngleAndVector3Axis(angle * 2, axis);
+    Q_rot = GLKQuaternionNormalize(Q_rot);
+    
+    // TODO: Do something with Q_rot...
+    
+    _quat = GLKQuaternionMultiply(Q_rot, _quatStart);
+    
+    
+}
 
 
 
+//touches stuff
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    //    UITouch * touch = [touches anyObject];
+    //    location = [touch locationInView:self.view];
+    //
+    //    _anchor_position = GLKVector3Make(location.x, location.y, 0);
+    //    _anchor_position = [self projectOntoSurface:_anchor_position];
+    //
+    //    _current_position = _anchor_position;
+    //
+    //
+    //    _quatStart = _quat;
+    
 }
 
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    for(UITouch *touch in touches) {
-        CGPoint tracker = [[touches anyObject] locationInView:nil]; //where I am at in real time
+    //    _current_position = GLKVector3Make(location.x, location.y, 0);
+    //    _current_position = [self projectOntoSurface:_current_position];
     
     
-        //calculate the differential and this will be used in the motion of the model
-        dx = tracker.x - startLoc.x;
-        dy = tracker.y - startLoc.y;
-        
-        
-        if(tracker.y > screen.size.height/2) {
-   //         dx = dx*-1;
-        }
-        if(tracker.x > screen.size.width/2) {
-    //        dy = dy* -1;
-        }
-        
-        //also need to set mAngle
-        mAngle = ((dx+dy)*TOUCH_SCALE_FACTOR);
-        
-        //NSLog([[NSNumber numberWithFloat:dx] stringValue]);
-    }
+    UITouch * touch = [touches anyObject];
+    CGPoint location = [touch locationInView:self.view];
+    CGPoint lastLoc = [touch previousLocationInView:self.view];
+    CGPoint diff = CGPointMake(lastLoc.x - location.x, lastLoc.y - location.y);
     
-
-
+    float rotX = -1 * GLKMathDegreesToRadians(diff.y / 2.0);
+    float rotY = -1 * GLKMathDegreesToRadians(diff.x / 2.0);
     
+    GLKVector3 xAxis = GLKVector3Make(1, 0, 0);
+    _rotMatrix = GLKMatrix4Rotate(_rotMatrix, rotX, xAxis.x, xAxis.y, xAxis.z);
+    GLKVector3 yAxis = GLKVector3Make(0, 1, 0);
+    _rotMatrix = GLKMatrix4Rotate(_rotMatrix, rotY, yAxis.x, yAxis.y, yAxis.z);
 }
 
-
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    //NSLog(@"Touches ended");
+    // [self computeIncremental];
+    
 }
 
 -(void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    NSLog(@"Touches cancelled");
+    
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+- (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer {
+    if([recognizer state] == UIGestureRecognizerStateBegan) {
+        NSLog([NSString stringWithFormat:@"%f", recognizer.velocity]);
+        //so velocity is positive if zooming in (fingers getting further apart)
+        // = negative if pinching, so zoom out
+        
+        //call zoom function
+        GLKMatrix4 scaled = GLKMatrix4Scale(modelViewMatrix, 1.0f, 1.0f, recognizer.velocity);
+        self.baseEffect.transform.modelviewMatrix = scaled;
+        
+        
+        
+    }
 }
 
 
 @end
-
-
