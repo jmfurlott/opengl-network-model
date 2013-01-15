@@ -95,8 +95,8 @@ static const SceneVertex vertices[] = {
     [EAGLContext setCurrentContext:view.context];
     
     self.baseEffect = [[GLKBaseEffect alloc] init];
-    //    self.baseEffect.useConstantColor = GL_TRUE;
-    //    self.baseEffect.constantColor = GLKVector4Make(1.0f, 0.0f, 0.0f, 1.0f);
+    self.baseEffect.useConstantColor = GL_TRUE;
+    self.baseEffect.constantColor = GLKVector4Make(1.0f, 0.0f, 0.0f, 1.0f);
     
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     
@@ -106,14 +106,8 @@ static const SceneVertex vertices[] = {
     
     
     
-    
-    
-    
-    
-    
-    //glGenBuffers(1, &colorBufferID);
-    //glBindBuffer(GL_COLOR_BUFFER_BIT, colorBufferID);
-    //glBufferData(GL_COLOR_BUFFER_BIT, sizeof(colors), colors, GL_STATIC_DRAW);
+
+
     
     //quaternion stuff
     _quat = GLKQuaternionMake(0, 0, 0, 1);
@@ -153,11 +147,17 @@ static const SceneVertex vertices[] = {
 - (void)update {
     
     if(!([recognizer state] == UIGestureRecognizerStateBegan)) {
+
         modelViewMatrix = GLKMatrix4MakeTranslation(-1.0f, -.5f, 0.0f);
+
         modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, _rotMatrix);
+        //modelViewMatrix = GLKMatrix4MakeTranslation(1.0f, 5.0f, 0.0f);
         self.baseEffect.transform.modelviewMatrix = modelViewMatrix;
-        
+
+
+
     }
+    
     
     
     
@@ -387,6 +387,64 @@ static const SceneVertex vertices[] = {
         
     }
 }
+
+
+//shader methods here ---------------------------------------------------------------------
+
+
+- (GLuint) loadShader: (GLenum)type from:(char *)shaderSrc {
+    GLuint shader;
+    GLint compiled;
+    
+    //shader object
+    shader = glCreateShader(type);
+    
+    //error checking that the object got built
+    if(shader == 0) {
+        return 0;
+    }
+    
+    //source
+    glShaderSource(shader, 1, &shaderSrc, NULL);
+    
+    //compile
+    glCompileShader(shader);
+    
+    //eror control again
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled); //this should be logged?
+    
+    if(!compiled) {
+        GLint infoLen = 0;
+        //print out that log
+        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
+        if(infoLen > 1) {
+            char* infoLog = malloc(sizeof(char) * infoLen);
+            
+            glGetShaderInfoLog(shader, infoLen, NULL, infoLog);
+            //esLogMessage("Error compiling shader:\n%s\n", infoLog);
+        
+            free(infoLog);
+        }
+        
+        glDeleteShader(shader);
+        return 0;
+    }
+    //if there have been no errors, then return our shader
+    return shader;
+    
+    
+}
+
+//method to create (using the method before), attach, and link programs
+- (Boolean) attachAndLinkShaders:(GLuint)vertexShader fragment:(GLuint) fragmentShader {
+    
+}
+
+
+
+
+
+
 
 
 @end

@@ -28,6 +28,8 @@
 - (NSArray *) constructCoordinates: (NSArray*) total;
 - (NSArray *) buildColorArray: (NSArray*) total;
 - (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer;
+- (GLuint) loadShader: (GLenum)type from:(char *)shaderSrc;
+- (Boolean) attachAndLinkShaders:(GLuint)vertexShader fragment:(GLuint) fragmentShader;
 
 extern NSArray *file;
 extern NSArray *onlyCoords;
