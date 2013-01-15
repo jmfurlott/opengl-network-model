@@ -471,7 +471,7 @@ static const SceneVertex vertices[] = {
         if(infoLen > 0) {
             char* infoLog = malloc(sizeof(char) * infoLen);
             glGetProgramInfoLog(programObject, infoLen, NULL, infoLog);
-            esLogMessage("Error linking program:\n%s\n", infoLog);
+            //esLogMessage("Error linking program:\n%s\n", infoLog);
             
             free(infoLog);
         }
