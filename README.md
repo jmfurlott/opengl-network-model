@@ -20,6 +20,12 @@ FILE DIRECTORY
 - iOS	    ------> iOS app
 
 
+iOS 1/16/2013 -
+	-Updated title screen with logo
+	-TODO: still migrating to ES 2.0.  Shaders not correctly implemented
+
+iOS 1/15/2013 -
+	-shader methods semi-implemented
 
 iOS 1/14/2013 - HUGE UPDATE
 	-rewritten code to OpenGL ES 2.0
