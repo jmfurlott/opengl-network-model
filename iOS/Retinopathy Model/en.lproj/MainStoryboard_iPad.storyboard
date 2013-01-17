@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C3012" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="ViI-CP-VOa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="ViI-CP-VOa">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
@@ -75,19 +75,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="EUC-y1-m0d" firstAttribute="top" secondItem="EfI-69-D3N" secondAttribute="top" constant="63" id="BI8-9E-YoN"/>
-                            <constraint firstItem="13c-jr-ePn" firstAttribute="leading" secondItem="EfI-69-D3N" secondAttribute="leading" constant="166" id="BXv-7r-8pJ"/>
-                            <constraint firstAttribute="bottom" secondItem="13c-jr-ePn" secondAttribute="bottom" constant="107" id="BYe-AT-DX7"/>
                             <constraint firstItem="AA8-Ad-ang" firstAttribute="centerX" secondItem="QFK-1v-Yz7" secondAttribute="centerX" type="default" id="Bqd-f0-6FU"/>
-                            <constraint firstAttribute="trailing" secondItem="AA8-Ad-ang" secondAttribute="trailing" constant="164" id="ENs-cf-alQ"/>
+                            <constraint firstAttribute="bottom" secondItem="13c-jr-ePn" secondAttribute="bottom" constant="126" id="Ko2-sg-AgM"/>
+                            <constraint firstAttribute="bottom" secondItem="AA8-Ad-ang" secondAttribute="bottom" constant="79" id="Ngz-GD-ew4"/>
                             <constraint firstItem="QFK-1v-Yz7" firstAttribute="top" secondItem="EMJ-K3-CtF" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="QKp-Zy-b8U"/>
+                            <constraint firstItem="EUC-y1-m0d" firstAttribute="top" secondItem="EfI-69-D3N" secondAttribute="top" constant="138" id="aFT-Dv-awe"/>
                             <constraint firstItem="EMJ-K3-CtF" firstAttribute="top" secondItem="TmP-nF-FDc" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ep4-dx-RFq"/>
                             <constraint firstItem="AA8-Ad-ang" firstAttribute="top" secondItem="QFK-1v-Yz7" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="fhD-m0-BVA"/>
                             <constraint firstItem="EMJ-K3-CtF" firstAttribute="centerX" secondItem="TmP-nF-FDc" secondAttribute="centerX" type="default" id="fmP-be-jy7"/>
-                            <constraint firstAttribute="bottom" secondItem="AA8-Ad-ang" secondAttribute="bottom" constant="60" id="iWq-1I-dQP"/>
+                            <constraint firstItem="13c-jr-ePn" firstAttribute="leading" secondItem="EfI-69-D3N" secondAttribute="leading" constant="179" id="kS3-Cw-D5e"/>
                             <constraint firstItem="13c-jr-ePn" firstAttribute="baseline" secondItem="QFK-1v-Yz7" secondAttribute="baseline" type="default" id="khV-WL-QDn"/>
                             <constraint firstItem="EUC-y1-m0d" firstAttribute="centerX" secondItem="EfI-69-D3N" secondAttribute="centerX" type="default" id="miw-JU-TXP"/>
                             <constraint firstItem="QFK-1v-Yz7" firstAttribute="centerX" secondItem="EMJ-K3-CtF" secondAttribute="centerX" type="default" id="rcH-6u-2MC"/>
+                            <constraint firstAttribute="trailing" secondItem="AA8-Ad-ang" secondAttribute="trailing" constant="175" id="utD-o5-Osd"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -226,20 +226,6 @@
     <resources>
         <image name="oqulus.png" width="540" height="335"/>
     </resources>
-    <classes>
-        <class className="HomeViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
-        </class>
-        <class className="ModelViewController" superclassName="GLKViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ModelViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="handlePinch:" candidateClass="UIPinchGestureRecognizer"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <nil key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
