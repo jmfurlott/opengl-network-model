@@ -1,14 +1,7 @@
-//
-//  Shader.fsh
-//  Retinopathy Model
-//
-//  Created by Joseph Furlott on 1/6/13.
-//  Copyright (c) 2013 Joseph Furlott. All rights reserved.
-//
+precision mediump float;
 
-varying lowp vec4 colorVarying;
+varying vec4 v_color;
 
-void main()
-{
-    gl_FragColor = colorVarying;
+void main() {
+    gl_FragColor = v_color;
 }

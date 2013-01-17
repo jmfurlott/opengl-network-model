@@ -1,28 +1,34 @@
-//
-//  Shader.vsh
-//  Retinopathy Model
-//
-//  Created by Joseph Furlott on 1/6/13.
-//  Copyright (c) 2013 Joseph Furlott. All rights reserved.
-//
+precision mediump float;
 
-attribute vec4 position;
-attribute vec3 normal;
+attribute vec4 a_position;
+attribute vec4 a_color;
+uniform mat4 rotation;
+uniform mat4 projectionMatrix;
 
-varying lowp vec4 colorVarying;
+uniform float scale;
 
-uniform mat4 modelViewProjectionMatrix;
-uniform mat3 normalMatrix;
 
-void main()
-{
-    vec3 eyeNormal = normalize(normalMatrix * normal);
-    vec3 lightPosition = vec3(0.0, 0.0, 1.0);
-    vec4 diffuseColor = vec4(0.4, 0.4, 1.0, 1.0);
+varying vec4 v_color;
+
+void main() {
+    //gl_Position = a_position + vec4(-1.0,-0.5,0.0,1.0);
+    v_color = a_color;
     
-    float nDotVP = max(0.0, dot(eyeNormal, normalize(lightPosition)));
-                 
-    colorVarying = diffuseColor * nDotVP;
     
-    gl_Position = modelViewProjectionMatrix * position;
+    //matrix logic
+    mat4 id = mat4(scale);
+    
+    vec4 some = a_position + vec4(-1.0, -0.5, 0.0, 1.0);
+    
+    float x = id[0][0] * some.x;
+    float y = id[1][1] * some.y;
+    float z = id[2][2] * some.z;
+
+    
+
+    gl_Position = vec4(x,y,z,1);
+
+
+    
+
 }

@@ -35,6 +35,8 @@
 - (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer;
 - (GLuint) loadShader: (GLenum)type from:(char *)shaderSrc;
 - (Boolean) attachAndLinkShaders;
+-(void) setUpVerticesAndShaders;
+
 
 
 extern NSArray *file;
