@@ -12,12 +12,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13c-jr-ePn">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13c-jr-ePn">
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" none="YES" button="YES" image="YES"/>
+                                </accessibility>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="204" id="wQc-gS-cid"/>
+                                    <constraint firstAttribute="width" constant="743" id="3RT-nb-KM9"/>
+                                    <constraint firstAttribute="height" constant="676" id="heW-8P-wcF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Render the Model">
+                                <state key="normal" image="oqulus.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -28,66 +32,11 @@
                                     <segue destination="2" kind="modal" id="peN-yc-eQc"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Richard Clark" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmP-nF-FDc">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="27" id="hoe-by-phq"/>
-                                    <constraint firstAttribute="width" constant="132" id="xG4-Bt-wkq"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Dan Dickrell" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMJ-K3-CtF">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="27" id="C9c-kU-4fu"/>
-                                    <constraint firstAttribute="width" constant="106" id="FaI-he-iWS"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Joseph Furlott" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFK-1v-Yz7">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="118" id="3wg-bG-U6j"/>
-                                    <constraint firstAttribute="height" constant="27" id="W5q-5Q-VHN"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AA8-Ad-ang">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="156" id="OPa-Vw-xrO"/>
-                                    <constraint firstAttribute="height" constant="27" id="ZD8-Do-7Yg"/>
-                                </constraints>
-                                <string key="text">Juliusz Kruszelnicki
-</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="oqulus.png" translatesAutoresizingMaskIntoConstraints="NO" id="EUC-y1-m0d">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="326" id="BJw-R0-v0B"/>
-                                    <constraint firstAttribute="width" constant="534" id="XdB-Vy-iVH"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="AA8-Ad-ang" firstAttribute="centerX" secondItem="QFK-1v-Yz7" secondAttribute="centerX" type="default" id="Bqd-f0-6FU"/>
-                            <constraint firstAttribute="bottom" secondItem="13c-jr-ePn" secondAttribute="bottom" constant="126" id="Ko2-sg-AgM"/>
-                            <constraint firstAttribute="bottom" secondItem="AA8-Ad-ang" secondAttribute="bottom" constant="79" id="Ngz-GD-ew4"/>
-                            <constraint firstItem="QFK-1v-Yz7" firstAttribute="top" secondItem="EMJ-K3-CtF" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="QKp-Zy-b8U"/>
-                            <constraint firstItem="EUC-y1-m0d" firstAttribute="top" secondItem="EfI-69-D3N" secondAttribute="top" constant="138" id="aFT-Dv-awe"/>
-                            <constraint firstItem="EMJ-K3-CtF" firstAttribute="top" secondItem="TmP-nF-FDc" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ep4-dx-RFq"/>
-                            <constraint firstItem="AA8-Ad-ang" firstAttribute="top" secondItem="QFK-1v-Yz7" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="fhD-m0-BVA"/>
-                            <constraint firstItem="EMJ-K3-CtF" firstAttribute="centerX" secondItem="TmP-nF-FDc" secondAttribute="centerX" type="default" id="fmP-be-jy7"/>
-                            <constraint firstItem="13c-jr-ePn" firstAttribute="leading" secondItem="EfI-69-D3N" secondAttribute="leading" constant="179" id="kS3-Cw-D5e"/>
-                            <constraint firstItem="13c-jr-ePn" firstAttribute="baseline" secondItem="QFK-1v-Yz7" secondAttribute="baseline" type="default" id="khV-WL-QDn"/>
-                            <constraint firstItem="EUC-y1-m0d" firstAttribute="centerX" secondItem="EfI-69-D3N" secondAttribute="centerX" type="default" id="miw-JU-TXP"/>
-                            <constraint firstItem="QFK-1v-Yz7" firstAttribute="centerX" secondItem="EMJ-K3-CtF" secondAttribute="centerX" type="default" id="rcH-6u-2MC"/>
-                            <constraint firstAttribute="trailing" secondItem="AA8-Ad-ang" secondAttribute="trailing" constant="175" id="utD-o5-Osd"/>
+                            <constraint firstItem="13c-jr-ePn" firstAttribute="centerX" secondItem="EfI-69-D3N" secondAttribute="centerX" type="default" id="dxb-3o-0WA"/>
+                            <constraint firstItem="13c-jr-ePn" firstAttribute="top" secondItem="EfI-69-D3N" secondAttribute="top" constant="25" id="mOZ-1U-tDm"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -226,6 +175,20 @@
     <resources>
         <image name="oqulus.png" width="540" height="335"/>
     </resources>
+    <classes>
+        <class className="HomeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
+        </class>
+        <class className="ModelViewController" superclassName="GLKViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ModelViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="handlePinch:" candidateClass="UIPinchGestureRecognizer"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <nil key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
