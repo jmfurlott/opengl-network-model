@@ -21,17 +21,18 @@ void main() {
     
     
     //matrix logic
-    mat4 id = mat4(rot_0, rot1, rot2, rot3); //remember that these are the 0,1,2, and 3rd columns!!
+    mat4 rot = mat4(rot_0, rot1, rot2, rot3); //remember that these are the 0,1,2, and 3rd columns!!
     
-    vec4 some = a_position + vec4(-1.0, -0.5, 0.0, 1.0);
+    vec4 model = a_position + vec4(-1.0, -0.5, 0.0, 1.0);
     
-    float x = id[0][0] * some.x;
-    float y = id[1][1] * some.y;
-    float z = id[2][2] * some.z;
+    float x = model.x*rot[0][0] + model.y*rot[1][0] + model.z*rot[2][0] + model.w*rot[3][0];
+    float y = model.x*rot[0][1] + model.y*rot[1][1] + model.z*rot[2][1] + model.w*rot[3][1];
+    float z = model.x*rot[0][2] + model.y*rot[1][2] + model.z*rot[2][2] + model.w*rot[3][2];
+    float w = model.x*rot[0][3] + model.y*rot[1][3] + model.z*rot[2][3] + model.w*rot[3][3];
 
     
 
-    gl_Position = vec4(x,y,z,1);
+    gl_Position = vec4(x,y,z,w);
 
 
     

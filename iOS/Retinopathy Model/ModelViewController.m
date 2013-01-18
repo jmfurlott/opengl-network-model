@@ -112,31 +112,12 @@ GLint uniforms[NUM_UNIFORMS];
     
     if(!([recognizer state] == UIGestureRecognizerStateBegan)) {
         
-        modelViewMatrix = GLKMatrix4MakeTranslation(-1.0f, -.5f, 0.0f);
+        //modelViewMatrix = GLKMatrix4MakeTranslation(-1.0f, -.5f, 0.0f);
         
-       modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, _rotMatrix);
-        //modelViewMatrix = GLKMatrix4MakeTranslation(1.0f, 5.0f, 0.0f);
-//        rot[0] = modelViewMatrix.m00;
-//        rot[1] = modelViewMatrix.m01;
-//        rot[2] = modelViewMatrix.m02;
-//        rot[3] = modelViewMatrix.m03;
-//        
-//        rot[4] = modelViewMatrix.m10;
-//        rot[5] = modelViewMatrix.m11;
-//        rot[6] = modelViewMatrix.m12;
-//        rot[7] = modelViewMatrix.m13;
-//        
-//        rot[8] = modelViewMatrix.m20;
-//        rot[9] = modelViewMatrix.m21;
-//        rot[10] = modelViewMatrix.m22;
-//        rot[11] = modelViewMatrix.m23;
-//
-//        rot[12] = modelViewMatrix.m30;
-//        rot[13] = modelViewMatrix.m31;
-//        rot[14] = modelViewMatrix.m32;
-//        rot[15] = modelViewMatrix.m33;
+      // modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, _rotMatrix);
 
-        self.baseEffect.transform.modelviewMatrix = modelViewMatrix;
+
+        //self.baseEffect.transform.modelviewMatrix = modelViewMatrix;
 
 
         
@@ -430,6 +411,30 @@ GLint uniforms[NUM_UNIFORMS];
     _rotMatrix = GLKMatrix4Rotate(_rotMatrix, rotX, xAxis.x, xAxis.y, xAxis.z);
     GLKVector3 yAxis = GLKVector3Make(0, 1, 0);
     _rotMatrix = GLKMatrix4Rotate(_rotMatrix, rotY, yAxis.x, yAxis.y, yAxis.z);
+    
+    rot0[0] = _rotMatrix.m00;
+    rot0[1] = _rotMatrix.m10;
+    rot0[2] = _rotMatrix.m20;
+    rot0[3] = _rotMatrix.m30;
+    
+    rot1[0] = _rotMatrix.m01;
+    rot1[1] = _rotMatrix.m11;
+    rot1[2] = _rotMatrix.m21;
+    rot1[3] = _rotMatrix.m31;
+    
+    rot2[0] = _rotMatrix.m02;
+    rot2[1] = _rotMatrix.m12;
+    rot2[2] = _rotMatrix.m22;
+    rot2[3] = _rotMatrix.m32;
+    
+    rot3[0] = _rotMatrix.m03;
+    rot3[1] = _rotMatrix.m13;
+    rot3[2] = _rotMatrix.m23;
+    rot3[3] = _rotMatrix.m33;
+
+    
+    
+    
     
     
 }

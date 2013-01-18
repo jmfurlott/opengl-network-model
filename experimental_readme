@@ -8,3 +8,4 @@ For experimental branch!
 	-TODO: rotation and zoom via this matrix (defaulted to identity)
 		-quaternion? yes...do the all the math in the obj-c, then send it that vector to upadte against the modelview
 
+	-almost able to rotate but disappears on touch
