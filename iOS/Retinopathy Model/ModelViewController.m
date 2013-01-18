@@ -36,6 +36,12 @@ float rot[16] = {1.0f, 0.0f, 0.0f, 0.0f,
                   0.0f, 1.0f, 0.0f, 0.0f,
                     0.0f, 0.0f, 1.0f, 0.0f,
     0.0f, 0.0f, 0.0f, 1.0f};
+
+float rot0[4] = {1.0f, 0.0f, 0.0f, 0.0f};
+float rot1[4] = {0.0f, 1.0f, 0.0f, 0.0f};
+float rot2[4] = {0.0f, 0.0f, 1.0f, 0.0f};
+float rot3[4] = {0.0f, 0.0f, 0.0f, 1.0f};
+
 float scale = 1.0f;
 
 enum
@@ -321,10 +327,23 @@ GLint uniforms[NUM_UNIFORMS];
     
 
     //now the rotation matrix
-    GLint scaleLoc = glGetUniformLocation(program,"scale");
-    glUniform1f(scaleLoc, scale);
-    NSLog([NSString stringWithFormat:@"scaleLoc = %d", scaleLoc ]);
+    GLint rot0Pos = glGetUniformLocation(program, "rot_0");
+    glUniform4fv(rot0Pos, 1, rot0);
+    //NSLog([NSString stringWithFormat:@"rot0: %d", rot0Pos]);
+    
+    GLint rot1Pos = glGetUniformLocation(program, "rot1");
+    glUniform4fv(rot1Pos, 1, rot1);
+    //NSLog([NSString stringWithFormat:@"rot1: %d", rot1Pos]);
 
+    
+    GLint rot2Pos = glGetUniformLocation(program, "rot2");
+    glUniform4fv(rot2Pos, 1, rot2);
+    //NSLog([NSString stringWithFormat:@"rot2: %d", rot2Pos]);
+    
+    
+    GLint rot3Pos = glGetUniformLocation(program, "rot3");
+    glUniform4fv(rot3Pos, 1, rot3);
+    //NSLog([NSString stringWithFormat:@"rot3: %d", rot3Pos]);
     
     glBindAttribLocation(program, vertexLoc, "a_position");
     glBindAttribLocation(program, colorLoc, "a_color");

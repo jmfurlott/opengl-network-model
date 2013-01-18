@@ -2,8 +2,13 @@ precision mediump float;
 
 attribute vec4 a_position;
 attribute vec4 a_color;
-uniform mat4 rotation;
-uniform mat4 projectionMatrix;
+
+uniform vec4 rot_0;
+uniform vec4 rot1;
+uniform vec4 rot2;
+uniform vec4 rot3;
+
+
 
 uniform float scale;
 
@@ -16,7 +21,7 @@ void main() {
     
     
     //matrix logic
-    mat4 id = mat4(scale);
+    mat4 id = mat4(rot_0, rot1, rot2, rot3); //remember that these are the 0,1,2, and 3rd columns!!
     
     vec4 some = a_position + vec4(-1.0, -0.5, 0.0, 1.0);
     

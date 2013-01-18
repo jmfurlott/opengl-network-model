@@ -13,8 +13,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "31"
          endingLineNumber = "31"
-         landmarkName = "-loadShader:from:"
-         landmarkType = "4">
+         landmarkName = "@interface ModelViewController"
+         landmarkType = "2">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -26,8 +26,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "35"
          endingLineNumber = "35"
-         landmarkName = "@interface ModelViewController"
-         landmarkType = "2">
+         landmarkName = "-handlePinch:"
+         landmarkType = "4">
       </FileBreakpoint>
    </FileBreakpoints>
    <SymbolicBreakpoints>

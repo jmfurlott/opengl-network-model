@@ -1,0 +1,10 @@
+For experimental branch!
+
+
+-iOS - 1/18/2012
+	-currently drawing using shaders in es 2.0
+	-handles colors well
+	-taking a 4x4 matrix via four vec4 calls rotx where x = {0,1,2,3} and each vector is referring to a column in the mat4
+	-TODO: rotation and zoom via this matrix (defaulted to identity)
+		-quaternion? yes...do the all the math in the obj-c, then send it that vector to upadte against the modelview
+
