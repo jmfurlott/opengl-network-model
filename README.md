@@ -25,6 +25,7 @@ iOS 1/19/2013 -
 	-big update: fully written in ES2.0 with shaders
 	-quaternion based rotation implemented (still laggy however)
 	-colors fully working
+	-double tapping gesture relocates model to center..pretty cool
 	-TODO: quicker rotation (is it the shaders? I dont think so)
 	-TODO: pinch and zoom to scale...should be easy now 
 

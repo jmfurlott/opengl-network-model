@@ -25,6 +25,13 @@
     GLuint linked;
 
     
+    //for double tapping and returning the model to its original place
+    BOOL _slerping;
+    float _slerpCur;
+    float _slerpMax;
+    GLKQuaternion _slerpStart;
+    GLKQuaternion _slerpEnd;
+    
 }
 @property (strong, nonatomic) GLKBaseEffect *baseEffect;
 
@@ -35,6 +42,7 @@
 - (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer;
 - (GLuint) loadShader: (GLenum)type from:(char *)shaderSrc;
 - (Boolean) attachAndLinkShaders;
+- (void) doubleTap:(UITapGestureRecognizer *) tap;
 
 
 extern NSArray *file;

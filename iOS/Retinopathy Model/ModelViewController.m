@@ -65,11 +65,17 @@ GLint uniforms[NUM_UNIFORMS];
     colorArray = [self buildColorArray:file];
     
     
-    
+    //to handle pijnch and zoom
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc]
                                               initWithTarget:self action:@selector(handlePinch:)];
     [self.view addGestureRecognizer:pinchGesture];
-    //[pinchGesture release];
+
+    
+    //to handle double tapping
+    UITapGestureRecognizer *doubleTapRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
+    doubleTapRec.numberOfTapsRequired = 2;
+    [self.view addGestureRecognizer:doubleTapRec];
+    
     
     _quat = GLKQuaternionMake(0, 0, 0, 1);
     _quatStart = GLKQuaternionMake(0, 0, 0, 1);
@@ -110,6 +116,19 @@ GLint uniforms[NUM_UNIFORMS];
 
 - (void)update {
     
+    
+    //in case we are double tapping:::
+    //if we have double tapped, _quat will have been re-defined
+    if(_slerping) {
+        NSLog(@"trying to slerp");
+        _slerpCur += self.timeSinceLastUpdate;
+        float slerpAmt = _slerpCur/_slerpMax;
+        if(slerpAmt > 1.0) {
+            slerpAmt = 1.0;
+            _slerping = NO;
+        }
+        _quat = GLKQuaternionSlerp(_slerpStart, _slerpEnd, slerpAmt);
+    }
     
     
     GLKMatrix4 rotation = GLKMatrix4MakeWithQuaternion(_quat);
@@ -404,10 +423,7 @@ GLint uniforms[NUM_UNIFORMS];
 }
 
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    //    _current_position = GLKVector3Make(location.x, location.y, 0);
-    //    _current_position = [self projectOntoSurface:_current_position];
-    
-    
+      
     UITouch * touch = [touches anyObject];
     CGPoint location = [touch locationInView:self.view];
     CGPoint lastLoc = [touch previousLocationInView:self.view];
@@ -435,6 +451,8 @@ GLint uniforms[NUM_UNIFORMS];
     
 }
 
+//gestures like pinch and zoom, and double tap
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
 }
@@ -445,17 +463,25 @@ GLint uniforms[NUM_UNIFORMS];
         //so velocity is positive if zooming in (fingers getting further apart)
         // = negative if pinching, so zoom out
         
-        //call zoom function
-        GLKMatrix4 scaled = GLKMatrix4Scale(modelViewMatrix, 1.0f, 1.0f, recognizer.velocity);
-        self.baseEffect.transform.modelviewMatrix = scaled;
+                
         
-        
-        scale = recognizer.velocity;
+        scale = recognizer.scale;
         
         
     }
 }
 
+
+//double tap
+-(void) doubleTap:(UITapGestureRecognizer *) sender {
+    NSLog(@"caught tap");
+    _slerping = YES;
+    _slerpCur = 0;
+    _slerpMax = 1.0;
+    _slerpStart = _quat;
+    _slerpEnd = GLKQuaternionMake(0,0,0,1);
+    
+}
 
 
 
