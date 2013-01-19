@@ -27,23 +27,30 @@ float dy;
 CGRect screen;
 float mAngle;
 float TOUCH_SCALE_FACTOR; //from android
-CGPoint location;
+//CGPoint location;
 bool zooming = false;
 UIPinchGestureRecognizer* recognizer;
+GLuint program;
+const GLfloat offset[4] = {-1.0f, -.5f, 0.0f, 1.0f};
+float rot[16] = {1.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 1.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f};
 
+float rot0[4] = {1.0f, 0.0f, 0.0f, 0.0f};
+float rot1[4] = {0.0f, 1.0f, 0.0f, 0.0f};
+float rot2[4] = {0.0f, 0.0f, 1.0f, 0.0f};
+float rot3[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 
-typedef struct {
-    GLKVector3 positionCoords;
-} SceneVertex;
+float scale = 1.0f;
 
-//the actual vertices
-static const SceneVertex vertices[] = {
-    {{-0.5f, -0.5f, 0.0}},
-    {{ 0.5f, -0.5f, 0.0}},
-    {{-0.5f,  0.5f, 0,0}}
-    
+enum
+{
+    UNIFORM_MODELVIEWPROJECTION_MATRIX,
+    UNIFORM_NORMAL_MATRIX,
+    NUM_UNIFORMS
 };
-
+GLint uniforms[NUM_UNIFORMS];
 
 
 - (void)viewDidLoad
@@ -58,63 +65,20 @@ static const SceneVertex vertices[] = {
     colorArray = [self buildColorArray:file];
     
     
-    NSLog([NSString stringWithFormat:@"%d", [colorArray count]]);
-    for(int i = 0; i < 15; i++) {
-        //NSLog([colorArray objectAtIndex:i]);
-    }
-    
     
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc]
                                               initWithTarget:self action:@selector(handlePinch:)];
     [self.view addGestureRecognizer:pinchGesture];
     //[pinchGesture release];
     
-    
-    //construct the vertuces into a float array:
-    GLfloat eyeVertices[[onlyCoords count]];
-    for(int i = 0; i < [onlyCoords count]; i++) {
-        eyeVertices[i] = ([[onlyCoords objectAtIndex:i] intValue]);
-    }
-    
-    for(int i = 0; i < [onlyCoords count]; i++) {
-        eyeVertices[i] = (eyeVertices[i]/2000);
-    }
-    
-    
-    GLubyte colors[[colorArray count]]; //need four for every point; RGBA
-    for(int i = 0; i < [colorArray count]; i++) {
-        colors[i] = ([[colorArray objectAtIndex:i] intValue]);
-    }
-    
-    
-    GLKView *view = (GLKView *) self.view;
-    NSAssert([view isKindOfClass:[GLKView class]], @"View controller's view is not a GLKView");
-    
-    view.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    
-    [EAGLContext setCurrentContext:view.context];
-    
-    self.baseEffect = [[GLKBaseEffect alloc] init];
-    self.baseEffect.useConstantColor = GL_TRUE;
-    self.baseEffect.constantColor = GLKVector4Make(1.0f, 0.0f, 0.0f, 1.0f);
-    
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    
-    glGenBuffers(1, &vertexBufferID);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(eyeVertices), eyeVertices, GL_STATIC_DRAW);
-    
-    
-    
-
-
-    
-    //quaternion stuff
     _quat = GLKQuaternionMake(0, 0, 0, 1);
     _quatStart = GLKQuaternionMake(0, 0, 0, 1);
     
-    _rotMatrix = GLKMatrix4Identity;
-    
+    GLKView *view = (GLKView *) self.view;
+    NSAssert([view isKindOfClass:[GLKView class]], @"View controller's view is not a GLKView");
+    view.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    [EAGLContext setCurrentContext:view.context];
+    self.baseEffect = [[GLKBaseEffect alloc] init];
     
     
 }
@@ -127,18 +91,18 @@ static const SceneVertex vertices[] = {
 
 -(void) glkView:(GLKView *) view drawInRect:(CGRect)rect {
     [self.baseEffect prepareToDraw];
-    
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
     
-    //NSLog([NSString stringWithFormat:@"%d", )]);
+    [self setUpVerticesAndShaders];
     
-    glLineWidth(2.0);
     
-    glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 12, NULL);
     
-    glDrawArrays(GL_LINES, 0, 14080);
+    
+    
+    
+    glDrawArrays(GL_LINES, 0, 13100);
 }
 
 
@@ -146,17 +110,29 @@ static const SceneVertex vertices[] = {
 
 - (void)update {
     
-    if(!([recognizer state] == UIGestureRecognizerStateBegan)) {
-
-        modelViewMatrix = GLKMatrix4MakeTranslation(-1.0f, -.5f, 0.0f);
-
-        modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, _rotMatrix);
-        //modelViewMatrix = GLKMatrix4MakeTranslation(1.0f, 5.0f, 0.0f);
-        self.baseEffect.transform.modelviewMatrix = modelViewMatrix;
-
-
-
-    }
+    
+    
+    GLKMatrix4 rotation = GLKMatrix4MakeWithQuaternion(_quat);
+    
+    rot0[0] = rotation.m00;
+    rot0[1] = rotation.m10;
+    rot0[2] = rotation.m20;
+    rot0[3] = rotation.m30;
+    
+    rot1[0] = rotation.m01;
+    rot1[1] = rotation.m11;
+    rot1[2] = rotation.m21;
+    rot1[3] = rotation.m31;
+    
+    rot2[0] = rotation.m02;
+    rot2[1] = rotation.m12;
+    rot2[2] = rotation.m22;
+    rot2[3] = rotation.m32;
+    
+    rot3[0] = rotation.m03;
+    rot3[1] = rotation.m13;
+    rot3[2] = rotation.m23;
+    rot3[3] = rotation.m33;
     
     
     
@@ -279,6 +255,89 @@ static const SceneVertex vertices[] = {
 
 
 
+-(void) setUpVerticesAndShaders {
+    //NSLog([NSString stringWithFormat:@"%d", )]);
+    
+    NSString *vertexShaderSource = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"vsh"] encoding:NSUTF8StringEncoding error:nil];
+    const char *vertexShaderSourceCString = [vertexShaderSource cStringUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    GLuint vertexShader0 = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader0, 1, &vertexShaderSourceCString, NULL);
+    glCompileShader(vertexShader0);
+    
+    NSString *fragmentShaderSource = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"fsh"] encoding:NSUTF8StringEncoding error:nil];
+    const char *fragmentShaderSourceCString = [fragmentShaderSource cStringUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    GLuint fragmentShader0 = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader0, 1, &fragmentShaderSourceCString, NULL);
+    glCompileShader(fragmentShader0);
+    
+    GLuint program = glCreateProgram();
+    glAttachShader(program, vertexShader0);
+    glAttachShader(program, fragmentShader0);
+    glLinkProgram(program);
+    
+    glUseProgram(program);
+    
+    
+    GLfloat eyeVertices[[onlyCoords count]];
+    for(int i = 0; i < [onlyCoords count]; i++) {
+        eyeVertices[i] = ([[onlyCoords objectAtIndex:i] intValue]);
+    }
+    for(int i = 0; i < [onlyCoords count]; i++) {
+        eyeVertices[i] = (eyeVertices[i]/2000);
+    }
+    
+    
+    GLfloat colors[[colorArray count]]; //need four for every point; RGBA
+    for(int i = 0; i < [colorArray count]; i++) {
+        colors[i] = ([[colorArray objectAtIndex:i] intValue]/255);
+    }
+    
+    
+    
+    
+    
+    GLint vertexLoc = glGetAttribLocation(program, "a_position");
+    //NSLog([NSString stringWithFormat:@"vertexLoc position: %d", vertexLoc]);
+    
+    
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, eyeVertices);
+    glEnableVertexAttribArray(0);
+    
+    GLint colorLoc = glGetAttribLocation(program, "a_color");
+    //NSLog([NSString stringWithFormat:@"a_color position: %d", colorLoc]);
+    glVertexAttribPointer(colorLoc, 4, GL_FLOAT, GL_FALSE, 0, colors);
+    glEnableVertexAttribArray(colorLoc);
+    
+    
+    //now the rotation matrix
+    GLint rot0Pos = glGetUniformLocation(program, "rot_0");
+    glUniform4fv(rot0Pos, 1, rot0);
+    //NSLog([NSString stringWithFormat:@"rot0: %d", rot0Pos]);
+    
+    GLint rot1Pos = glGetUniformLocation(program, "rot1");
+    glUniform4fv(rot1Pos, 1, rot1);
+    //NSLog([NSString stringWithFormat:@"rot1: %d", rot1Pos]);
+    
+    
+    GLint rot2Pos = glGetUniformLocation(program, "rot2");
+    glUniform4fv(rot2Pos, 1, rot2);
+    //NSLog([NSString stringWithFormat:@"rot2: %d", rot2Pos]);
+    
+    
+    GLint rot3Pos = glGetUniformLocation(program, "rot3");
+    glUniform4fv(rot3Pos, 1, rot3);
+    //NSLog([NSString stringWithFormat:@"rot3: %d", rot3Pos]);
+    
+    glBindAttribLocation(program, vertexLoc, "a_position");
+    glBindAttribLocation(program, colorLoc, "a_color");
+}
+
+
+
 
 
 //quaternion stuff
@@ -328,16 +387,16 @@ static const SceneVertex vertices[] = {
 //touches stuff
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
-    //    UITouch * touch = [touches anyObject];
-    //    location = [touch locationInView:self.view];
-    //
-    //    _anchor_position = GLKVector3Make(location.x, location.y, 0);
-    //    _anchor_position = [self projectOntoSurface:_anchor_position];
-    //
-    //    _current_position = _anchor_position;
-    //
-    //
-    //    _quatStart = _quat;
+    UITouch * touch = [touches anyObject];
+    CGPoint location = [touch locationInView:self.view];
+    
+    _anchor_position = GLKVector3Make(location.x, location.y, 0);
+    _anchor_position = [self projectOntoSurface:_anchor_position];
+    
+    _current_position = _anchor_position;
+    
+    _quatStart = _quat;
+    
     
 }
 
@@ -351,13 +410,17 @@ static const SceneVertex vertices[] = {
     CGPoint lastLoc = [touch previousLocationInView:self.view];
     CGPoint diff = CGPointMake(lastLoc.x - location.x, lastLoc.y - location.y);
     
-    float rotX = -1 * GLKMathDegreesToRadians(diff.y / 2.0);
-    float rotY = -1 * GLKMathDegreesToRadians(diff.x / 2.0);
     
-    GLKVector3 xAxis = GLKVector3Make(1, 0, 0);
-    _rotMatrix = GLKMatrix4Rotate(_rotMatrix, rotX, xAxis.x, xAxis.y, xAxis.z);
-    GLKVector3 yAxis = GLKVector3Make(0, 1, 0);
-    _rotMatrix = GLKMatrix4Rotate(_rotMatrix, rotY, yAxis.x, yAxis.y, yAxis.z);
+    _current_position = GLKVector3Make(location.x, location.y, 0);
+    _current_position = [self projectOntoSurface:_current_position];
+    
+    
+    
+    
+    //putting this here helps speed up the rotation effect...still kind of slow
+    [self computeIncremental];
+    
+    
 }
 
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -384,108 +447,11 @@ static const SceneVertex vertices[] = {
         self.baseEffect.transform.modelviewMatrix = scaled;
         
         
+        //scale = recognizer.velocity;
+        
         
     }
 }
-
-
-//shader methods here ---------------------------------------------------------------------
-//current stack to call:
-
-/*
- 1. loadShader
- 2. attachAndLinkShaders
- 3. glUseProgram(userData->programObject)
- 
- */
-
-- (GLuint) loadShader: (GLenum)type from:(char *)shaderSrc {
-    GLuint shader;
-    GLint compiled;
-    
-    //shader object
-    shader = glCreateShader(type);
-    
-    //error checking that the object got built
-    if(shader == 0) {
-        return 0;
-    }
-    
-    //source
-    glShaderSource(shader, 1, &shaderSrc, NULL);
-    
-    //compile
-    glCompileShader(shader);
-    
-    //eror control again
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled); //this should be logged?
-    
-    if(!compiled) {
-        GLint infoLen = 0;
-        //print out that log
-        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
-        if(infoLen > 1) {
-            char* infoLog = malloc(sizeof(char) * infoLen);
-            
-            glGetShaderInfoLog(shader, infoLen, NULL, infoLog);
-            //esLogMessage("Error compiling shader:\n%s\n", infoLog);
-        
-            free(infoLog);
-        }
-        
-        glDeleteShader(shader);
-        return 0;
-    }
-    //if there have been no errors, then return our shader
-    return shader;
-    
-    
-}
-
-//method to create (using the method before), attach, and link programs
-- (Boolean) attachAndLinkShaders {
-    //create the program
-    programObject = glCreateProgram();
-    
-    if(programObject == 0) {
-        return 0;
-    }
-    
-    
-    //attach to our empty program both the shaders
-    glAttachShader(programObject, vertexShader);
-    glAttachShader(programObject, fragmentShader);
-    
-    //link the program
-    glLinkProgram(programObject);
-    
-    
-    //error checking to make sure its been attached and linked
-    glGetProgramiv(programObject, GL_LINK_STATUS, &linked);
-    
-    if(!linked) {
-        GLuint infoLen = 0;
-        
-        glGetProgramiv(programObject, GL_INFO_LOG_LENGTH, &infoLen);
-        
-        if(infoLen > 0) {
-            char* infoLog = malloc(sizeof(char) * infoLen);
-            glGetProgramInfoLog(programObject, infoLen, NULL, infoLog);
-            //esLogMessage("Error linking program:\n%s\n", infoLog);
-            
-            free(infoLog);
-        }
-        
-        //we know it has errors so delete it
-        glDeleteProgram(programObject);
-        return FALSE;
-        
-    }
-    
-    return TRUE;
-}
-
-
 
 
 

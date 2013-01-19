@@ -20,6 +20,15 @@ FILE DIRECTORY
 - iOS	    ------> iOS app
 
 
+
+iOS 1/19/2013 -
+	-big update: fully written in ES2.0 with shaders
+	-quaternion based rotation implemented (still laggy however)
+	-colors fully working
+	-TODO: quicker rotation (is it the shaders? I dont think so)
+	-TODO: pinch and zoom to scale...should be easy now 
+
+
 iOS 1/16/2013 -
 	-Updated title screen with logo
 	-TODO: still migrating to ES 2.0.  Shaders not correctly implemented
@@ -62,8 +71,7 @@ iOS 1/6/2013 -
 	-started reading coordinates function
 
 
-Graphing 1/1/2013 -
-	-Network class created/started
+Graphing 1/1/2013 -Network class created/started
 	-buildNetwork seems to be working but creating 6000 graphs which is way too high
 	-TODO: handle branches:::look at notes
 
