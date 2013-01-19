@@ -32,7 +32,7 @@ void main() {
 
     
 
-    gl_Position = vec4(x,y,z,w);
+    gl_Position = vec4(x,y,z,1);
 
 
     

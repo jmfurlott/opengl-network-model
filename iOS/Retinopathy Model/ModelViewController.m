@@ -110,7 +110,7 @@ GLint uniforms[NUM_UNIFORMS];
 
 - (void)update {
     
-    if(!([recognizer state] == UIGestureRecognizerStateBegan)) {
+
         
         GLKMatrix4 rotation = GLKMatrix4MakeWithQuaternion(_quat);
 
@@ -135,15 +135,7 @@ GLint uniforms[NUM_UNIFORMS];
         rot3[3] = rotation.m33;
 
         
-        
-
-    }
-    
-    
-    if (scale < 2.0) {
-        scale += 0.005;
-    }
-        
+ 
     
 }
 
@@ -418,28 +410,21 @@ GLint uniforms[NUM_UNIFORMS];
     CGPoint lastLoc = [touch previousLocationInView:self.view];
     CGPoint diff = CGPointMake(lastLoc.x - location.x, lastLoc.y - location.y);
     
-    float rotX = -1 * GLKMathDegreesToRadians(diff.y / 2.0);
-    float rotY = -1 * GLKMathDegreesToRadians(diff.x / 2.0);
-    
-    GLKVector3 xAxis = GLKVector3Make(1, 0, 0);
-    _rotMatrix = GLKMatrix4Rotate(_rotMatrix, rotX, xAxis.x, xAxis.y, xAxis.z);
-    GLKVector3 yAxis = GLKVector3Make(0, 1, 0);
-    _rotMatrix = GLKMatrix4Rotate(_rotMatrix, rotY, yAxis.x, yAxis.y, yAxis.z);
-    
+
     _current_position = GLKVector3Make(location.x, location.y, 0);
     _current_position = [self projectOntoSurface:_current_position];
     
 
 
     
-    
-    
+    //putting this here helps speed up the rotation effect...still kind of slow
+    [self computeIncremental];
     
     
 }
 
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-     [self computeIncremental];
+    // [self computeIncremental];
     
 }
 
@@ -467,105 +452,6 @@ GLint uniforms[NUM_UNIFORMS];
         
     }
 }
-
-
-//shader methods here ---------------------------------------------------------------------
-//current stack to call:
-
-/*
- 1. loadShader
- 2. attachAndLinkShaders
- 3. glUseProgram(userData->programObject)
- 
- */
-
-- (GLuint) loadShader: (GLenum)type from:(char *)shaderSrc {
-    GLuint shader;
-    GLint compiled;
-    
-    //shader object
-    shader = glCreateShader(type);
-    
-    //error checking that the object got built
-    if(shader == 0) {
-        return 0;
-    }
-    
-    //source
-    glShaderSource(shader, 1, &shaderSrc, NULL);
-    
-    //compile
-    glCompileShader(shader);
-    
-    //eror control again
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled); //this should be logged?
-    
-    if(!compiled) {
-        GLint infoLen = 0;
-        //print out that log
-        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
-        if(infoLen > 1) {
-            char* infoLog = malloc(sizeof(char) * infoLen);
-            
-            glGetShaderInfoLog(shader, infoLen, NULL, infoLog);
-            //esLogMessage("Error compiling shader:\n%s\n", infoLog);
-        
-            free(infoLog);
-        }
-        
-        glDeleteShader(shader);
-        return 0;
-    }
-    //if there have been no errors, then return our shader
-    return shader;
-    
-    
-}
-
-//method to create (using the method before), attach, and link programs
-- (Boolean) attachAndLinkShaders {
-    //create the program
-    programObject = glCreateProgram();
-    
-    if(programObject == 0) {
-        return 0;
-    }
-    
-    
-    //attach to our empty program both the shaders
-    glAttachShader(programObject, vertexShader);
-    glAttachShader(programObject, fragmentShader);
-    
-    //link the program
-    glLinkProgram(programObject);
-    
-    
-    //error checking to make sure its been attached and linked
-    glGetProgramiv(programObject, GL_LINK_STATUS, &linked);
-    
-    if(!linked) {
-        GLuint infoLen = 0;
-        
-        glGetProgramiv(programObject, GL_INFO_LOG_LENGTH, &infoLen);
-        
-        if(infoLen > 0) {
-            char* infoLog = malloc(sizeof(char) * infoLen);
-            glGetProgramInfoLog(programObject, infoLen, NULL, infoLog);
-            NSLog([NSString stringWithFormat:@"Error linking program:\n%s\n", infoLog]);
-            
-            free(infoLog);
-        }
-        
-        //we know it has errors so delete it
-        glDeleteProgram(programObject);
-        return FALSE;
-        
-    }
-    
-    return TRUE;
-}
-
-
 
 
 
