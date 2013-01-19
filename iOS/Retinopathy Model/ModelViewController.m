@@ -332,6 +332,9 @@ GLint uniforms[NUM_UNIFORMS];
     glUniform4fv(rot3Pos, 1, rot3);
     //NSLog([NSString stringWithFormat:@"rot3: %d", rot3Pos]);
     
+    GLint scalePos = glGetUniformLocation(program, "scale");
+    glUniform1f(scalePos, scale);
+    
     glBindAttribLocation(program, vertexLoc, "a_position");
     glBindAttribLocation(program, colorLoc, "a_color");
 }
@@ -447,7 +450,7 @@ GLint uniforms[NUM_UNIFORMS];
         self.baseEffect.transform.modelviewMatrix = scaled;
         
         
-        //scale = recognizer.velocity;
+        scale = recognizer.velocity;
         
         
     }

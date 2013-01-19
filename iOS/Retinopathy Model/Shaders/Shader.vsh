@@ -25,14 +25,18 @@ void main() {
     
     vec4 model = a_position + vec4(-1.0, -0.5, 0.0, 1.0);
     
-    float x = model.x*rot[0][0] + model.y*rot[1][0] + model.z*rot[2][0] + model.w*rot[3][0];
-    float y = model.x*rot[0][1] + model.y*rot[1][1] + model.z*rot[2][1] + model.w*rot[3][1];
-    float z = model.x*rot[0][2] + model.y*rot[1][2] + model.z*rot[2][2] + model.w*rot[3][2];
-    float w = model.x*rot[0][3] + model.y*rot[1][3] + model.z*rot[2][3] + model.w*rot[3][3];
+    float x = scale * (model.x*rot[0][0] + model.y*rot[1][0] + model.z*rot[2][0] + model.w*rot[3][0]);
+    float y = scale * (model.x*rot[0][1] + model.y*rot[1][1] + model.z*rot[2][1] + model.w*rot[3][1]);
+    float z = scale * (model.x*rot[0][2] + model.y*rot[1][2] + model.z*rot[2][2] + model.w*rot[3][2]);
+    //float w = scale * (model.x*rot[0][3] + model.y*rot[1][3] + model.z*rot[2][3] + model.w*rot[3][3]);
 
-    
+
+
+
 
     gl_Position = vec4(x,y,z,1);
+    
+
 
 
     
