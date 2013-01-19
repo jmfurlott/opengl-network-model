@@ -27,7 +27,7 @@ float dy;
 CGRect screen;
 float mAngle;
 float TOUCH_SCALE_FACTOR; //from android
-CGPoint location;
+//CGPoint location;
 bool zooming = false;
 UIPinchGestureRecognizer* recognizer;
 GLuint program;
@@ -71,8 +71,8 @@ GLint uniforms[NUM_UNIFORMS];
     [self.view addGestureRecognizer:pinchGesture];
     //[pinchGesture release];
     
-    
-    
+    _quat = GLKQuaternionMake(0, 0, 0, 1);
+    _quatStart = GLKQuaternionMake(0, 0, 0, 1);
     
     GLKView *view = (GLKView *) self.view;
     NSAssert([view isKindOfClass:[GLKView class]], @"View controller's view is not a GLKView");
@@ -112,13 +112,27 @@ GLint uniforms[NUM_UNIFORMS];
     
     if(!([recognizer state] == UIGestureRecognizerStateBegan)) {
         
-        //modelViewMatrix = GLKMatrix4MakeTranslation(-1.0f, -.5f, 0.0f);
+        GLKMatrix4 rotation = GLKMatrix4MakeWithQuaternion(_quat);
+
+        rot0[0] = rotation.m00;
+        rot0[1] = rotation.m10;
+        rot0[2] = rotation.m20;
+        rot0[3] = rotation.m30;
         
-      // modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, _rotMatrix);
-
-
-        //self.baseEffect.transform.modelviewMatrix = modelViewMatrix;
-
+        rot1[0] = rotation.m01;
+        rot1[1] = rotation.m11;
+        rot1[2] = rotation.m21;
+        rot1[3] = rotation.m31;
+        
+        rot2[0] = rotation.m02;
+        rot2[1] = rotation.m12;
+        rot2[2] = rotation.m22;
+        rot2[3] = rotation.m32;
+        
+        rot3[0] = rotation.m03;
+        rot3[1] = rotation.m13;
+        rot3[2] = rotation.m23;
+        rot3[3] = rotation.m33;
 
         
         
@@ -381,16 +395,16 @@ GLint uniforms[NUM_UNIFORMS];
 //touches stuff
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
-    //    UITouch * touch = [touches anyObject];
-    //    location = [touch locationInView:self.view];
-    //
-    //    _anchor_position = GLKVector3Make(location.x, location.y, 0);
-    //    _anchor_position = [self projectOntoSurface:_anchor_position];
-    //
-    //    _current_position = _anchor_position;
-    //
-    //
-    //    _quatStart = _quat;
+    UITouch * touch = [touches anyObject];
+    CGPoint location = [touch locationInView:self.view];
+    
+    _anchor_position = GLKVector3Make(location.x, location.y, 0);
+    _anchor_position = [self projectOntoSurface:_anchor_position];
+    
+    _current_position = _anchor_position;
+    
+    _quatStart = _quat;
+
     
 }
 
@@ -412,25 +426,10 @@ GLint uniforms[NUM_UNIFORMS];
     GLKVector3 yAxis = GLKVector3Make(0, 1, 0);
     _rotMatrix = GLKMatrix4Rotate(_rotMatrix, rotY, yAxis.x, yAxis.y, yAxis.z);
     
-    rot0[0] = _rotMatrix.m00;
-    rot0[1] = _rotMatrix.m10;
-    rot0[2] = _rotMatrix.m20;
-    rot0[3] = _rotMatrix.m30;
+    _current_position = GLKVector3Make(location.x, location.y, 0);
+    _current_position = [self projectOntoSurface:_current_position];
     
-    rot1[0] = _rotMatrix.m01;
-    rot1[1] = _rotMatrix.m11;
-    rot1[2] = _rotMatrix.m21;
-    rot1[3] = _rotMatrix.m31;
-    
-    rot2[0] = _rotMatrix.m02;
-    rot2[1] = _rotMatrix.m12;
-    rot2[2] = _rotMatrix.m22;
-    rot2[3] = _rotMatrix.m32;
-    
-    rot3[0] = _rotMatrix.m03;
-    rot3[1] = _rotMatrix.m13;
-    rot3[2] = _rotMatrix.m23;
-    rot3[3] = _rotMatrix.m33;
+
 
     
     
@@ -440,7 +439,7 @@ GLint uniforms[NUM_UNIFORMS];
 }
 
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    // [self computeIncremental];
+     [self computeIncremental];
     
 }
 

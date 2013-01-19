@@ -1,7 +1,13 @@
 For experimental branch!
 
 
--iOS - 1/18/2012
+-iOS - 1/19/2013
+	-rotation is working via quaternions!!!!!
+	-however it is very slow; not updating nearly fast enough
+	-why is that? maybe do calculations on CPU and then send that data to shader?!?
+
+
+-iOS - 1/18/2013
 	-currently drawing using shaders in es 2.0
 	-handles colors well
 	-taking a 4x4 matrix via four vec4 calls rotx where x = {0,1,2,3} and each vector is referring to a column in the mat4
