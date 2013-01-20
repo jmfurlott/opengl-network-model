@@ -30,10 +30,13 @@
     [super viewDidLoad];
     self.options = [[NSArray alloc] initWithObjects:@"Arteries", @"Veins", @"Resistance", nil];
 
+
 }
 
 - (void)didReceiveMemoryWarning
 {
+    
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -77,6 +80,12 @@
     // 1 = veins
     // 2 = resistance (eventually)
     NSLog(@"Row selection: %d", [indexPath row]);
+    
+    Options *obj = [Options getInstance];
+
+    obj.option = @"something";
+    
+    
     
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Options.h";
 
 @interface OptionViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
     NSArray *options;
@@ -14,5 +15,6 @@
 
 
 @property (nonatomic, retain) NSArray *options;
+
 
 @end

@@ -93,7 +93,7 @@
         <scene sceneID="OGU-0Q-uC5">
             <objects>
                 <tableViewController id="PSf-ij-hIV" customClass="OptionViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="742" verticalHuggingPriority="812" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3bd-lC-m7U">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="742" verticalHuggingPriority="812" alwaysBounceVertical="YES" dataMode="static" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3bd-lC-m7U">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="109"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -103,6 +103,7 @@
                             <outlet property="delegate" destination="PSf-ij-hIV" id="pFe-r9-ZoL"/>
                         </connections>
                     </tableView>
+                    <value key="contentSizeForViewInPopover" type="size" width="200" height="133"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KDQ-q8-cWq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

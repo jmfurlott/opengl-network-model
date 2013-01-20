@@ -120,6 +120,10 @@ GLint uniforms[NUM_UNIFORMS];
 - (void)update {
     
     
+    Options *opt = [Options getInstance];
+    NSLog(opt.option);
+    
+    
     //in case we are double tapping:::
     //if we have double tapped, _quat will have been re-defined
     if(_slerping) {

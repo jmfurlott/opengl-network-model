@@ -11,6 +11,7 @@
 		6DE48FD716A6EB0F006D0A6C /* oqulus.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE48FD516A6EB0F006D0A6C /* oqulus.png */; };
 		6DE48FD816A6EB0F006D0A6C /* oqulus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE48FD616A6EB0F006D0A6C /* oqulus@2x.png */; };
 		6DEDA34F16AB94A700DFFDCC /* OptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDA34E16AB94A700DFFDCC /* OptionViewController.m */; };
+		6DEDA35C16ABA92400DFFDCC /* Options.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDA35B16ABA92400DFFDCC /* Options.m */; };
 		9946E4CE16A7AD06001A79C5 /* oq_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9946E4CC16A7AD06001A79C5 /* oq_home@2x.png */; };
 		9946E4CF16A7AD06001A79C5 /* oq_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 9946E4CD16A7AD06001A79C5 /* oq_home.png */; };
 		9946E4D116A7AD17001A79C5 /* oq_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9946E4D016A7AD17001A79C5 /* oq_home@2x.png */; };
@@ -41,6 +42,8 @@
 		6DE48FD616A6EB0F006D0A6C /* oqulus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oqulus@2x.png"; sourceTree = "<group>"; };
 		6DEDA34D16AB94A700DFFDCC /* OptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OptionViewController.h; path = ../OptionViewController.h; sourceTree = "<group>"; };
 		6DEDA34E16AB94A700DFFDCC /* OptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OptionViewController.m; path = ../OptionViewController.m; sourceTree = "<group>"; };
+		6DEDA35A16ABA92400DFFDCC /* Options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Options.h; sourceTree = "<group>"; };
+		6DEDA35B16ABA92400DFFDCC /* Options.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Options.m; sourceTree = "<group>"; };
 		9946E4CC16A7AD06001A79C5 /* oq_home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oq_home@2x.png"; sourceTree = "<group>"; };
 		9946E4CD16A7AD06001A79C5 /* oq_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = oq_home.png; sourceTree = "<group>"; };
 		9946E4D016A7AD17001A79C5 /* oq_home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oq_home@2x.png"; sourceTree = "<group>"; };
@@ -100,6 +103,8 @@
 		998E34581699F409007798EE = {
 			isa = PBXGroup;
 			children = (
+				6DEDA35A16ABA92400DFFDCC /* Options.h */,
+				6DEDA35B16ABA92400DFFDCC /* Options.m */,
 				9946E4D216A7AD1B001A79C5 /* oq_home.png */,
 				9946E4D016A7AD17001A79C5 /* oq_home@2x.png */,
 				998E34711699F409007798EE /* Retinopathy Model */,
@@ -245,6 +250,7 @@
 				998E348F1699F409007798EE /* ModelViewController.m in Sources */,
 				6D81F8C0169E45F400FC6DE1 /* HomeViewController.m in Sources */,
 				6DEDA34F16AB94A700DFFDCC /* OptionViewController.m in Sources */,
+				6DEDA35C16ABA92400DFFDCC /* Options.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
