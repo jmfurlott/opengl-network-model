@@ -10,7 +10,7 @@
 		6D81F8C0169E45F400FC6DE1 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D81F8BF169E45F400FC6DE1 /* HomeViewController.m */; };
 		6DE48FD716A6EB0F006D0A6C /* oqulus.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE48FD516A6EB0F006D0A6C /* oqulus.png */; };
 		6DE48FD816A6EB0F006D0A6C /* oqulus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE48FD616A6EB0F006D0A6C /* oqulus@2x.png */; };
-		99428ADF16AB2AC4008424CF /* OptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99428ADE16AB2AC4008424CF /* OptionViewController.m */; };
+		6DEDA34F16AB94A700DFFDCC /* OptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDA34E16AB94A700DFFDCC /* OptionViewController.m */; };
 		9946E4CE16A7AD06001A79C5 /* oq_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9946E4CC16A7AD06001A79C5 /* oq_home@2x.png */; };
 		9946E4CF16A7AD06001A79C5 /* oq_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 9946E4CD16A7AD06001A79C5 /* oq_home.png */; };
 		9946E4D116A7AD17001A79C5 /* oq_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9946E4D016A7AD17001A79C5 /* oq_home@2x.png */; };
@@ -39,8 +39,8 @@
 		6D81F8BF169E45F400FC6DE1 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = ../HomeViewController.m; sourceTree = "<group>"; };
 		6DE48FD516A6EB0F006D0A6C /* oqulus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = oqulus.png; sourceTree = "<group>"; };
 		6DE48FD616A6EB0F006D0A6C /* oqulus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oqulus@2x.png"; sourceTree = "<group>"; };
-		99428ADD16AB2AC4008424CF /* OptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionViewController.h; sourceTree = "<group>"; };
-		99428ADE16AB2AC4008424CF /* OptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionViewController.m; sourceTree = "<group>"; };
+		6DEDA34D16AB94A700DFFDCC /* OptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OptionViewController.h; path = ../OptionViewController.h; sourceTree = "<group>"; };
+		6DEDA34E16AB94A700DFFDCC /* OptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OptionViewController.m; path = ../OptionViewController.m; sourceTree = "<group>"; };
 		9946E4CC16A7AD06001A79C5 /* oq_home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oq_home@2x.png"; sourceTree = "<group>"; };
 		9946E4CD16A7AD06001A79C5 /* oq_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = oq_home.png; sourceTree = "<group>"; };
 		9946E4D016A7AD17001A79C5 /* oq_home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oq_home@2x.png"; sourceTree = "<group>"; };
@@ -131,6 +131,8 @@
 		998E34711699F409007798EE /* Retinopathy Model */ = {
 			isa = PBXGroup;
 			children = (
+				6DEDA34D16AB94A700DFFDCC /* OptionViewController.h */,
+				6DEDA34E16AB94A700DFFDCC /* OptionViewController.m */,
 				997B90271699F557000B0681 /* Resources */,
 				6D81F8BE169E45F400FC6DE1 /* HomeViewController.h */,
 				998E347A1699F409007798EE /* ModelAppDelegate.h */,
@@ -142,8 +144,6 @@
 				998E348B1699F409007798EE /* Shader.vsh */,
 				998E348D1699F409007798EE /* ModelViewController.h */,
 				998E348E1699F409007798EE /* ModelViewController.m */,
-				99428ADD16AB2AC4008424CF /* OptionViewController.h */,
-				99428ADE16AB2AC4008424CF /* OptionViewController.m */,
 				998E34721699F409007798EE /* Supporting Files */,
 			);
 			path = "Retinopathy Model";
@@ -244,7 +244,7 @@
 				998E347C1699F409007798EE /* ModelAppDelegate.m in Sources */,
 				998E348F1699F409007798EE /* ModelViewController.m in Sources */,
 				6D81F8C0169E45F400FC6DE1 /* HomeViewController.m in Sources */,
-				99428ADF16AB2AC4008424CF /* OptionViewController.m in Sources */,
+				6DEDA34F16AB94A700DFFDCC /* OptionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

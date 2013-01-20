@@ -26,6 +26,7 @@ iOS 1/19/2013 -
 	-quaternion based rotation implemented (still laggy however)
 	-colors fully working
 	-double tapping gesture relocates model to center..pretty cool
+	-tableViewCell implemented and responding to buttons
 	-TODO: quicker rotation (is it the shaders? I dont think so)
 	-TODO: pinch and zoom to scale...should be easy now 
 

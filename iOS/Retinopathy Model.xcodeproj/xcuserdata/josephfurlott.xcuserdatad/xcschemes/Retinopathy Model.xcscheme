@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "998E34621699F409007798EE"
-               BuildableName = "Retinopathy Model.app"
+               BuildableName = "Oqulus.app"
                BlueprintName = "Retinopathy Model"
                ReferencedContainer = "container:Retinopathy Model.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "998E34621699F409007798EE"
-            BuildableName = "Retinopathy Model.app"
+            BuildableName = "Oqulus.app"
             BlueprintName = "Retinopathy Model"
             ReferencedContainer = "container:Retinopathy Model.xcodeproj">
          </BuildableReference>
@@ -52,7 +52,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "998E34621699F409007798EE"
-            BuildableName = "Retinopathy Model.app"
+            BuildableName = "Oqulus.app"
             BlueprintName = "Retinopathy Model"
             ReferencedContainer = "container:Retinopathy Model.xcodeproj">
          </BuildableReference>
@@ -70,7 +70,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "998E34621699F409007798EE"
-            BuildableName = "Retinopathy Model.app"
+            BuildableName = "Oqulus.app"
             BlueprintName = "Retinopathy Model"
             ReferencedContainer = "container:Retinopathy Model.xcodeproj">
          </BuildableReference>

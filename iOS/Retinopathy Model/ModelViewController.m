@@ -42,6 +42,9 @@ float rot1[4] = {0.0f, 1.0f, 0.0f, 0.0f};
 float rot2[4] = {0.0f, 0.0f, 1.0f, 0.0f};
 float rot3[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 
+GLuint vertexArray;
+GLuint vertexBuffer;
+
 float scale = 1.0f;
 
 enum
@@ -315,10 +318,7 @@ GLint uniforms[NUM_UNIFORMS];
         colors[i] = ([[colorArray objectAtIndex:i] intValue]/255);
     }
     
-    
-    
-    
-    
+
     GLint vertexLoc = glGetAttribLocation(program, "a_position");
     //NSLog([NSString stringWithFormat:@"vertexLoc position: %d", vertexLoc]);
     
@@ -354,8 +354,9 @@ GLint uniforms[NUM_UNIFORMS];
     GLint scalePos = glGetUniformLocation(program, "scale");
     glUniform1f(scalePos, scale);
     
-    glBindAttribLocation(program, vertexLoc, "a_position");
+   // glBindAttribLocation(program, 0, "a_position");
     glBindAttribLocation(program, colorLoc, "a_color");
+
 }
 
 
