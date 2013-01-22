@@ -12,7 +12,7 @@
     NSString *option;
 }
 
-@property(nonatomic, retain) NSSTring *option;
+@property(nonatomic, retain) NSString *option;
 
 +(Options*) getInstance;
 
