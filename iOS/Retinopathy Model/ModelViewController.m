@@ -42,6 +42,11 @@ float rot1[4] = {0.0f, 1.0f, 0.0f, 0.0f};
 float rot2[4] = {0.0f, 0.0f, 1.0f, 0.0f};
 float rot3[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 
+GLfloat eyeVertices[169032]; //cheating
+GLfloat colors[56336];
+
+GLint totalLines = 1;
+
 GLuint vertexArray;
 GLuint vertexBuffer;
 
@@ -67,7 +72,28 @@ GLint uniforms[NUM_UNIFORMS];
     onlyCoords = [self constructCoordinates:file];
     colorArray = [self buildColorArray:file];
     
+    //GLfloat eyeVertices[[onlyCoords count]];
+    for(int i = 0; i < [onlyCoords count]; i++) {
+        eyeVertices[i] = ([[onlyCoords objectAtIndex:i] intValue]);
+    }
+    for(int i = 0; i < [onlyCoords count]; i++) {
+        eyeVertices[i] = (eyeVertices[i]/2000);
+    }
+    
+    //GLfloat colors[[colorArray count]]; //need four for every point; RGBA
+    for(int i = 0; i < [colorArray count]; i++) {
+        colors[i] = ([[colorArray objectAtIndex:i] intValue]/255);
+    }
+    
+    //NSLog(@"sizeof colors: %d", sizeof(colors));
+    //NSLog(@"sizeof colorarray: %d", [colorArray count]);
+    
+    totalLines = [onlyCoords count]/3;
+    NSLog(@"total number of lines: %d", totalLines);
 
+    
+  //  NSLog(@"sizeof eyeVertices: %d", sizeof(eyeVertices));
+   // NSLog(@"sizeof colorArray: %d", sizeof(colors));
     
     //to handle double tapping
     UITapGestureRecognizer *doubleTapRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
@@ -106,7 +132,11 @@ GLint uniforms[NUM_UNIFORMS];
     
     
     
-    glDrawArrays(GL_LINES, 0, 13100);
+    glDrawArrays(GL_LINES, 0, totalLines);
+    
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+    glDeleteBuffers(2, vertexBufferID);
 }
 
 
@@ -170,7 +200,7 @@ GLint uniforms[NUM_UNIFORMS];
     
     if(0 != vertexBufferID ) {
         glDeleteBuffers(1, &vertexBufferID);
-        vertexBufferID = 0;
+        vertexBufferID[0] = 0;
     }
 }
 
@@ -267,6 +297,8 @@ GLint uniforms[NUM_UNIFORMS];
         
         
     }
+    
+    NSLog(@"size of the mutable color array: %d", [colors count]);
     return colors;
     
 }
@@ -302,33 +334,37 @@ GLint uniforms[NUM_UNIFORMS];
     
     glUseProgram(program);
     
-    
-    GLfloat eyeVertices[[onlyCoords count]];
-    for(int i = 0; i < [onlyCoords count]; i++) {
-        eyeVertices[i] = ([[onlyCoords objectAtIndex:i] intValue]);
-    }
-    for(int i = 0; i < [onlyCoords count]; i++) {
-        eyeVertices[i] = (eyeVertices[i]/2000);
-    }
-    
-    
-    GLfloat colors[[colorArray count]]; //need four for every point; RGBA
-    for(int i = 0; i < [colorArray count]; i++) {
-        colors[i] = ([[colorArray objectAtIndex:i] intValue]/255);
-    }
+
+
     
 
-    GLint vertexLoc = glGetAttribLocation(program, "a_position");
+    
+  //  NSLog(@"sizeof colors: %d", sizeof(colors));
+  //  NSLog(@"sizeof colorarray: %d", [colorArray count]);
+
+    //GLint vertexLoc = glGetAttribLocation(program, "a_position");
     //NSLog([NSString stringWithFormat:@"vertexLoc position: %d", vertexLoc]);
     
     
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, eyeVertices);
+    //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, eyeVertices);
+    
+    glGenBuffers(2, &vertexBufferID);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID[0]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(eyeVertices), eyeVertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    
     glEnableVertexAttribArray(0);
     
-    GLint colorLoc = glGetAttribLocation(program, "a_color");
+    
+    //now colors using that same vbo!!
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID[1]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0);
+    
+    //GLint colorLoc = glGetAttribLocation(program, "a_color");
     //NSLog([NSString stringWithFormat:@"a_color position: %d", colorLoc]);
-    glVertexAttribPointer(colorLoc, 4, GL_FLOAT, GL_FALSE, 0, colors);
-    glEnableVertexAttribArray(colorLoc);
+   //glVertexAttribPointer(colorLoc, 4, GL_FLOAT, GL_FALSE, 0, colors);
+    glEnableVertexAttribArray(1);
     
     
     //now the rotation matrix
@@ -353,8 +389,8 @@ GLint uniforms[NUM_UNIFORMS];
     GLint scalePos = glGetUniformLocation(program, "scale");
     glUniform1f(scalePos, scale);
     
-   // glBindAttribLocation(program, 0, "a_position");
-    glBindAttribLocation(program, colorLoc, "a_color");
+    glBindAttribLocation(program, 0, "a_position");
+    glBindAttribLocation(program, 1, "a_color");
 
 }
 

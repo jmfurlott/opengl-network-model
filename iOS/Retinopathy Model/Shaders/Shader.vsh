@@ -20,10 +20,12 @@ void main() {
     v_color = a_color;
     
     
+    vec4 pos = vec4(a_position.x, a_position.y, a_position.z, 1.0);
+    
     //matrix logic
     mat4 rot = mat4(rot_0, rot1, rot2, rot3); //remember that these are the 0,1,2, and 3rd columns!!
     
-    vec4 model = a_position + vec4(-.9, -0.6, 0.0, 1.0);
+    vec4 model = pos + vec4(-.9, -0.6, 0.0, 1.0);
     
     float x = scale * (model.x*rot[0][0] + model.y*rot[1][0] + model.z*rot[2][0] + model.w*rot[3][0]);
     float y = scale * (model.x*rot[0][1] + model.y*rot[1][1] + model.z*rot[2][1] + model.w*rot[3][1]);

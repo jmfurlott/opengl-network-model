@@ -12,7 +12,7 @@
 
 
 @interface ModelViewController : GLKViewController <UIGestureRecognizerDelegate> {
-    GLuint vertexBufferID;
+    GLuint vertexBufferID[2];
     GLuint colorBufferID;
     GLKVector3 _anchor_position;
     GLKVector3 _current_position;

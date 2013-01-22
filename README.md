@@ -20,6 +20,11 @@ FILE DIRECTORY
 - iOS	    ------> iOS app
 
 
+iOS 1/22/2013 -
+	-HUGE performance increase
+	-true implementation of shaders alongside with VBO (no memory leaks?)
+	-TODO: universalize the app for other coordinates lists..
+
 
 iOS 1/21/2013 -
 	-small bug fixes; better model positioning
