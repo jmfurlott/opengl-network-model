@@ -67,11 +67,6 @@ GLint uniforms[NUM_UNIFORMS];
     onlyCoords = [self constructCoordinates:file];
     colorArray = [self buildColorArray:file];
     
-    
-    //to handle pijnch and zoom
-    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc]
-                                              initWithTarget:self action:@selector(handlePinch:)];
-    [self.view addGestureRecognizer:pinchGesture];
 
     
     //to handle double tapping
@@ -428,15 +423,56 @@ GLint uniforms[NUM_UNIFORMS];
 }
 
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-      
-    UITouch * touch = [touches anyObject];
-    CGPoint location = [touch locationInView:self.view];
-    CGPoint lastLoc = [touch previousLocationInView:self.view];
-    CGPoint diff = CGPointMake(lastLoc.x - location.x, lastLoc.y - location.y);
+    float scaleBackup = scale;
+    
+    //grabs all the touches and puts it into a set
+    NSSet *allTouches = [event allTouches];
+    int totalNumTouches = [allTouches count];
+    NSLog(@"Number of touches: %d", totalNumTouches);
+
+    //so basically if you are doing one touch then you know to do arcball rotation
+    //but if you have two touches drops into pinch and zoom (here using euclidean distance
     
     
-    _current_position = GLKVector3Make(location.x, location.y, 0);
-    _current_position = [self projectOntoSurface:_current_position];
+    if(totalNumTouches == 1) {
+        UITouch * touch = [touches anyObject];
+        CGPoint location = [touch locationInView:self.view];
+        CGPoint lastLoc = [touch previousLocationInView:self.view];
+        CGPoint diff = CGPointMake(lastLoc.x - location.x, lastLoc.y - location.y);
+        
+        
+        _current_position = GLKVector3Make(location.x, location.y, 0);
+        _current_position = [self projectOntoSurface:_current_position];
+    
+       
+    } else if([allTouches count] > 1) {
+        //double touch stuff
+
+        UITouch *touch0 = [[allTouches allObjects] objectAtIndex:0]; //first touch
+        UITouch *touch1 = [[allTouches allObjects] objectAtIndex:1]; //second touch
+    
+        CGPoint p0 = [touch0 locationInView:self.view];
+        CGPoint p1 = [touch1 locationInView:self.view]; //coordinates of both points
+        
+        //now need to calculate the distance between the two and set that to scale!
+        //we'll try the euclidean distance sqrt((p1.x - p0.x)^2 + (p1.y - p0.y)^2)
+        float xdiff = p1.x - p0.x;
+        //NSLog(@"xdiff: %f", xdiff);
+        float ydiff = p1.y - p0.y;
+        //NSLog(@"ydiff: %f", ydiff);
+        
+        //and find the distance and set it to scale which goes to the shader
+        scale = sqrt((xdiff*xdiff) + (ydiff*ydiff))/400; //400 here is arbitrary because it made the most sense after
+                                                         //a few quick checks but depending on screen size and RATE at
+                                                         //which you want to scale, change it. 400 is good for iPad 2
+        NSLog(@"euclidean distance: %f", scale);
+        
+        
+    
+    } else {
+        scale = scaleBackup;
+    }
+    
     
     
     
@@ -462,19 +498,7 @@ GLint uniforms[NUM_UNIFORMS];
     return YES;
 }
 
-- (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer {
-    if([recognizer state] == UIGestureRecognizerStateBegan) {
-        NSLog([NSString stringWithFormat:@"%f", recognizer.velocity]);
-        //so velocity is positive if zooming in (fingers getting further apart)
-        // = negative if pinching, so zoom out
-        
-                
-        
-        scale = recognizer.scale;
-        
-        
-    }
-}
+
 
 
 //double tap

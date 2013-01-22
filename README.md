@@ -21,6 +21,10 @@ FILE DIRECTORY
 
 
 
+iOS 1/21/2013 -
+	-small bug fixes; better model positioning
+	-seamless pinch and zoom....will be better after VBOs implemented
+
 iOS 1/19/2013 -
 	-big update: fully written in ES2.0 with shaders
 	-quaternion based rotation implemented (still laggy however)
