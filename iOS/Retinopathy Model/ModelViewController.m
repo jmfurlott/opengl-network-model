@@ -408,7 +408,7 @@ GLint uniforms[NUM_UNIFORMS];
 
 //touches stuff
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
+    float backup = scale;
     NSSet *allTouches = [event allTouches];
     int totalNumTouches = [allTouches count];
     
@@ -422,10 +422,10 @@ GLint uniforms[NUM_UNIFORMS];
         _current_position = _anchor_position;
         
         _quatStart = _quat;
-        scale = 1.0f;
+        scale = backup;
 
     } else {
-        scale = 1.0f;
+        scale = backup;
     }
     
 }
@@ -450,7 +450,7 @@ GLint uniforms[NUM_UNIFORMS];
         
         _current_position = GLKVector3Make(location.x, location.y, 0);
         _current_position = [self projectOntoSurface:_current_position];
-        scale = 1.0f;
+        //scale = 1.0f;
 
     
        
@@ -494,7 +494,7 @@ GLint uniforms[NUM_UNIFORMS];
 
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     // [self computeIncremental];
-    scale = 1.0f;
+    //scale = 1.0f;
     
 }
 
