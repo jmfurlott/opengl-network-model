@@ -409,21 +409,28 @@ GLint uniforms[NUM_UNIFORMS];
 //touches stuff
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
-    UITouch * touch = [touches anyObject];
-    CGPoint location = [touch locationInView:self.view];
+    NSSet *allTouches = [event allTouches];
+    int totalNumTouches = [allTouches count];
     
-    _anchor_position = GLKVector3Make(location.x, location.y, 0);
-    _anchor_position = [self projectOntoSurface:_anchor_position];
-    
-    _current_position = _anchor_position;
-    
-    _quatStart = _quat;
-    
+    if(totalNumTouches == 1) {
+        UITouch * touch = [[allTouches allObjects] objectAtIndex:0];
+        CGPoint location = [touch locationInView:self.view];
+        
+        _anchor_position = GLKVector3Make(location.x, location.y, 0);
+        _anchor_position = [self projectOntoSurface:_anchor_position];
+        
+        _current_position = _anchor_position;
+        
+        _quatStart = _quat;
+        scale = 1.0f;
+
+    } else {
+        scale = 1.0f;
+    }
     
 }
 
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    float scaleBackup = scale;
     
     //grabs all the touches and puts it into a set
     NSSet *allTouches = [event allTouches];
@@ -443,6 +450,8 @@ GLint uniforms[NUM_UNIFORMS];
         
         _current_position = GLKVector3Make(location.x, location.y, 0);
         _current_position = [self projectOntoSurface:_current_position];
+        scale = 1.0f;
+
     
        
     } else if([allTouches count] > 1) {
@@ -470,7 +479,7 @@ GLint uniforms[NUM_UNIFORMS];
         
     
     } else {
-        scale = scaleBackup;
+        scale = 1.0f;
     }
     
     
@@ -485,11 +494,12 @@ GLint uniforms[NUM_UNIFORMS];
 
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     // [self computeIncremental];
+    scale = 1.0f;
     
 }
 
 -(void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    
+    scale = 1.0f;
 }
 
 //gestures like pinch and zoom, and double tap
