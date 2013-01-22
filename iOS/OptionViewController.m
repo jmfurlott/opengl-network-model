@@ -15,6 +15,8 @@
 @implementation OptionViewController
 @synthesize options;
 
+int temp = 0;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,6 +65,12 @@
     
     //what to print at each cell (based simply off our array)
     cell.textLabel.text = [self.options objectAtIndex:[indexPath row]];
+    
+    if(temp < 2) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        temp++;
+    }
+
     
     return cell;
     
