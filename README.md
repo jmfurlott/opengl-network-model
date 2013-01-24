@@ -20,6 +20,13 @@ FILE DIRECTORY
 - iOS	    ------> iOS app
 
 
+iOS 1/23/2013 - (stepping into experimental)
+	-hexagonal cylinder logic implemented but dormant still
+	-TODO: another method that constructs the array of the triangles
+	-TODO: have the app use those new coordinates
+	-((((not sure if hexagons will come out as hexagons))))
+
+
 iOS 1/22/2013 -
 	-HUGE performance increase
 	-true implementation of shaders alongside with VBO (no memory leaks?)

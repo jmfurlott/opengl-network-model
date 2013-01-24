@@ -43,6 +43,7 @@ float rot2[4] = {0.0f, 0.0f, 1.0f, 0.0f};
 float rot3[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 
 GLfloat eyeVertices[169032]; //cheating
+GLfloat cylinderVertices[169032*(108/6)]; //for every six coords (one vertex), I need 108 points
 GLfloat colors[56336];
 
 GLint totalLines = 1;
@@ -549,6 +550,7 @@ GLint uniforms[NUM_UNIFORMS];
 
 //double tap
 -(void) doubleTap:(UITapGestureRecognizer *) sender {
+    
     NSLog(@"caught tap");
     _slerping = YES;
     _slerpCur = 0;
@@ -557,6 +559,128 @@ GLint uniforms[NUM_UNIFORMS];
     _slerpEnd = GLKQuaternionMake(0,0,0,1);
     
 }
+
+
+
+
+
+//--------------------------------------------------------------------HEXAGON BUILDING
+-(void) buildCylinder: (float)x0 y0:(float)y0 z0:(float)z0 x1:(float)x1 y1:(float)y1 z1:(float)z1 radius:(float)radius {
+    //add these coordinates to cylinderVertces which has already been defined
+    
+    if(radius < 0) { //checking errors
+        radius = radius * (-1);
+    }
+    
+    float xprime = radius*cos(60);
+    float yprime = radius*sin(60);
+    
+    
+    //--------------------------------------------------------------------first rectangle
+    cylinderVertices[0] = x0 - radius; cylinderVertices[1] = y0; cylinderVertices[2] = z0;
+    
+    cylinderVertices[3] = x0 - xprime; cylinderVertices[4] = y0 + yprime; cylinderVertices[5] = z0;
+    
+    cylinderVertices[6] = x1 - radius; cylinderVertices[7] = y1; cylinderVertices[8] = z1;
+    
+    
+    cylinderVertices[9] = x0 - xprime; cylinderVertices[10] = y0 + yprime; cylinderVertices[11] = z0;
+    
+    cylinderVertices[12] = x1 - radius; cylinderVertices[13] = y1; cylinderVertices[14] = z1;
+    
+    cylinderVertices[15] = x1 - xprime; cylinderVertices[16] = y1 + yprime; cylinderVertices[17] = z1;
+    
+    
+    
+    
+    //--------------------------------------------------------------------2nd
+    
+    cylinderVertices[18] = x0 - xprime; cylinderVertices[19] = y0 + yprime; cylinderVertices[20] = z0;
+    
+    cylinderVertices[21] = x0 + xprime; cylinderVertices[22] = y0 + yprime; cylinderVertices[23] = z0;
+    
+    cylinderVertices[24] = x1 - xprime; cylinderVertices[25] = y1 + yprime; cylinderVertices[26] = z1;
+    
+    
+    
+    cylinderVertices[27] = x0 + xprime; cylinderVertices[28] = y0 + yprime; cylinderVertices[29] = z0;
+    
+    cylinderVertices[30] = x1 - xprime; cylinderVertices[31] = y1 + yprime; cylinderVertices[32] = z1;
+    
+    cylinderVertices[33] = x1 + xprime; cylinderVertices[34] = y1 + yprime; cylinderVertices[35] = z1;
+    
+    
+    
+    //--------------------------------------------------------------------3rd
+    
+    cylinderVertices[36] = x0 + xprime; cylinderVertices[37] = y0 + yprime; cylinderVertices[38] = z0;
+    
+    cylinderVertices[39] = x0 + radius; cylinderVertices[40] = y0 + yprime; cylinderVertices[41] = z0;
+    
+    cylinderVertices[42] = x1 + xprime; cylinderVertices[43] = y1 + yprime; cylinderVertices[44] = z1;
+    
+    
+    cylinderVertices[45] = x0 + radius; cylinderVertices[46] = y0; cylinderVertices[47] = z0;
+    
+    cylinderVertices[48] = x1 + xprime; cylinderVertices[49] = y1 + yprime; cylinderVertices[50] = z1;
+    
+    cylinderVertices[51] = x1 + radius; cylinderVertices[52] = y1; cylinderVertices[53] = z1;
+    
+    
+    
+    //--------------------------------------------------------------------4th
+    
+    cylinderVertices[54] = x0 + radius; cylinderVertices[55] = y0; cylinderVertices[56] = z0;
+    
+    cylinderVertices[57] = x0 + xprime; cylinderVertices[58] = y0 - yprime; cylinderVertices[59] = z0;
+    
+    cylinderVertices[60] = x1 + radius; cylinderVertices[61] = y1; cylinderVertices[62] = z1;
+    
+    
+    cylinderVertices[63] = x0 + xprime; cylinderVertices[64] = y0 - yprime; cylinderVertices[65] = z0;
+    
+    cylinderVertices[66] = x1 + radius; cylinderVertices[67] = y1; cylinderVertices[68] = z1;
+    
+    cylinderVertices[69] = x1 + xprime; cylinderVertices[70] = y1 - yprime; cylinderVertices[71] = z1;
+    
+    
+    
+    //--------------------------------------------------------------------5th
+    
+    cylinderVertices[72] = x0 + xprime; cylinderVertices[73] = y0 - yprime; cylinderVertices[74] = z0;
+    
+    cylinderVertices[75] = x0 - xprime; cylinderVertices[76] = y0 - yprime; cylinderVertices[77] = z0;
+    
+    cylinderVertices[78] = x1 + xprime; cylinderVertices[79] = y1 - yprime; cylinderVertices[80] = z1;
+    
+    
+    cylinderVertices[81] = x0 - xprime; cylinderVertices[82] = y0 - yprime; cylinderVertices[83] = z0;
+    
+    cylinderVertices[84] = x1 + xprime; cylinderVertices[85] = y1 - yprime; cylinderVertices[86] = z1;
+    
+    cylinderVertices[87] = x1 - xprime; cylinderVertices[88] = y1 - yprime; cylinderVertices[89] = z1;
+    
+    
+    
+    
+    //--------------------------------------------------------------------6th
+    
+    cylinderVertices[90] = x0 - xprime; cylinderVertices[91] = y0 - yprime; cylinderVertices[92] = z0;
+    
+    cylinderVertices[93] = x0 - radius; cylinderVertices[94] = y0; cylinderVertices[95] = z0;
+    
+    cylinderVertices[96] = x1 - xprime; cylinderVertices[97] = y1 - yprime; cylinderVertices[98] = z1;
+    
+    
+    cylinderVertices[99] = x0 - radius; cylinderVertices[100] = y0; cylinderVertices[101] = z0;
+    
+    cylinderVertices[102] = x1 - xprime; cylinderVertices[103] = y1 - yprime; cylinderVertices[104] = z1;
+    
+    cylinderVertices[105] = x1 - radius; cylinderVertices[106] = y1; cylinderVertices[107] = z1;
+
+
+}
+
 
 
 
