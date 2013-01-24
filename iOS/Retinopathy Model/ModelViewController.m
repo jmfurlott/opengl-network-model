@@ -43,7 +43,7 @@ float rot2[4] = {0.0f, 0.0f, 1.0f, 0.0f};
 float rot3[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 
 GLfloat eyeVertices[169032]; //cheating
-GLfloat cylinderVertices[169032*(108/6)]; //for every six coords (one vertex), I need 108 points
+GLfloat cylinders[169032*(108/6)]; //for every six coords (one vertex), I need 108 points
 GLfloat colors[56336];
 
 GLint totalLines = 1;
@@ -91,6 +91,20 @@ GLint uniforms[NUM_UNIFORMS];
     
     totalLines = [onlyCoords count]/3;
     NSLog(@"total number of lines: %d", totalLines);
+    
+    
+    
+    
+    
+    //TESTING cylinders
+    //NSMutableArray* test = [NSMutableArray alloc];
+    //test = [self constructAllCylinders];
+    
+    //NSLog(@"size of the test cylindrical array: %d", [test count]);
+    
+    
+    
+    
 
     
   //  NSLog(@"sizeof eyeVertices: %d", sizeof(eyeVertices));
@@ -565,8 +579,12 @@ GLint uniforms[NUM_UNIFORMS];
 
 
 //--------------------------------------------------------------------HEXAGON BUILDING
--(void) buildCylinder: (float)x0 y0:(float)y0 z0:(float)z0 x1:(float)x1 y1:(float)y1 z1:(float)z1 radius:(float)radius {
+-(NSMutableArray*) buildCylinder: (float)x0 y0:(float)y0 z0:(float)z0 x1:(float)x1 y1:(float)y1 z1:(float)z1 radius:(float)radius {
     //add these coordinates to cylinderVertces which has already been defined
+    
+    
+    GLfloat cylinderVertices[108];
+    NSMutableArray* cylArray = [NSMutableArray alloc];
     
     if(radius < 0) { //checking errors
         radius = radius * (-1);
@@ -678,7 +696,47 @@ GLint uniforms[NUM_UNIFORMS];
     
     cylinderVertices[105] = x1 - radius; cylinderVertices[106] = y1; cylinderVertices[107] = z1;
 
+    
+    //least efficient way
+    for(int i = 0; i < 108; i++) {
+        [cylArray addObject:[NSString stringWithFormat:@"%f", cylinderVertices[i]]];
+    }
+    
+    return cylArray;
+    
+}
 
+
+-(NSMutableArray*) constructAllCylinders {
+    //will take in the eyeVertices float[] and construct a new one called cylinders
+    //as of right now both these arrays have that memory allocated so nothing to return or take as parameters
+    //no radius yet!!!!! assuming radius is uniform
+    
+    NSMutableArray* finalCoords = [NSMutableArray alloc]; //final answer
+    
+    for(int i = 0; i < sizeof(eyeVertices); i = i + 6) { //i+6 because want to does for each SEGMENT
+        
+        NSMutableArray* temp = [NSMutableArray alloc];
+        temp = [self buildCylinder:eyeVertices[i] y0:eyeVertices[i+1] z0:eyeVertices[i+2] x1:eyeVertices[i+3] y1:eyeVertices[i+4] z1:eyeVertices[i+5] radius:0.1f];
+        
+        
+        //now that all those cylindrical vertices are constructed need to add them back to BIG array list
+        for(int j = 0; j < 108; j++) {
+            [finalCoords addObject:[temp objectAtIndex:j]];
+        }
+        
+        //then delete that temp array so we can use it again
+        temp = nil;
+        
+        
+    }
+    
+    
+    return finalCoords;
+    //returned as strings in there
+    
+    
+    
 }
 
 
