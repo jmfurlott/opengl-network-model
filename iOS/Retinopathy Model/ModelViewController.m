@@ -43,8 +43,8 @@ float rot2[4] = {0.0f, 0.0f, 1.0f, 0.0f};
 float rot3[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 
 GLfloat eyeVertices[169032]; //cheating
-GLfloat cylinders[169032*36]; //where 6 must stay congruent with the number of sides per cylinder
-GLshort colors[56336];
+GLfloat cylinders[169032*12]; //where 6 must stay congruent with the number of sides per cylinder
+GLbyte colors[56336];
 
 GLint totalLines = 1;
 int offset = 0;
@@ -84,7 +84,7 @@ GLint uniforms[NUM_UNIFORMS];
     
     //GLfloat colors[[colorArray count]]; //need four for every point; RGBA
     for(int i = 0; i < [colorArray count]; i++) {
-        colors[i] = (short)([[colorArray objectAtIndex:i] intValue]/255);
+        colors[i] = ([[colorArray objectAtIndex:i] intValue]);
     }
     
     //NSLog(@"sizeof colors: %d", sizeof(colors));
@@ -100,13 +100,13 @@ GLint uniforms[NUM_UNIFORMS];
     //TESTING cylinders
     //NSMutableArray* test = [NSMutableArray alloc];
     //test = [self constructAllCylinders];
-//    offset = 0;
-//    for(int i = 0; i < sizeof(eyeVertices); i = i + 6) { //not sure if six
-//        [self createCylinderCoordinates:eyeVertices[i] y0:eyeVertices[i+1] z0:eyeVertices[i+2] x1:eyeVertices[i+3] y1:eyeVertices[i+4] z1:eyeVertices[i+5] radius:0.0001f];
-//    }
+    offset = 0;
+    for(int i = 0; i < sizeof(eyeVertices); i = i + 6) { //not sure if six
+        [self createCylinderCoordinates:eyeVertices[i] y0:eyeVertices[i+1] z0:eyeVertices[i+2] x1:eyeVertices[i+3] y1:eyeVertices[i+4] z1:eyeVertices[i+5] radius:0.0001f];
+    }
 //    
 //    NSLog(@"size of the test cylindrical array: %d", sizeof(cylinders));
-//    
+    NSLog(@"offset: %d", offset);
 //    
 //    
     
@@ -384,7 +384,7 @@ GLint uniforms[NUM_UNIFORMS];
     //now colors using that same vbo!!
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID[1]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
-    glVertexAttribPointer(1, 4, GL_SHORT, GL_FALSE, 0, 0);
+    glVertexAttribPointer(1, 4, GL_UNSIGNED_BYTE, GL_FALSE, 0, 0);
     
     //GLint colorLoc = glGetAttribLocation(program, "a_color");
     //NSLog([NSString stringWithFormat:@"a_color position: %d", colorLoc]);
@@ -754,7 +754,7 @@ GLint uniforms[NUM_UNIFORMS];
 - (void) createCylinderCoordinates: (float)x0 y0:(float)y0 z0:(float)z0 x1:(float)x1 y1:(float)y1 z1:(float)z1 radius:(float)radius {
     //maybe need to include offset to fill in the cylinders array
     
-    float sides = 6; //what is the best performance vs. detail here???
+    float sides = 2; //what is the best performance vs. detail here???
     
     //need to calculate height. this can be done via the euclidean distance..
     float height = sqrtf((x0-x1)*(x0-x1) + (y0-y1)*(y0-y1) + (z0-z1)*(z0-z1)); //double check
