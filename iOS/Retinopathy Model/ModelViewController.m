@@ -44,7 +44,7 @@ float rot3[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 
 GLfloat eyeVertices[169032]; //cheating
 GLfloat cylinders[169032*36]; //where 6 must stay congruent with the number of sides per cylinder
-GLfloat colors[56336];
+GLshort colors[56336];
 
 GLint totalLines = 1;
 int offset = 0;
@@ -84,7 +84,7 @@ GLint uniforms[NUM_UNIFORMS];
     
     //GLfloat colors[[colorArray count]]; //need four for every point; RGBA
     for(int i = 0; i < [colorArray count]; i++) {
-        colors[i] = ([[colorArray objectAtIndex:i] intValue]/255);
+        colors[i] = (short)([[colorArray objectAtIndex:i] intValue]/255);
     }
     
     //NSLog(@"sizeof colors: %d", sizeof(colors));
@@ -384,7 +384,7 @@ GLint uniforms[NUM_UNIFORMS];
     //now colors using that same vbo!!
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID[1]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0);
+    glVertexAttribPointer(1, 4, GL_SHORT, GL_FALSE, 0, 0);
     
     //GLint colorLoc = glGetAttribLocation(program, "a_color");
     //NSLog([NSString stringWithFormat:@"a_color position: %d", colorLoc]);
