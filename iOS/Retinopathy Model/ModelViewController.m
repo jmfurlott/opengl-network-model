@@ -31,7 +31,7 @@ float TOUCH_SCALE_FACTOR; //from android
 bool zooming = false;
 UIPinchGestureRecognizer* recognizer;
 GLuint program;
-const GLfloat offset[4] = {-1.0f, -.5f, 0.0f, 1.0f};
+//const GLfloat offset[4] = {-1.0f, -.5f, 0.0f, 1.0f};
 float rot[16] = {1.0f, 0.0f, 0.0f, 0.0f,
     0.0f, 1.0f, 0.0f, 0.0f,
     0.0f, 0.0f, 1.0f, 0.0f,
@@ -43,10 +43,11 @@ float rot2[4] = {0.0f, 0.0f, 1.0f, 0.0f};
 float rot3[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 
 GLfloat eyeVertices[169032]; //cheating
-GLfloat cylinders[169032*(108/6)]; //for every six coords (one vertex), I need 108 points
+GLfloat cylinders[169032*36]; //where 6 must stay congruent with the number of sides per cylinder
 GLfloat colors[56336];
 
 GLint totalLines = 1;
+int offset = 0;
 
 GLuint vertexArray;
 GLuint vertexBuffer;
@@ -99,11 +100,15 @@ GLint uniforms[NUM_UNIFORMS];
     //TESTING cylinders
     //NSMutableArray* test = [NSMutableArray alloc];
     //test = [self constructAllCylinders];
-    
-    //NSLog(@"size of the test cylindrical array: %d", [test count]);
-    
-    
-    
+//    offset = 0;
+//    for(int i = 0; i < sizeof(eyeVertices); i = i + 6) { //not sure if six
+//        [self createCylinderCoordinates:eyeVertices[i] y0:eyeVertices[i+1] z0:eyeVertices[i+2] x1:eyeVertices[i+3] y1:eyeVertices[i+4] z1:eyeVertices[i+5] radius:0.0001f];
+//    }
+//    
+//    NSLog(@"size of the test cylindrical array: %d", sizeof(cylinders));
+//    
+//    
+//    
     
 
     
@@ -277,6 +282,11 @@ GLint uniforms[NUM_UNIFORMS];
     return coordinates;
     
 }
+
+
+
+
+
 
 //implement here
 - (NSArray *) buildColorArray: (NSArray*) total {
@@ -739,6 +749,49 @@ GLint uniforms[NUM_UNIFORMS];
     
 }
 
+
+//this method is not working correctly but will surely be used before the others!!!
+- (void) createCylinderCoordinates: (float)x0 y0:(float)y0 z0:(float)z0 x1:(float)x1 y1:(float)y1 z1:(float)z1 radius:(float)radius {
+    //maybe need to include offset to fill in the cylinders array
+    
+    float sides = 6; //what is the best performance vs. detail here???
+    
+    //need to calculate height. this can be done via the euclidean distance..
+    float height = sqrtf((x0-x1)*(x0-x1) + (y0-y1)*(y0-y1) + (z0-z1)*(z0-z1)); //double check
+    //do we need to do any scaling?!?!!?
+    
+    const theta = 2*M_PI/sides;
+    
+    float c = cos(theta);
+    float s = sin(theta); //get our angles
+    
+    float x2 = radius;
+    float z2 = 0;
+    
+    //offset variable refers to how far along I should be in the whole cylinder list of coordinates
+    
+    for(int i = 0; i <= sides; i++) {
+        
+        cylinders[offset] = x0 + x2;
+        offset++;
+        cylinders[offset] = y0;
+        offset++;
+        cylinders[offset] = z0 + z2;
+        offset++;
+        
+        cylinders[offset] = x0 + x2;
+        offset++;
+        cylinders[offset] = y0 + height;
+        offset++;
+        cylinders[offset] = z0 + z2;
+        offset++;
+        
+        const float x3 = x2;
+        x2 = c*x2 - s*z2;
+        z2 = s*x3 + c*z2;
+        
+    }
+}
 
 
 
