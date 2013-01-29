@@ -45,6 +45,7 @@
 - (Boolean) attachAndLinkShaders;
 - (void) doubleTap:(UITapGestureRecognizer *) tap;
 - (void) createCylinderCoordinates: (float)x0 y0:(float)y0 z0:(float)z0 x1:(float)x1 y1:(float)y1 z1:(float)z1 radius:(float)radius;
+- (void) constructDiffNetworks: (NSArray*) total;
 
 extern NSArray *file;
 extern NSArray *onlyCoords;

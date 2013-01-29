@@ -20,6 +20,12 @@ FILE DIRECTORY
 - iOS	    ------> iOS app
 
 
+
+
+iOS 1/29/2013 -
+	-method to split arteries and veins into two separate arrays imlpemented
+	- TODO: implement into own VBOs with own colors 
+
 iOS 1/23/2013 - (stepping into experimental)
 	-hexagonal cylinder logic implemented but dormant still
 	-TODO: another method that constructs the array of the triangles

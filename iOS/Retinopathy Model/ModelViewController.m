@@ -52,6 +52,10 @@ int offset = 0;
 GLuint vertexArray;
 GLuint vertexBuffer;
 
+//TESTING
+NSMutableArray *arteryCoordinates;
+NSMutableArray *veinCoordinates;
+
 float scale = 1.0f;
 
 enum
@@ -94,6 +98,12 @@ GLint uniforms[NUM_UNIFORMS];
     NSLog(@"total number of lines: %d", totalLines);
     
     
+    
+    
+    
+    //TESTING the separation of arteries and veins into their respective mutable arrays
+    [self constructDiffNetworks:file];
+    NSLog(@"size of arterial array: %d", [arteryCoordinates count]);
     
     
     
@@ -280,6 +290,55 @@ GLint uniforms[NUM_UNIFORMS];
     }
     
     return coordinates;
+    
+}
+
+
+
+
+
+- (void) constructDiffNetworks: (NSArray*) total  {
+    
+    arteryCoordinates = [[NSMutableArray alloc] initWithCapacity:[total count]/2]; //definitely not the correct number but does it matter for a mutable array???
+    veinCoordinates = [[NSMutableArray alloc] initWithCapacity:[total count]/2];
+    
+    for (int i = 15; i < [total count] - 7; i += 8) { //fix the correct total count!!
+        NSString *x0 = [total objectAtIndex:i];
+        NSString *y0 = [total objectAtIndex:i + 1];
+        NSString *z0 = [total objectAtIndex:i + 2];
+        
+        NSString *x1 = [total objectAtIndex:i + 3];
+        NSString *y1 = [total objectAtIndex:i + 4];
+        NSString *z1 = [total objectAtIndex:i + 5];
+        
+        bool artery;
+        //1 = vein
+        //0 = artery
+        if([[total objectAtIndex:i+7] intValue] == 1) {
+            artery = false;
+        } else {
+            artery = true;
+        }
+        
+        if(artery) {
+            [arteryCoordinates addObject:x0];
+            [arteryCoordinates addObject:y0];
+            [arteryCoordinates addObject:z0];
+            [arteryCoordinates addObject:x1];
+            [arteryCoordinates addObject:y1];
+            [arteryCoordinates addObject:z1];
+            
+        } else { //must be vein
+            [veinCoordinates addObject:x0];
+            [veinCoordinates addObject:y0];
+            [veinCoordinates addObject:z0];
+            [veinCoordinates addObject:x1];
+            [veinCoordinates addObject:y1];
+            [veinCoordinates addObject:z1];
+        }
+        
+    }
+    
     
 }
 
